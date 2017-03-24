@@ -1,43 +1,42 @@
-﻿using System;
+
+//System
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace gpp
+//SFML
+using SFML.Graphics;
+using SFML.Window;
+using SFML.Audio;
+
+namespace gpp1
 {
     class Program
     {
-        # include <SFML/Graphics.hpp>
-
         static void Main(string[] args)
         {
-            // create the window
-            sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
+            //window object
+            RenderWindow window = new RenderWindow(new VideoMode(200, 200), "hello world!");
+            //simple circle
+            CircleShape circle = new CircleShape(100);
 
-            // run the program as long as the window is open
-            while (window.isOpen())
+            //fill it with color
+            circle.FillColor = Color.Red;
+
+            // activate window
+            window.SetActive();
+            while (window.IsOpen)
             {
-                // check all the window's events that were triggered since the last iteration of the loop
-                sf::Event event;
-            while (window.pollEvent(event))
-            {
-                // "close requested" event: we close the window
-                if (event.type == sf::Event::Closed)
-                    window.close();
+                window.Clear();
+                window.DispatchEvents();
+
+                //draw circle
+                window.Draw(circle);
+
+                window.Display();
             }
-
-            // clear the window with black color
-            window.clear(sf::Color::Black);
-
-            // draw everything here...
-            // window.draw(...);
-
-            // end the current frame
-            window.display();
-    }
-
-    return 0;
         }
     }
 }
