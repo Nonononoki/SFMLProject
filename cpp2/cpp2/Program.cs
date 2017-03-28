@@ -36,7 +36,7 @@ namespace cpp2
 
             //initialize ball
             Ball ball = new Ball();
-            ball.radius = 50;
+            ball.radius = 5;
             ball.respawn(windowWidth, windowHeight); //spawn ball for first game
 
             CircleShape myBall = new CircleShape();
@@ -46,13 +46,12 @@ namespace cpp2
 
 
             //initialize myPaddle
-
             const float myPaddleHeight = 50f;
             const float myPaddleWidth = 3f;
-            const float myPaddleMaxSpeed = 0.1f;
+            const float myPaddleSpeed = 0.1f;
 
-            Vector2f myPaddlepos = new Vector2f(windowWidth - canvas.padding, windowHeight / 2); 
-            MyPaddle myPaddle = new MyPaddle(myPaddleWidth, myPaddleHeight, myPaddleMaxSpeed, myPaddlepos);
+            Vector2f myPaddlepos = new Vector2f(windowWidth - 2*canvas.padding, windowHeight / 2); 
+            MyPaddle myPaddle = new MyPaddle(myPaddleWidth, myPaddleHeight, myPaddleSpeed, myPaddlepos);
 
             RectangleShape myMyPaddle = new RectangleShape();
             myMyPaddle.FillColor = Color.White;
@@ -62,9 +61,9 @@ namespace cpp2
             //initialize foePaddle
             const float foePaddleHeight = 50f;
             const float foePaddleWidth = 3f;
-            const float foePaddleMaxSpeed = 0.1f;
-            Vector2f foePaddlepos = new Vector2f(0 + canvas.padding, windowHeight / 2);
-            MyPaddle foePaddle = new MyPaddle(foePaddleWidth, foePaddleHeight, foePaddleMaxSpeed, foePaddlepos);
+            const float foePaddleSpeed = 0.1f;
+            Vector2f foePaddlepos = new Vector2f(0 + 2*canvas.padding, windowHeight / 2);
+            MyPaddle foePaddle = new MyPaddle(foePaddleWidth, foePaddleHeight, foePaddleSpeed, foePaddlepos);
 
             RectangleShape myFoePaddle = new RectangleShape();
             myFoePaddle.FillColor = Color.White;
@@ -79,16 +78,15 @@ namespace cpp2
             //initialize myScore
             Score myScore = new Score();
             Text myMyScore = new Text();
-            myMyScore.Position = new Vector2f(windowWidth*0.75f, canvas.padding + canvas.padding);
+            myMyScore.Position = new Vector2f(windowWidth*0.75f, 3 * canvas.padding);
             myMyScore.Color = fontColor;
             myMyScore.Font = font;
             myMyScore.CharacterSize = fontSize;
 
-
             //initialize foeScore
             Score foeScore = new Score();
             Text myFoeScore = new Text();
-            myFoeScore.Position = new Vector2f(windowWidth * 0.25f, canvas.padding + canvas.padding);
+            myFoeScore.Position = new Vector2f(windowWidth * 0.25f, 3 * canvas.padding);
             myFoeScore.Color = fontColor;
             myFoeScore.Font = font;
             myFoeScore.CharacterSize = fontSize;
@@ -96,18 +94,51 @@ namespace cpp2
             //ai movements
             void ai()
             {
+                //move paddle down
+                if(foePaddle.pos.Y > ball.pos.Y)
+                {
+                    foePaddle.moveUp();
+                }
+                else if (foePaddle.pos.Y < ball.pos.Y)
+                {
+                    foePaddle.moveDown();
+                }
+            }
 
+            //moving player paddle
+            void events()
+            {
+                if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
+                {
+                    myPaddle.moveUp();
+                }
+                else if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
+                {
+                    myPaddle.moveDown();
+                }
             }
 
             //update object positions and score
             void update()
             {
-                if(ball.CanvasLeftRightCollision(canvas))
+                ai();
+                events();
+
+                if (ball.CanvasRightCollision(canvas))
+                {
                     ball.respawn(windowWidth, windowHeight);
+                    foeScore.value++;
+                }
+
+                if (ball.CanvasLeftCollision(canvas))
+                {
+                    ball.respawn(windowWidth, windowHeight);
+                    myScore.value++;
+                }
+
                 ball.CanvasTopBottomCollision(canvas);
 
                 ball.pos += ball.mov;
-
 
                 myBall.Position = ball.pos;
                 myMyPaddle.Position = myPaddle.pos;
@@ -117,14 +148,16 @@ namespace cpp2
 
             }
 
+
             while (running)
 			{
-                ai();
                 update();
 
                 pongWindow.Clear(Color.Black);
 				pongWindow.DispatchEvents();
 				pongWindow.Closed += (sender, evtArgs) => running = false;
+
+                
 
                 //draw canvas
                 pongWindow.Draw(myCanvas);

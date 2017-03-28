@@ -30,10 +30,10 @@ public class Ball
         }
     }
 
-    //colliding with canvas left and right
-    public bool CanvasLeftRightCollision(Canvas cv)
+    //colliding with canvas right
+    public bool CanvasRightCollision(Canvas cv)
     {
-        if (pos.X - radius > cv.right || pos.X + radius < cv.left)
+        if (pos.X + radius > cv.right + cv.padding)
         {
             return true;
         }
@@ -42,7 +42,20 @@ public class Ball
         {
             return false;
         }
+    }
 
+    //colliding with canvas left
+    public bool CanvasLeftCollision(Canvas cv)
+    {
+        if (pos.X - radius < cv.left - cv.padding)
+        {
+            return true;
+        }
+
+        else
+        {
+            return false;
+        }
     }
 
     public void respawn(int windowWidth, int windowHeight)

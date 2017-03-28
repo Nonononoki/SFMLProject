@@ -1,14 +1,13 @@
 ﻿using SFML.System;
 using System;
 
-public class FoePaddle
+public class FoePaddle : Paddle
 {
-    public float height { get; set; }
-    public float width { get; set; }
-    public float maxSpeed { get; set; }
-    public Vector2f pos { get; set; }
-
     public FoePaddle()
-	{
-	}
+    {
+    }
+
+    public FoePaddle(float width, float height, float speed, Vector2f pos) : base(width, height, speed, pos)
+    {
+    }
 }
