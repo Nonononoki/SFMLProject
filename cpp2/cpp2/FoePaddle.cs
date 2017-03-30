@@ -10,4 +10,5 @@ public class FoePaddle : Paddle
     public FoePaddle(float width, float height, float speed, Vector2f pos) : base(width, height, speed, pos)
     {
     }
+
 }

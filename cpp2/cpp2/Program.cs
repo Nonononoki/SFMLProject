@@ -44,14 +44,19 @@ namespace cpp2
             myBall.Radius = ball.radius;
             myBall.Origin = new Vector2f(ball.radius, ball.radius);
 
+            //Paddle
+            float paddleMinHeight = 0 + canvas.padding;
+            float paddleMaxHeight = windowHeight - canvas.padding;
 
             //initialize myPaddle
             const float myPaddleHeight = 50f;
             const float myPaddleWidth = 3f;
-            const float myPaddleSpeed = 0.1f;
+            const float myPaddleSpeed = 0.5f;
 
             Vector2f myPaddlepos = new Vector2f(windowWidth - 2*canvas.padding, windowHeight / 2); 
             MyPaddle myPaddle = new MyPaddle(myPaddleWidth, myPaddleHeight, myPaddleSpeed, myPaddlepos);
+            myPaddle.maxHeight = paddleMaxHeight;
+            myPaddle.minHeight = paddleMinHeight;
 
             RectangleShape myMyPaddle = new RectangleShape();
             myMyPaddle.FillColor = Color.White;
@@ -61,9 +66,11 @@ namespace cpp2
             //initialize foePaddle
             const float foePaddleHeight = 50f;
             const float foePaddleWidth = 3f;
-            const float foePaddleSpeed = 0.1f;
+            const float foePaddleSpeed = 0.5f;
             Vector2f foePaddlepos = new Vector2f(0 + 2*canvas.padding, windowHeight / 2);
-            MyPaddle foePaddle = new MyPaddle(foePaddleWidth, foePaddleHeight, foePaddleSpeed, foePaddlepos);
+            FoePaddle foePaddle = new FoePaddle(foePaddleWidth, foePaddleHeight, foePaddleSpeed, foePaddlepos);
+            foePaddle.maxHeight = paddleMaxHeight;
+            foePaddle.minHeight = paddleMinHeight;
 
             RectangleShape myFoePaddle = new RectangleShape();
             myFoePaddle.FillColor = Color.White;
@@ -138,7 +145,11 @@ namespace cpp2
 
                 ball.CanvasTopBottomCollision(canvas);
 
-                ball.pos += ball.mov;
+                ball.PaddleCollision(foePaddle, true);
+                ball.PaddleCollision(myPaddle, false);
+
+                //ball.mov = ball.mov * ball.speed;
+                ball.pos += ball.mov * ball.speed;
 
                 myBall.Position = ball.pos;
                 myMyPaddle.Position = myPaddle.pos;

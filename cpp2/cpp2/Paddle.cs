@@ -6,12 +6,17 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-public class Paddle
+public abstract class Paddle
 {
     public float height { get; set; }
     public float width { get; set; }
     public float speed { get; set; }
     public Vector2f pos { get; set; }
+
+    //limit movement range of Paddle
+    public float minHeight { get; set; }
+    public float maxHeight { get; set; }
+
 
     public Paddle()
     {
@@ -27,12 +32,14 @@ public class Paddle
 
     public void moveUp()
     {
-        pos = new Vector2f(pos.X, pos.Y - speed);
+        if (pos.Y - height / 2 > minHeight)
+            pos = new Vector2f(pos.X, pos.Y - speed);
     }
 
     public void moveDown()
     {
-        pos = new Vector2f(pos.X, pos.Y + speed);
+        if (pos.Y + height / 2 < maxHeight)
+            pos = new Vector2f(pos.X, pos.Y + speed);
     }
 }
 

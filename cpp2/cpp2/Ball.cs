@@ -3,21 +3,53 @@ using System;
 
 public class Ball
 {
-    public float speed = 0.1f;
+
+    public float speed = 0.2f;
     public float radius { get; set; }
     public Vector2f pos { get; set; }
     public Vector2f mov { get; set; }
+
+    private const float speedIncrease = 1.1f;
+    private const float minSpeed = 0.2f;
 
     public Ball()
 	{
 	}
 
     //detect paddle collisions
-    public void PaddleCollision(FoePaddle fp, MyPaddle mp)
+    public void PaddleCollision(Paddle paddle, bool left)
     {
-        if(true)
+        //treat ball like a square
+
+        //leftmost Point of Ball, not real points
+        float leftPoint = pos.X - radius;
+        //rightmost Point of Ball
+        float rightPoint = pos.X + radius;
+        //top Point of Ball
+        float topPoint = pos.Y - radius;
+        //bottom Point of Ball
+        float bottomPoint = pos.Y + radius;
+
+        //hit left paddle
+        if (left)
         {
-            reflectPaddle();
+            if (leftPoint < paddle.pos.X + paddle.width/2
+                && bottomPoint > paddle.pos.Y - paddle.height/2
+                && topPoint < paddle.pos.Y + paddle.height / 2)
+            {
+                reflectPaddle();
+            }
+        }
+
+        //hit right paddle
+        if (!left)
+        {
+            if (rightPoint > paddle.pos.X - paddle.width/2
+                && bottomPoint > paddle.pos.Y - paddle.height/2
+                && topPoint < paddle.pos.Y + paddle.height/2)
+            {
+                reflectPaddle();
+            }
         }
     }
 
@@ -69,21 +101,27 @@ public class Ball
         switch(r)
         {   
             case 0:
-                mov = new Vector2f(1, 1) * speed; break;
+                mov = new Vector2f(1, 1); break;
             case 1:
-                mov = new Vector2f(1, -1) * speed; break;
+                mov = new Vector2f(1, -1); break;
             case 2:
-                mov = new Vector2f(-1, 1) * speed; break;
+                mov = new Vector2f(-1, 1); break;
             case 3:
-                mov = new Vector2f(-1, -1) * speed; break;
+                mov = new Vector2f(-1, -1); break;
         }
+
+        //reset speed
+        speed = minSpeed;
 
 
     }
 
     private void reflectPaddle()
     {
+        mov = new Vector2f(-mov.X, mov.Y);
 
+        //make it faster!
+        speed = speed * speedIncrease;
     }
 
     private void reflectCanvas()
