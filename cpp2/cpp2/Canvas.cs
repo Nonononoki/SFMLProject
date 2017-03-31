@@ -10,7 +10,6 @@ public class Canvas
     public float right { get; set; }
     public int padding { get; set; }
 
-
     public Canvas()
 	{
 	}

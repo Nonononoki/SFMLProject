@@ -58,8 +58,8 @@
   <ItemGroup>
     <Compile Include="Ball.cs" />
     <Compile Include="Canvas.cs" />
+    <Compile Include="DeltaTime.cs" />
     <Compile Include="FoePaddle.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MyPaddle.cs" />
     <Compile Include="Paddle.cs" />
     <Compile Include="Program.cs" />

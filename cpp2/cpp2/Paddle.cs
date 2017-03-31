@@ -1,4 +1,5 @@
-﻿using SFML.System;
+﻿using gpp2;
+using SFML.System;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,16 +31,16 @@ public abstract class Paddle
         this.pos = pos;
     }
 
-    public void moveUp()
+    public void MoveUp(DeltaTime dt)
     {
         if (pos.Y - height / 2 > minHeight)
-            pos = new Vector2f(pos.X, pos.Y - speed);
+            pos = new Vector2f(pos.X, pos.Y - speed * dt.time);
     }
 
-    public void moveDown()
+    public void MoveDown(DeltaTime dt)
     {
         if (pos.Y + height / 2 < maxHeight)
-            pos = new Vector2f(pos.X, pos.Y + speed);
+            pos = new Vector2f(pos.X, pos.Y + speed * dt.time);
     }
 }
 

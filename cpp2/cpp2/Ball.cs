@@ -4,16 +4,18 @@ using System;
 public class Ball
 {
 
-    public float speed = 0.2f;
+    public float speed;
     public float radius { get; set; }
     public Vector2f pos { get; set; }
     public Vector2f mov { get; set; }
 
     private const float speedIncrease = 1.1f;
-    private const float minSpeed = 0.2f;
+    private float minSpeed;
 
-    public Ball()
+    public Ball(float speed)
 	{
+        this.speed = speed;
+        minSpeed = speed;
 	}
 
     //detect paddle collisions
@@ -37,7 +39,7 @@ public class Ball
                 && bottomPoint > paddle.pos.Y - paddle.height/2
                 && topPoint < paddle.pos.Y + paddle.height / 2)
             {
-                reflectPaddle();
+                ReflectPaddle();
             }
         }
 
@@ -48,7 +50,7 @@ public class Ball
                 && bottomPoint > paddle.pos.Y - paddle.height/2
                 && topPoint < paddle.pos.Y + paddle.height/2)
             {
-                reflectPaddle();
+                ReflectPaddle();
             }
         }
     }
@@ -58,7 +60,7 @@ public class Ball
     {
         if (pos.Y + radius > cv.bottom + cv.padding || pos.Y - radius < cv.top - cv.padding)
         {
-            reflectCanvas();
+            ReflectCanvas();
         }
     }
 
@@ -90,7 +92,7 @@ public class Ball
         }
     }
 
-    public void respawn(int windowWidth, int windowHeight)
+    public void Respawn(int windowWidth, int windowHeight)
     {
         pos = new Vector2f(windowWidth / 2, windowHeight / 2);
 
@@ -113,10 +115,9 @@ public class Ball
         //reset speed
         speed = minSpeed;
 
-
     }
 
-    private void reflectPaddle()
+    private void ReflectPaddle()
     {
         mov = new Vector2f(-mov.X, mov.Y);
 
@@ -124,7 +125,7 @@ public class Ball
         speed = speed * speedIncrease;
     }
 
-    private void reflectCanvas()
+    private void ReflectCanvas()
     {
         mov = new Vector2f(mov.X, -mov.Y);
     }
