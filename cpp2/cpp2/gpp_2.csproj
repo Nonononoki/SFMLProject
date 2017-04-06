@@ -56,15 +56,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ball.cs" />
-    <Compile Include="Canvas.cs" />
+    <Compile Include="Pong\Ball.cs" />
+    <Compile Include="Pong\Canvas.cs" />
     <Compile Include="DeltaTime.cs" />
-    <Compile Include="FoePaddle.cs" />
-    <Compile Include="MyPaddle.cs" />
-    <Compile Include="Paddle.cs" />
+    <Compile Include="Pong\FoePaddle.cs" />
+    <Compile Include="Pong\MyPaddle.cs" />
+    <Compile Include="Pong\Paddle.cs" />
+    <Compile Include="Pong\Pong.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Score.cs" />
+    <Compile Include="Pong\Score.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

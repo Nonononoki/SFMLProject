@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.IO;
 using gpp2;
 using System.Threading;
+using gpp2.Pong;
 
 namespace cpp2
 {
@@ -17,200 +18,133 @@ namespace cpp2
 	{
 		static void Main(string[] args)
 		{
-            //deltatime for continious and accurate movement
-            DeltaTime dt = new DeltaTime();
+            //Main Window and Controller
 
-            //initialize window
+
+            //Pong pong = new Pong();
+            //pong.Run();
+
+            //main window
             const int windowHeight = 400;
-            const int windowWidth = 700;
-			var pongWindow = new RenderWindow(new VideoMode(windowWidth, windowHeight), "GPP2", Styles.Default);
-			bool running = true;
+            const int windowWidth = 400;
+            RenderWindow mainWindow = new RenderWindow(new VideoMode(windowWidth, windowHeight), "Nho Quy Dinh GPP2", Styles.Default);
 
-            //initialize canvas
-            const int padding = 5;
-            Canvas canvas = new Canvas(padding*2, windowHeight - padding*2, padding*2, windowWidth - padding*2, padding);
-            RectangleShape myCanvas = new RectangleShape();
+            //pong buttons
+            Sprite pongStart = new Sprite();
+            Sprite pongOptions = new Sprite();
 
-            //initialize ball
-            const float ballSpeed = 0.1f;
-            Ball ball = new Ball(ballSpeed);
-            CircleShape myBall = new CircleShape();
+            //brickbreak buttons
+            Sprite brickBreakStart = new Sprite();
+            Sprite brickBreakOptions = new Sprite();
 
-            //Paddle
-            float paddleMinHeight = 0 + canvas.padding;
-            float paddleMaxHeight = windowHeight - canvas.padding;
+            //spaceshooter buttons
+            Sprite spaceShooterStart = new Sprite();
+            Sprite spaceShooterOptions = new Sprite();
 
-            //initialize myPaddle
-            const float myPaddleHeight = 50f;
-            const float myPaddleWidth = 3f;
-            const float myPaddleSpeed = 0.3f;
-            Vector2f myPaddlePos = new Vector2f(windowWidth - 2*canvas.padding, windowHeight / 2); 
-            MyPaddle myPaddle = new MyPaddle(myPaddleWidth, myPaddleHeight, myPaddleSpeed, myPaddlePos);
+            //myGame buttons
+            Sprite myGameStart = new Sprite();
+            Sprite myGameOptions = new Sprite();
 
-            RectangleShape myMyPaddle = new RectangleShape();
+            //buttonsizes and vectors
+            Vector2f gameButtonSize = new Vector2f(300, 100) ;
+            Vector2f optionButtonSize = new Vector2f(100, 100);
 
-            //initialize foePaddle
-            const float foePaddleHeight = 50f;
-            const float foePaddleWidth = 3f;
-            const float foePaddleSpeed = 0.3f;
-            Vector2f foePaddlePos = new Vector2f(0 + 2*canvas.padding, windowHeight / 2);
-            FoePaddle foePaddle = new FoePaddle(foePaddleWidth, foePaddleHeight, foePaddleSpeed, foePaddlePos);
+            Vector2f pongStartStart         = new Vector2f(0, 0);
+            Vector2f brickBreakStartStart   = new Vector2f(0, 1 * gameButtonSize.Y);
+            Vector2f spaceShooterStartStart = new Vector2f(0, 2 * gameButtonSize.Y);
+            Vector2f myGameStartStart       = new Vector2f(0, 3 * gameButtonSize.Y);
 
-            RectangleShape myFoePaddle = new RectangleShape();
+            Vector2f pongOptionStart         = new Vector2f(gameButtonSize.X, 0);
+            Vector2f brickBreakOptionStart   = new Vector2f(gameButtonSize.X, 1 * optionButtonSize.Y);
+            Vector2f spaceShooterOptionStart = new Vector2f(gameButtonSize.X, 2 * optionButtonSize.Y);
+            Vector2f myGameOptionStart       = new Vector2f(gameButtonSize.X, 3 * optionButtonSize.Y);
 
-            //Score variables
-            Font font = new Font("../../../fonts/pixel.ttf");
-            Color fontColor = new Color(255, 255, 255, 100);
-            uint fontSize = 32;
+            Texture settingTexture = new Texture("../../../sprites/settings.png");
+            Texture pongTexture = new Texture("../../../sprites/pong.png");
+            Texture pongHoverTexture = new Texture("../../../sprites/pong_hover.png");
 
-            //initialize myScore
-            Score myScore = new Score();
-            Text myMyScore = new Text();
 
-            //initialize foeScore
-            Score foeScore = new Score();
-            Text myFoeScore = new Text();
+            pongStart.Texture = pongTexture;
+            pongStart.Position = pongStartStart;
+            pongStart.Scale = new Vector2f(gameButtonSize.X / pongTexture.Size.X, gameButtonSize.Y / pongTexture.Size.Y);
 
-            Start();
+            pongOptions.Texture = settingTexture;
+            pongOptions.Position = pongOptionStart;
+            pongOptions.Scale = new Vector2f(optionButtonSize.X / settingTexture.Size.X, optionButtonSize.Y / settingTexture.Size.Y);
+            
 
-            //GameLoop
-            while (running)
-			{           
-                dt.Start();
-          
-                Update();
+            Run();
 
-                //test
-                Thread.Sleep(50);
 
-                pongWindow.Clear(Color.Black);
-				pongWindow.DispatchEvents();
-				pongWindow.Closed += (sender, evtArgs) => running = false;
- 
-                //draw canvas
-                pongWindow.Draw(myCanvas);
 
-                //draw ball
-                pongWindow.Draw(myBall);
-
-                //draw myPaddle
-                pongWindow.Draw(myMyPaddle);
-
-                //draw foePaddle
-                pongWindow.Draw(myFoePaddle);
-
-                //draw myScore
-                pongWindow.Draw(myMyScore);
-
-                //draw foeScore
-                pongWindow.Draw(myFoeScore);
-
-                pongWindow.Display();
-
-                dt.Stop();
-            }
-
-            //initialization
-            void Start()
+            void Run()
             {
-                myCanvas.Size = new Vector2f(canvas.right, canvas.bottom);
-                myCanvas.Position = new Vector2f(canvas.padding, canvas.padding);
-                myCanvas.OutlineThickness = 1;
-                myCanvas.OutlineColor = Color.White;
-                myCanvas.FillColor = Color.Black;
+                bool running = true;
+                while (running)
+                {
+                    //dt not needed for main screen!
 
-                ball.radius = 5;
-                ball.Respawn(windowWidth, windowHeight); //spawn ball for first game
+                    Events();
+                    Update();
 
-                myBall.FillColor = Color.White;
-                myBall.Radius = ball.radius;
-                myBall.Origin = new Vector2f(ball.radius, ball.radius);
+                    mainWindow.Clear(Color.Black);
+                    mainWindow.DispatchEvents();
+                    mainWindow.Closed += (sender, evtArgs) => running = false;
 
-                myPaddle.maxHeight = paddleMaxHeight;
-                myPaddle.minHeight = paddleMinHeight;
+                    //draw buttons
+                    mainWindow.Draw(pongStart);
+                    mainWindow.Draw(pongOptions);
 
-                myMyPaddle.FillColor = Color.White;
-                myMyPaddle.Origin = new Vector2f(myPaddle.width / 2, myPaddle.height / 2);
-                myMyPaddle.Size = new Vector2f(myPaddle.width, myPaddle.height);
+                    //display window
+                    mainWindow.Display();
+                }
 
-                foePaddle.maxHeight = paddleMaxHeight;
-                foePaddle.minHeight = paddleMinHeight;
 
-                myFoePaddle.FillColor = Color.White;
-                myFoePaddle.Origin = new Vector2f(foePaddle.width / 2, foePaddle.height / 2);
-                myFoePaddle.Size = new Vector2f(foePaddle.width, foePaddle.height);
-
-                myMyScore.Position = new Vector2f(windowWidth * 0.75f, 3 * canvas.padding);
-                myMyScore.Color = fontColor;
-                myMyScore.Font = font;
-                myMyScore.CharacterSize = fontSize;
-
-                myFoeScore.Position = new Vector2f(windowWidth * 0.25f, 3 * canvas.padding);
-                myFoeScore.Color = fontColor;
-                myFoeScore.Font = font;
-                myFoeScore.CharacterSize = fontSize;
             }
 
-            //ai movements
-            void AI()
-            {
-                //move paddle down
-                if (foePaddle.pos.Y > ball.pos.Y)
-                {
-                    foePaddle.MoveUp(dt);
-                }
-                else if (foePaddle.pos.Y < ball.pos.Y)
-                {
-                    foePaddle.MoveDown(dt);
-                }
-            }
-
-            //moving player paddle
-            void Events()
-            {
-                if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
-                {
-                    myPaddle.MoveUp(dt);
-                }
-                else if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
-                {
-                    myPaddle.MoveDown(dt);
-                }
-            }
-
-            //update object positions and score
             void Update()
             {
-                AI();
-                Events();
-
-                if (ball.CanvasRightCollision(canvas))
+                //hovering effect
+                if (MouseOverSprite(pongStart, mainWindow))
                 {
-                    ball.Respawn(windowWidth, windowHeight);
-                    foeScore.value++;
+                    pongStart.Texture = pongHoverTexture;
                 }
-
-                if (ball.CanvasLeftCollision(canvas))
+                else
                 {
-                    ball.Respawn(windowWidth, windowHeight);
-                    myScore.value++;
+                    pongStart.Texture = pongTexture;
                 }
-
-                ball.CanvasTopBottomCollision(canvas);
-
-                ball.PaddleCollision(foePaddle, true);
-                ball.PaddleCollision(myPaddle, false);
-
-                ball.pos += ball.mov * ball.speed * dt.time;
-
-                myBall.Position = ball.pos;
-                myMyPaddle.Position = myPaddle.pos;
-                myFoePaddle.Position = foePaddle.pos;
-                myMyScore.DisplayedString = myScore.value.ToString();
-                myFoeScore.DisplayedString = foeScore.value.ToString();
             }
+
+            //click events
+            void Events()
+            {
+                if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                {
+                    //only pong for now
+                    if (MouseOverSprite(pongStart, mainWindow))
+                    {
+                        Pong pong = new Pong();
+                        pong.Run();
+                    }
+
+                }
+            }
+
+            //check if cursor is over a sprite
+            bool MouseOverSprite(Sprite sprite, Window window)
+            {
+                if (Mouse.GetPosition(window).X > sprite.GetGlobalBounds().Left && 
+                    Mouse.GetPosition(window).X < (sprite.GetGlobalBounds().Left + sprite.GetGlobalBounds().Width) && 
+                    Mouse.GetPosition(window).Y > sprite.GetGlobalBounds().Top && 
+                    Mouse.GetPosition(window).Y < (sprite.GetGlobalBounds().Top + sprite.GetGlobalBounds().Height))
+                {
+                    return true;
+                }
+
+                return false;
+            }
+
         }
 
-
-	}
+  	}
 }
