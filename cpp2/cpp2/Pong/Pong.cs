@@ -66,7 +66,7 @@ namespace gpp2.Pong
         Score foeScore = new Score();
         Text myFoeScore = new Text();
 
-        public void Start()
+        public Pong()
         {
             //initialization of almost all variables!
 
@@ -151,7 +151,7 @@ namespace gpp2.Pong
 
         public void Run()
         {
-            Start();
+            //Start();
 
             bool running = true;
             while (running)

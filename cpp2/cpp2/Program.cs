@@ -20,10 +20,6 @@ namespace cpp2
 		{
             //Main Window and Controller
 
-
-            //Pong pong = new Pong();
-            //pong.Run();
-
             //main window
             const int windowHeight = 400;
             const int windowWidth = 400;
@@ -62,6 +58,7 @@ namespace cpp2
             Texture settingTexture = new Texture("../../../sprites/settings.png");
             Texture pongTexture = new Texture("../../../sprites/pong.png");
             Texture pongHoverTexture = new Texture("../../../sprites/pong_hover.png");
+            Texture settingHoverTexture = new Texture("../../../sprites/settings_hover.png");
 
 
             pongStart.Texture = pongTexture;
@@ -104,7 +101,7 @@ namespace cpp2
 
             void Update()
             {
-                //hovering effect
+                //hovering effects
                 if (MouseOverSprite(pongStart, mainWindow))
                 {
                     pongStart.Texture = pongHoverTexture;
@@ -113,6 +110,15 @@ namespace cpp2
                 {
                     pongStart.Texture = pongTexture;
                 }
+
+                if (MouseOverSprite(pongOptions, mainWindow))
+                {
+                    pongOptions.Texture = settingHoverTexture;
+                }
+                else
+                {
+                    pongOptions.Texture = settingTexture;
+                }
             }
 
             //click events
@@ -120,11 +126,18 @@ namespace cpp2
             {
                 if (Mouse.IsButtonPressed(Mouse.Button.Left))
                 {
-                    //only pong for now
+                    //pong
                     if (MouseOverSprite(pongStart, mainWindow))
                     {
                         Pong pong = new Pong();
                         pong.Run();
+                    }
+
+                    //pong settings
+                    if (MouseOverSprite(pongOptions, mainWindow))
+                    {
+                        PongSettings pongSettings = new PongSettings();
+                        pongSettings.Run();
                     }
 
                 }
