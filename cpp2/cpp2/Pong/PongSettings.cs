@@ -28,6 +28,10 @@ namespace gpp2.Pong
         float foePaddleHeight = d_foePaddleHeight;
         float foePaddleSpeed = d_foePaddleSpeed;
 
+        //in- and decrease percentage
+        float increase = 0.01f;
+        float decrease = 0.01f;
+
         //position values
         float smallerWidth = 100;
         float smallerHeight = 100;
@@ -256,11 +260,194 @@ namespace gpp2.Pong
             myPaddleSpeedText.DisplayedString = myPaddleSpeedString + myPaddleSpeed;
             foePaddleHeightText.DisplayedString =  foePaddleHeightString + foePaddleHeight;
             foePaddleSpeedText.DisplayedString =  foePaddleSpeedString + foePaddleSpeed;
+
+            //hovering effects
+
+            //hover smaller
+            if (MouseOverSprite(ballSpeedSmaller, pongSettingsWindow))
+            {
+                ballSpeedSmaller.Texture = smallerHoverTexture;
+            }
+            else
+            {
+                ballSpeedSmaller.Texture = smallerTexture;
+            }
+
+            if (MouseOverSprite(myPaddleHeightSmaller, pongSettingsWindow))
+            {
+                myPaddleHeightSmaller.Texture = smallerHoverTexture;
+            }
+            else
+            {
+                myPaddleHeightSmaller.Texture = smallerTexture;
+            }
+
+            if (MouseOverSprite(myPaddleSpeedSmaller, pongSettingsWindow))
+            {
+                myPaddleSpeedSmaller.Texture = smallerHoverTexture;
+            }
+            else
+            {
+                myPaddleSpeedSmaller.Texture = smallerTexture;
+            }
+
+            if (MouseOverSprite(foePaddleHeightSmaller, pongSettingsWindow))
+            {
+                foePaddleHeightSmaller.Texture = smallerHoverTexture;
+            }
+            else
+            {
+                foePaddleHeightSmaller.Texture = smallerTexture;
+            }
+
+            if (MouseOverSprite(foePaddleSpeedSmaller, pongSettingsWindow))
+            {
+                foePaddleSpeedSmaller.Texture = smallerHoverTexture;
+            }
+            else
+            {
+                foePaddleSpeedSmaller.Texture = smallerTexture;
+            }
+
+
+            //bigger
+            if (MouseOverSprite(ballSpeedBigger, pongSettingsWindow))
+            {
+                ballSpeedBigger.Texture = biggerHoverTexture;
+            }
+            else
+            {
+                ballSpeedBigger.Texture = biggerTexture;
+            }
+            if (MouseOverSprite(myPaddleHeightBigger, pongSettingsWindow))
+            {
+                myPaddleHeightBigger.Texture = biggerHoverTexture;
+            }
+            else
+            {
+                myPaddleHeightBigger.Texture = biggerTexture;
+            }
+            if (MouseOverSprite(myPaddleSpeedBigger, pongSettingsWindow))
+            {
+                myPaddleSpeedBigger.Texture = biggerHoverTexture;
+            }
+            else
+            {
+                myPaddleSpeedBigger.Texture = biggerTexture;
+            }
+            if (MouseOverSprite(foePaddleHeightBigger, pongSettingsWindow))
+            {
+                foePaddleHeightBigger.Texture = biggerHoverTexture;
+            }
+            else
+            {
+                foePaddleHeightBigger.Texture = biggerTexture;
+            }
+            if (MouseOverSprite(foePaddleSpeedBigger, pongSettingsWindow))
+            {
+                foePaddleSpeedBigger.Texture = biggerHoverTexture;
+            }
+            else
+            {
+                foePaddleSpeedBigger.Texture = biggerTexture;
+            }
+
+            //reset
+            if (MouseOverSprite(reset, pongSettingsWindow))
+            {
+                reset.Texture = resetHoverTexture;
+            }
+            else
+            {
+                reset.Texture = resetTexture;
+            }
+
+            //play
+            if (MouseOverSprite(play, pongSettingsWindow))
+            {
+                play.Texture = playHoverTexture;
+            }
+            else
+            {
+                play.Texture = playTexture;
+            }
+
         }
+
 
         void Events()
         {
+            //click events
+            if (Mouse.IsButtonPressed(Mouse.Button.Left))
+            {
+                //smaller
+                if (MouseOverSprite(ballSpeedSmaller, pongSettingsWindow))
+                {
+                    ballSpeed -= d_ballSpeed * decrease;
+                }
+                if (MouseOverSprite(myPaddleHeightSmaller, pongSettingsWindow))
+                {
+                    myPaddleHeight -= d_myPaddleHeight * decrease;
+                }
+                if (MouseOverSprite(myPaddleSpeedSmaller, pongSettingsWindow))
+                {
+                    myPaddleSpeed -= d_myPaddleSpeed * decrease;
+                }
+                if (MouseOverSprite(foePaddleHeightSmaller, pongSettingsWindow))
+                {
+                    foePaddleHeight -= d_foePaddleHeight * decrease;
+                }
+                if (MouseOverSprite(foePaddleSpeedSmaller, pongSettingsWindow))
+                {
+                    foePaddleSpeed -= d_foePaddleSpeed * decrease;
+                }
 
+                //bigger
+                if (MouseOverSprite(ballSpeedBigger, pongSettingsWindow))
+                {
+                    ballSpeed += d_ballSpeed * increase;
+                }
+                if (MouseOverSprite(myPaddleHeightBigger, pongSettingsWindow))
+                {
+                    myPaddleHeight += d_myPaddleHeight * increase;
+                }
+                if (MouseOverSprite(myPaddleSpeedBigger, pongSettingsWindow))
+                {
+                    myPaddleSpeed += d_myPaddleSpeed * increase;
+                }
+                if (MouseOverSprite(foePaddleHeightBigger, pongSettingsWindow))
+                {
+                    foePaddleHeight += d_foePaddleHeight * increase;
+                }
+                if (MouseOverSprite(foePaddleSpeedBigger, pongSettingsWindow))
+                {
+                    foePaddleSpeed += d_foePaddleSpeed * increase;
+                }
+
+                //reset and play
+                if (MouseOverSprite(reset, pongSettingsWindow))
+                {
+                    ballSpeed = d_ballSpeed;
+                    myPaddleHeight = d_myPaddleHeight;
+                    myPaddleSpeed = d_myPaddleSpeed;
+                    foePaddleHeight = d_foePaddleHeight;
+                    foePaddleSpeed = d_foePaddleSpeed;
+                }
+
+                if (MouseOverSprite(play, pongSettingsWindow))
+                {
+                    PongValues pv = new PongValues();
+                    pv.ballSpeed       = ballSpeed;
+                    pv.myPaddleHeight  = myPaddleHeight;
+                    pv.myPaddleSpeed   = myPaddleSpeed;
+                    pv.foePaddleHeight = foePaddleHeight;
+                    pv.foePaddleSpeed  = foePaddleSpeed;
+
+                    Pong pong = new Pong(pv);
+                    pong.Run();
+                }
+
+            }
         }
 
         //check if cursor is over a sprite

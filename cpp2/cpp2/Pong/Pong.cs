@@ -27,8 +27,8 @@ namespace gpp2.Pong
         RectangleShape myCanvas = new RectangleShape();
 
         //initialize ball
-        const float ballSpeed = 200f;
-        Ball ball = new Ball(ballSpeed);
+        float ballSpeed = 200f;
+        Ball ball;
         CircleShape myBall = new CircleShape();
 
         //Paddle
@@ -36,18 +36,18 @@ namespace gpp2.Pong
         float paddleMaxHeight;
 
         //initialize myPaddle
-        const float myPaddleHeight = 50f;
-        const float myPaddleWidth = 3f;
-        const float myPaddleSpeed = 400f;
+        float myPaddleHeight = 50f;
+        float myPaddleWidth = 3f;
+        float myPaddleSpeed = 400f;
         Vector2f myPaddlePos; 
         MyPaddle myPaddle; 
 
         RectangleShape myMyPaddle = new RectangleShape();
 
         //initialize foePaddle
-        const float foePaddleHeight = 50f;
-        const float foePaddleWidth = 3f;
-        const float foePaddleSpeed = 400f;
+        float foePaddleHeight = 50f;
+        float foePaddleWidth = 3f;
+        float foePaddleSpeed = 400f;
         Vector2f foePaddlePos; 
         FoePaddle foePaddle; 
 
@@ -68,6 +68,23 @@ namespace gpp2.Pong
 
         public Pong()
         {
+            Start();
+        }
+
+        //load game with custom values
+        public Pong(PongValues pv)
+        {
+            ballSpeed = pv.ballSpeed;
+            myPaddleHeight = pv.myPaddleHeight;
+            myPaddleSpeed = pv.myPaddleSpeed;
+            foePaddleHeight = pv.foePaddleHeight;
+            foePaddleSpeed = pv.foePaddleSpeed;
+
+            Start();
+        }
+
+        public void Start()
+        {
             //initialization of almost all variables!
 
             myCanvas.Size = new Vector2f(canvas.right, canvas.bottom);
@@ -76,6 +93,7 @@ namespace gpp2.Pong
             myCanvas.OutlineColor = Color.White;
             myCanvas.FillColor = Color.Black;
 
+            ball = new Ball(ballSpeed);
             ball.radius = 5;
             ball.Respawn(windowWidth, windowHeight); //spawn ball for first game
 
