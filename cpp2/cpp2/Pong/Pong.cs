@@ -17,17 +17,17 @@ namespace gpp2.Pong
         DeltaTime dt = new DeltaTime();
 
         //initialize window
-        const int windowHeight = 400;
-        const int windowWidth = 700;
+        const int windowHeight = 800;
+        const int windowWidth = 1400;
         RenderWindow pongWindow = new RenderWindow(new VideoMode(windowWidth, windowHeight), "Pong", Styles.Default);
 
         //initialize canvas
-        const int padding = 5;
+        const int padding = 10;
         Canvas canvas = new Canvas(padding * 2, windowHeight - padding * 2, padding * 2, windowWidth - padding * 2, padding);
         RectangleShape myCanvas = new RectangleShape();
 
         //initialize ball
-        float ballSpeed = 200f;
+        float ballSpeed = 400f;
         Ball ball;
         CircleShape myBall = new CircleShape();
 
@@ -36,18 +36,18 @@ namespace gpp2.Pong
         float paddleMaxHeight;
 
         //initialize myPaddle
-        float myPaddleHeight = 50f;
-        float myPaddleWidth = 3f;
-        float myPaddleSpeed = 400f;
+        float myPaddleHeight = 100f;
+        float myPaddleWidth = 10f;
+        float myPaddleSpeed = 800f;
         Vector2f myPaddlePos; 
         MyPaddle myPaddle; 
 
         RectangleShape myMyPaddle = new RectangleShape();
 
         //initialize foePaddle
-        float foePaddleHeight = 50f;
-        float foePaddleWidth = 3f;
-        float foePaddleSpeed = 400f;
+        float foePaddleHeight = 100f;
+        float foePaddleWidth = 10f;
+        float foePaddleSpeed = 800f;
         Vector2f foePaddlePos; 
         FoePaddle foePaddle; 
 
@@ -56,7 +56,7 @@ namespace gpp2.Pong
         //Score variables
         Font font = new Font("../../../fonts/pixel.ttf");
         Color fontColor = new Color(255, 255, 255, 100);
-        uint fontSize = 32;
+        uint fontSize = 60;
 
         //initialize myScore
         Score myScore = new Score();
@@ -69,6 +69,7 @@ namespace gpp2.Pong
         public Pong()
         {
             Start();
+            Run();
         }
 
         //load game with custom values
@@ -81,6 +82,7 @@ namespace gpp2.Pong
             foePaddleSpeed = pv.foePaddleSpeed;
 
             Start();
+            Run();
         }
 
         public void Start()

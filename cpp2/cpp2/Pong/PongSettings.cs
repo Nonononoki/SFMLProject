@@ -16,11 +16,11 @@ namespace gpp2.Pong
         RenderWindow pongSettingsWindow = new RenderWindow(new VideoMode(windowWidth, windowHeight), "PongSettings", Styles.Default);
 
         //default values
-        const float d_ballSpeed = 300;
-        const float d_myPaddleHeight = 50f;
-        const float d_myPaddleSpeed = 400f;
-        const float d_foePaddleHeight = 50f;
-        const float d_foePaddleSpeed = 400f;
+        const float d_ballSpeed = 400;
+        const float d_myPaddleHeight = 100f;
+        const float d_myPaddleSpeed = 600f;
+        const float d_foePaddleHeight = 100f;
+        const float d_foePaddleSpeed = 800f;
 
         float ballSpeed = d_ballSpeed;
         float myPaddleHeight = d_myPaddleHeight;
@@ -444,9 +444,7 @@ namespace gpp2.Pong
                     pv.foePaddleSpeed  = foePaddleSpeed;
 
                     Pong pong = new Pong(pv);
-                    pong.Run();
                 }
-
             }
         }
 

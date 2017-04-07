@@ -60,7 +60,6 @@ namespace cpp2
             Texture pongHoverTexture = new Texture("../../../sprites/pong_hover.png");
             Texture settingHoverTexture = new Texture("../../../sprites/settings_hover.png");
 
-
             pongStart.Texture = pongTexture;
             pongStart.Position = pongStartStart;
             pongStart.Scale = new Vector2f(gameButtonSize.X / pongTexture.Size.X, gameButtonSize.Y / pongTexture.Size.Y);
@@ -130,7 +129,6 @@ namespace cpp2
                     if (MouseOverSprite(pongStart, mainWindow))
                     {
                         Pong pong = new Pong();
-                        pong.Run();
                     }
 
                     //pong settings
@@ -139,7 +137,6 @@ namespace cpp2
                         PongSettings pongSettings = new PongSettings();
                         pongSettings.Run();
                     }
-
                 }
             }
 

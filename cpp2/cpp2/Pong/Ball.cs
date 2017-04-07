@@ -3,7 +3,6 @@ using System;
 
 public class Ball
 {
-
     public float speed;
     public float radius { get; set; }
     public Vector2f pos { get; set; }
@@ -23,7 +22,7 @@ public class Ball
     {
         //treat ball like a square
 
-        //leftmost Point of Ball, not real points
+        //leftmost of Ball, not real points
         float leftPoint = pos.X - radius;
         //rightmost Point of Ball
         float rightPoint = pos.X + radius;
@@ -32,7 +31,7 @@ public class Ball
         //bottom Point of Ball
         float bottomPoint = pos.Y + radius;
 
-        //hit left paddle
+        //hit left paddle!
         if (left)
         {
             if (leftPoint < paddle.pos.X + paddle.width/2
@@ -43,7 +42,7 @@ public class Ball
             }
         }
 
-        //hit right paddle
+        //hit right paddle!
         if (!left)
         {
             if (rightPoint > paddle.pos.X - paddle.width/2
