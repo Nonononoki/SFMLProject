@@ -23,12 +23,12 @@ namespace gpp2.Pong
 
         //initialize canvas
         const int padding = 10;
-        Canvas canvas = new Canvas(padding * 2, windowHeight - padding * 2, padding * 2, windowWidth - padding * 2, padding);
+        PongCanvas canvas = new PongCanvas(padding * 2, windowHeight - padding * 2, padding * 2, windowWidth - padding * 2, padding);
         RectangleShape myCanvas = new RectangleShape();
 
         //initialize ball
         float ballSpeed = 400f;
-        Ball ball;
+        PongBall ball;
         CircleShape myBall = new CircleShape();
 
         //Paddle
@@ -40,7 +40,7 @@ namespace gpp2.Pong
         float myPaddleWidth = 10f;
         float myPaddleSpeed = 800f;
         Vector2f myPaddlePos; 
-        MyPaddle myPaddle; 
+        PongMyPaddle myPaddle; 
 
         RectangleShape myMyPaddle = new RectangleShape();
 
@@ -49,7 +49,7 @@ namespace gpp2.Pong
         float foePaddleWidth = 10f;
         float foePaddleSpeed = 800f;
         Vector2f foePaddlePos; 
-        FoePaddle foePaddle; 
+        PongFoePaddle foePaddle; 
 
         RectangleShape myFoePaddle = new RectangleShape();
 
@@ -59,11 +59,11 @@ namespace gpp2.Pong
         uint fontSize = 60;
 
         //initialize myScore
-        Score myScore = new Score();
+        PongScore myScore = new PongScore();
         Text myMyScore = new Text();
 
         //initialize foeScore
-        Score foeScore = new Score();
+        PongScore foeScore = new PongScore();
         Text myFoeScore = new Text();
 
         public Pong()
@@ -95,7 +95,7 @@ namespace gpp2.Pong
             myCanvas.OutlineColor = Color.White;
             myCanvas.FillColor = Color.Black;
 
-            ball = new Ball(ballSpeed);
+            ball = new PongBall(ballSpeed);
             ball.radius = 5;
             ball.Respawn(windowWidth, windowHeight); //spawn ball for first game
 
@@ -107,7 +107,7 @@ namespace gpp2.Pong
             paddleMaxHeight = windowHeight - canvas.padding;
 
             myPaddlePos = new Vector2f(windowWidth - 2 * canvas.padding, windowHeight / 2);
-            myPaddle = new MyPaddle(myPaddleWidth, myPaddleHeight, myPaddleSpeed, myPaddlePos);
+            myPaddle = new PongMyPaddle(myPaddleWidth, myPaddleHeight, myPaddleSpeed, myPaddlePos);
 
             myPaddle.maxHeight = paddleMaxHeight;
             myPaddle.minHeight = paddleMinHeight;
@@ -118,7 +118,7 @@ namespace gpp2.Pong
 
 
             foePaddlePos = new Vector2f(0 + 2 * canvas.padding, windowHeight / 2);
-            foePaddle = new FoePaddle(foePaddleWidth, foePaddleHeight, foePaddleSpeed, foePaddlePos);
+            foePaddle = new PongFoePaddle(foePaddleWidth, foePaddleHeight, foePaddleSpeed, foePaddlePos);
 
             foePaddle.maxHeight = paddleMaxHeight;
             foePaddle.minHeight = paddleMinHeight;

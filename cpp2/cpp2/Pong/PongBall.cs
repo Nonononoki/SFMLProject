@@ -1,7 +1,7 @@
 ﻿using SFML.System;
 using System;
 
-public class Ball
+public class PongBall
 {
     public float speed;
     public float radius { get; set; }
@@ -11,14 +11,14 @@ public class Ball
     private const float speedIncrease = 1.1f;
     private float minSpeed;
 
-    public Ball(float speed)
+    public PongBall(float speed)
 	{
         this.speed = speed;
         minSpeed = speed;
 	}
 
     //detect paddle collisions
-    public void PaddleCollision(Paddle paddle, bool left)
+    public void PaddleCollision(PongPaddle paddle, bool left)
     {
         //treat ball like a square
 
@@ -55,7 +55,7 @@ public class Ball
     }
 
     //colliding with canvas top and bottom
-    public void CanvasTopBottomCollision(Canvas cv)
+    public void CanvasTopBottomCollision(PongCanvas cv)
     {
         if (pos.Y + radius > cv.bottom + cv.padding || pos.Y - radius < cv.top - cv.padding)
         {
@@ -64,7 +64,7 @@ public class Ball
     }
 
     //colliding with canvas right
-    public bool CanvasRightCollision(Canvas cv)
+    public bool CanvasRightCollision(PongCanvas cv)
     {
         if (pos.X + radius > cv.right + cv.padding)
         {
@@ -78,7 +78,7 @@ public class Ball
     }
 
     //colliding with canvas left
-    public bool CanvasLeftCollision(Canvas cv)
+    public bool CanvasLeftCollision(PongCanvas cv)
     {
         if (pos.X - radius < cv.left - cv.padding)
         {

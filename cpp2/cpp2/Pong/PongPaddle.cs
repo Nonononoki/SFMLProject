@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-public abstract class Paddle
+public abstract class PongPaddle
 {
     public float height { get; set; }
     public float width { get; set; }
@@ -19,11 +19,11 @@ public abstract class Paddle
     public float maxHeight { get; set; }
 
 
-    public Paddle()
+    public PongPaddle()
     {
     }
 
-    public Paddle(float width, float height, float speed, Vector2f pos)
+    public PongPaddle(float width, float height, float speed, Vector2f pos)
     {
         this.width = width;
         this.height = height;

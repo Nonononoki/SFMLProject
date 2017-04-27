@@ -1,10 +1,10 @@
 ﻿using System;
 
-public class Score
+public class PongScore
 {
     public int value { get; set; }
 
-    public Score()
+    public PongScore()
 	{
         value = 0;
 	}

@@ -34,3 +34,4 @@ C:\Users\nonon\Desktop\gpp\cpp2\cpp2\bin\Debug\sfmlnet-window-2.xml
 C:\Users\nonon\Desktop\gpp\cpp2\cpp2\obj\Debug\gpp_2.csprojResolveAssemblyReference.cache
 C:\Users\nonon\Desktop\gpp\cpp2\cpp2\obj\Debug\gpp2.exe
 C:\Users\nonon\Desktop\gpp\cpp2\cpp2\obj\Debug\gpp2.pdb
+C:\Users\nonon\Desktop\gpp\cpp2\cpp2\bin\Debug\FarseerPhysicsXNAWP7.dll

@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class Canvas
+public class PongCanvas
 {
     //the playing field
 
@@ -10,11 +10,11 @@ public class Canvas
     public float right { get; set; }
     public int padding { get; set; }
 
-    public Canvas()
+    public PongCanvas()
 	{
 	}
 
-    public Canvas(float top, float bottom, float left, float right, int padding)
+    public PongCanvas(float top, float bottom, float left, float right, int padding)
     {
         this.top = top;
         this.bottom = bottom;
