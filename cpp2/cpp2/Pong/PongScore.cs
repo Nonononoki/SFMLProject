@@ -2,10 +2,10 @@
 
 public class PongScore
 {
-    public int value { get; set; }
+    public int Value { get; set; }
 
     public PongScore()
 	{
-        value = 0;
+        Value = 0;
 	}
 }

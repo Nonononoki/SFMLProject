@@ -13,12 +13,12 @@ using System.Threading.Tasks;
 
 namespace gpp2.BrickBreak
 {
-    class BrickBreak
+    class BreakOut
     {
         //initialize window
         const int windowHeight = 1400;
         const int windowWidth = 1400;
-        RenderWindow brickBreakWindow = new RenderWindow(new VideoMode(windowWidth, windowHeight), "BrickBreak", Styles.Default);
+        RenderWindow breakOutWindow = new RenderWindow(new VideoMode(windowWidth, windowHeight), "BreakOut", Styles.Default);
 
         //World, no gravity
         World world = new World(new Vector2(0,0));
@@ -29,11 +29,11 @@ namespace gpp2.BrickBreak
         Vector2 paddleSize = new Vector2(200, 20);
         Vector2 paddlePos;
         Body paddleBody;
-        BrickBreakPaddle paddle;
+        BreakOutPaddle paddle;
         RectangleShape myPaddle;
 
 
-        public BrickBreak()
+        public BreakOut()
         {
 
         }
@@ -85,12 +85,12 @@ namespace gpp2.BrickBreak
             {
                 dt.Start();
 
-                brickBreakWindow.Clear(Color.Black);
-                brickBreakWindow.DispatchEvents();
-                brickBreakWindow.Closed += (sender, evtArgs) => running = false;
+                breakOutWindow.Clear(Color.Black);
+                breakOutWindow.DispatchEvents();
+                breakOutWindow.Closed += (sender, evtArgs) => running = false;
 
                 //draw stuff
-                brickBreakWindow.Draw(myPaddle);
+                breakOutWindow.Draw(myPaddle);
 
 
                 dt.Stop();

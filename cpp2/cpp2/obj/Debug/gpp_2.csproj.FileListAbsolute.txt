@@ -35,3 +35,4 @@ C:\Users\nonon\Desktop\gpp\cpp2\cpp2\obj\Debug\gpp_2.csprojResolveAssemblyRefere
 C:\Users\nonon\Desktop\gpp\cpp2\cpp2\obj\Debug\gpp2.exe
 C:\Users\nonon\Desktop\gpp\cpp2\cpp2\obj\Debug\gpp2.pdb
 C:\Users\nonon\Desktop\gpp\cpp2\cpp2\bin\Debug\FarseerPhysicsXNAWP7.dll
+C:\Users\Nonononoki\Desktop\gpp\cpp2\cpp2\bin\Debug\FarseerPhysics.dll

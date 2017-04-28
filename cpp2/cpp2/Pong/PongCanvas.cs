@@ -4,11 +4,11 @@ public class PongCanvas
 {
     //the playing field
 
-    public float top { get; set; }
-    public float bottom { get; set; }
-    public float left { get; set; }
-    public float right { get; set; }
-    public int padding { get; set; }
+    public float Top { get; set; }
+    public float Bottom { get; set; }
+    public float Left { get; set; }
+    public float Right { get; set; }
+    public int Padding { get; set; }
 
     public PongCanvas()
 	{
@@ -16,10 +16,10 @@ public class PongCanvas
 
     public PongCanvas(float top, float bottom, float left, float right, int padding)
     {
-        this.top = top;
-        this.bottom = bottom;
-        this.left = left;
-        this.right = right;
-        this.padding = padding;
+        this.Top = top;
+        this.Bottom = bottom;
+        this.Left = left;
+        this.Right = right;
+        this.Padding = padding;
     }
 }

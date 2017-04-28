@@ -437,11 +437,11 @@ namespace gpp2.Pong
                 if (MouseOverSprite(play, pongSettingsWindow))
                 {
                     PongValues pv = new PongValues();
-                    pv.ballSpeed       = ballSpeed;
-                    pv.myPaddleHeight  = myPaddleHeight;
-                    pv.myPaddleSpeed   = myPaddleSpeed;
-                    pv.foePaddleHeight = foePaddleHeight;
-                    pv.foePaddleSpeed  = foePaddleSpeed;
+                    pv.BallSpeed       = ballSpeed;
+                    pv.MyPaddleHeight  = myPaddleHeight;
+                    pv.MyPaddleSpeed   = myPaddleSpeed;
+                    pv.FoePaddleHeight = foePaddleHeight;
+                    pv.FoePaddleSpeed  = foePaddleSpeed;
 
                     Pong pong = new Pong(pv);
                 }

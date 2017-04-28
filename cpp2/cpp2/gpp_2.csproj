@@ -59,8 +59,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BrickBreak\BrickBreak.cs" />
-    <Compile Include="BrickBreak\BrickBreakPaddle.cs" />
+    <Compile Include="BreakOut\BreakOut.cs" />
+    <Compile Include="BreakOut\BreakOutPaddle.cs" />
     <Compile Include="Pong\PongBall.cs" />
     <Compile Include="Pong\PongCanvas.cs" />
     <Compile Include="DeltaTime.cs" />

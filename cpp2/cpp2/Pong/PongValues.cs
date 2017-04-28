@@ -9,10 +9,10 @@ namespace gpp2.Pong
     //values for custom game of pong
     class PongValues
     {
-        public float ballSpeed { get; set; }
-        public float myPaddleHeight { get; set; }
-        public float myPaddleSpeed { get; set; }
-        public float foePaddleHeight  { get; set; }
-        public float foePaddleSpeed { get; set; }
+        public float BallSpeed { get; set; }
+        public float MyPaddleHeight { get; set; }
+        public float MyPaddleSpeed { get; set; }
+        public float FoePaddleHeight  { get; set; }
+        public float FoePaddleSpeed { get; set; }
     }
 }

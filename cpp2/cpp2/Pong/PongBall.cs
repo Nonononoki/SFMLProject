@@ -3,17 +3,17 @@ using System;
 
 public class PongBall
 {
-    public float speed;
-    public float radius { get; set; }
-    public Vector2f pos { get; set; }
-    public Vector2f mov { get; set; }
+    public float Speed;
+    public float Radius { get; set; }
+    public Vector2f Pos { get; set; }
+    public Vector2f Mov { get; set; }
 
     private const float speedIncrease = 1.1f;
     private float minSpeed;
 
     public PongBall(float speed)
 	{
-        this.speed = speed;
+        this.Speed = speed;
         minSpeed = speed;
 	}
 
@@ -23,20 +23,20 @@ public class PongBall
         //treat ball like a square
 
         //leftmost of Ball, not real points
-        float leftPoint = pos.X - radius;
+        float leftPoint = Pos.X - Radius;
         //rightmost Point of Ball
-        float rightPoint = pos.X + radius;
+        float rightPoint = Pos.X + Radius;
         //top Point of Ball
-        float topPoint = pos.Y - radius;
+        float topPoint = Pos.Y - Radius;
         //bottom Point of Ball
-        float bottomPoint = pos.Y + radius;
+        float bottomPoint = Pos.Y + Radius;
 
         //hit left paddle!
         if (left)
         {
-            if (leftPoint < paddle.pos.X + paddle.width/2
-                && bottomPoint > paddle.pos.Y - paddle.height/2
-                && topPoint < paddle.pos.Y + paddle.height / 2)
+            if (leftPoint < paddle.Pos.X + paddle.Width/2
+                && bottomPoint > paddle.Pos.Y - paddle.Height/2
+                && topPoint < paddle.Pos.Y + paddle.Height / 2)
             {
                 ReflectPaddle();
             }
@@ -45,9 +45,9 @@ public class PongBall
         //hit right paddle!
         if (!left)
         {
-            if (rightPoint > paddle.pos.X - paddle.width/2
-                && bottomPoint > paddle.pos.Y - paddle.height/2
-                && topPoint < paddle.pos.Y + paddle.height/2)
+            if (rightPoint > paddle.Pos.X - paddle.Width/2
+                && bottomPoint > paddle.Pos.Y - paddle.Height/2
+                && topPoint < paddle.Pos.Y + paddle.Height/2)
             {
                 ReflectPaddle();
             }
@@ -57,7 +57,7 @@ public class PongBall
     //colliding with canvas top and bottom
     public void CanvasTopBottomCollision(PongCanvas cv)
     {
-        if (pos.Y + radius > cv.bottom + cv.padding || pos.Y - radius < cv.top - cv.padding)
+        if (Pos.Y + Radius > cv.Bottom + cv.Padding || Pos.Y - Radius < cv.Top - cv.Padding)
         {
             ReflectCanvas();
         }
@@ -66,7 +66,7 @@ public class PongBall
     //colliding with canvas right
     public bool CanvasRightCollision(PongCanvas cv)
     {
-        if (pos.X + radius > cv.right + cv.padding)
+        if (Pos.X + Radius > cv.Right + cv.Padding)
         {
             return true;
         }
@@ -80,7 +80,7 @@ public class PongBall
     //colliding with canvas left
     public bool CanvasLeftCollision(PongCanvas cv)
     {
-        if (pos.X - radius < cv.left - cv.padding)
+        if (Pos.X - Radius < cv.Left - cv.Padding)
         {
             return true;
         }
@@ -93,7 +93,7 @@ public class PongBall
 
     public void Respawn(int windowWidth, int windowHeight)
     {
-        pos = new Vector2f(windowWidth / 2, windowHeight / 2);
+        Pos = new Vector2f(windowWidth / 2, windowHeight / 2);
 
         //new random mov vector
         Random random = new Random();
@@ -102,30 +102,30 @@ public class PongBall
         switch(r)
         {   
             case 0:
-                mov = new Vector2f(1, 1); break;
+                Mov = new Vector2f(1, 1); break;
             case 1:
-                mov = new Vector2f(1, -1); break;
+                Mov = new Vector2f(1, -1); break;
             case 2:
-                mov = new Vector2f(-1, 1); break;
+                Mov = new Vector2f(-1, 1); break;
             case 3:
-                mov = new Vector2f(-1, -1); break;
+                Mov = new Vector2f(-1, -1); break;
         }
 
         //reset speed
-        speed = minSpeed;
+        Speed = minSpeed;
 
     }
 
     private void ReflectPaddle()
     {
-        mov = new Vector2f(-mov.X, mov.Y);
+        Mov = new Vector2f(-Mov.X, Mov.Y);
 
         //make it faster!
-        speed = speed * speedIncrease;
+        Speed = Speed * speedIncrease;
     }
 
     private void ReflectCanvas()
     {
-        mov = new Vector2f(mov.X, -mov.Y);
+        Mov = new Vector2f(Mov.X, -Mov.Y);
     }
 }

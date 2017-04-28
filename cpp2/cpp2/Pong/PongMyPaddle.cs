@@ -11,8 +11,4 @@ public class PongMyPaddle : PongPaddle
     public PongMyPaddle(float width, float height, float speed, Vector2f pos) : base(width, height, speed, pos)
     { 
     }
-
-
-    
-
 }

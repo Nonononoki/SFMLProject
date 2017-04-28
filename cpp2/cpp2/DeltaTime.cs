@@ -9,12 +9,12 @@ namespace gpp2
 {
     public class DeltaTime
     {
-        public float time { get; set; }
+        public float Time { get; set; }
         Stopwatch sw;
 
         public DeltaTime()
         {
-            time = 0; 
+            Time = 0; 
             sw = new Stopwatch();
         }
 
@@ -24,7 +24,7 @@ namespace gpp2
         }
         public void Stop()
         {
-            time = sw.ElapsedTicks / (float) Stopwatch.Frequency;
+            Time = sw.ElapsedTicks / (float) Stopwatch.Frequency;
             sw.Restart();
         }
         

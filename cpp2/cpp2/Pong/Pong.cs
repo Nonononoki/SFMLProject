@@ -75,11 +75,11 @@ namespace gpp2.Pong
         //load game with custom values
         public Pong(PongValues pv)
         {
-            ballSpeed = pv.ballSpeed;
-            myPaddleHeight = pv.myPaddleHeight;
-            myPaddleSpeed = pv.myPaddleSpeed;
-            foePaddleHeight = pv.foePaddleHeight;
-            foePaddleSpeed = pv.foePaddleSpeed;
+            ballSpeed = pv.BallSpeed;
+            myPaddleHeight = pv.MyPaddleHeight;
+            myPaddleSpeed = pv.MyPaddleSpeed;
+            foePaddleHeight = pv.FoePaddleHeight;
+            foePaddleSpeed = pv.FoePaddleSpeed;
 
             Start();
             Run();
@@ -89,50 +89,50 @@ namespace gpp2.Pong
         {
             //initialization of almost all variables!
 
-            myCanvas.Size = new Vector2f(canvas.right, canvas.bottom);
-            myCanvas.Position = new Vector2f(canvas.padding, canvas.padding);
+            myCanvas.Size = new Vector2f(canvas.Right, canvas.Bottom);
+            myCanvas.Position = new Vector2f(canvas.Padding, canvas.Padding);
             myCanvas.OutlineThickness = 1;
             myCanvas.OutlineColor = Color.White;
             myCanvas.FillColor = Color.Black;
 
             ball = new PongBall(ballSpeed);
-            ball.radius = 5;
+            ball.Radius = 5;
             ball.Respawn(windowWidth, windowHeight); //spawn ball for first game
 
             myBall.FillColor = Color.White;
-            myBall.Radius = ball.radius;
-            myBall.Origin = new Vector2f(ball.radius, ball.radius);
+            myBall.Radius = ball.Radius;
+            myBall.Origin = new Vector2f(ball.Radius, ball.Radius);
 
-            paddleMinHeight = 0 + canvas.padding;
-            paddleMaxHeight = windowHeight - canvas.padding;
+            paddleMinHeight = 0 + canvas.Padding;
+            paddleMaxHeight = windowHeight - canvas.Padding;
 
-            myPaddlePos = new Vector2f(windowWidth - 2 * canvas.padding, windowHeight / 2);
+            myPaddlePos = new Vector2f(windowWidth - 2 * canvas.Padding, windowHeight / 2);
             myPaddle = new PongMyPaddle(myPaddleWidth, myPaddleHeight, myPaddleSpeed, myPaddlePos);
 
-            myPaddle.maxHeight = paddleMaxHeight;
-            myPaddle.minHeight = paddleMinHeight;
+            myPaddle.MaxHeight = paddleMaxHeight;
+            myPaddle.MinHeight = paddleMinHeight;
 
             myMyPaddle.FillColor = Color.White;
-            myMyPaddle.Origin = new Vector2f(myPaddle.width / 2, myPaddle.height / 2);
-            myMyPaddle.Size = new Vector2f(myPaddle.width, myPaddle.height);
+            myMyPaddle.Origin = new Vector2f(myPaddle.Width / 2, myPaddle.Height / 2);
+            myMyPaddle.Size = new Vector2f(myPaddle.Width, myPaddle.Height);
 
 
-            foePaddlePos = new Vector2f(0 + 2 * canvas.padding, windowHeight / 2);
+            foePaddlePos = new Vector2f(0 + 2 * canvas.Padding, windowHeight / 2);
             foePaddle = new PongFoePaddle(foePaddleWidth, foePaddleHeight, foePaddleSpeed, foePaddlePos);
 
-            foePaddle.maxHeight = paddleMaxHeight;
-            foePaddle.minHeight = paddleMinHeight;
+            foePaddle.MaxHeight = paddleMaxHeight;
+            foePaddle.MinHeight = paddleMinHeight;
 
             myFoePaddle.FillColor = Color.White;
-            myFoePaddle.Origin = new Vector2f(foePaddle.width / 2, foePaddle.height / 2);
-            myFoePaddle.Size = new Vector2f(foePaddle.width, foePaddle.height);
+            myFoePaddle.Origin = new Vector2f(foePaddle.Width / 2, foePaddle.Height / 2);
+            myFoePaddle.Size = new Vector2f(foePaddle.Width, foePaddle.Height);
 
-            myMyScore.Position = new Vector2f(windowWidth * 0.75f, 3 * canvas.padding);
+            myMyScore.Position = new Vector2f(windowWidth * 0.75f, 3 * canvas.Padding);
             myMyScore.Color = fontColor;
             myMyScore.Font = font;
             myMyScore.CharacterSize = fontSize;
 
-            myFoeScore.Position = new Vector2f(windowWidth * 0.25f, 3 * canvas.padding);
+            myFoeScore.Position = new Vector2f(windowWidth * 0.25f, 3 * canvas.Padding);
             myFoeScore.Color = fontColor;
             myFoeScore.Font = font;
             myFoeScore.CharacterSize = fontSize;
@@ -146,13 +146,13 @@ namespace gpp2.Pong
             if (ball.CanvasRightCollision(canvas))
             {
                 ball.Respawn(windowWidth, windowHeight);
-                foeScore.value++;
+                foeScore.Value++;
             }
 
             if (ball.CanvasLeftCollision(canvas))
             {
                 ball.Respawn(windowWidth, windowHeight);
-                myScore.value++;
+                myScore.Value++;
             }
 
             ball.CanvasTopBottomCollision(canvas);
@@ -160,13 +160,13 @@ namespace gpp2.Pong
             ball.PaddleCollision(foePaddle, true);
             ball.PaddleCollision(myPaddle, false);
 
-            ball.pos += ball.mov * ball.speed * dt.time;
+            ball.Pos += ball.Mov * ball.Speed * dt.Time;
 
-            myBall.Position = ball.pos;
-            myMyPaddle.Position = myPaddle.pos;
-            myFoePaddle.Position = foePaddle.pos;
-            myMyScore.DisplayedString = myScore.value.ToString();
-            myFoeScore.DisplayedString = foeScore.value.ToString();
+            myBall.Position = ball.Pos;
+            myMyPaddle.Position = myPaddle.Pos;
+            myFoePaddle.Position = foePaddle.Pos;
+            myMyScore.DisplayedString = myScore.Value.ToString();
+            myFoeScore.DisplayedString = foeScore.Value.ToString();
         }
 
         public void Run()
@@ -228,11 +228,11 @@ namespace gpp2.Pong
         void AI(DeltaTime dt)
         {
             //move paddle down
-            if (foePaddle.pos.Y > ball.pos.Y)
+            if (foePaddle.Pos.Y > ball.Pos.Y)
             {
                 foePaddle.MoveUp(dt);
             }
-            else if (foePaddle.pos.Y < ball.pos.Y)
+            else if (foePaddle.Pos.Y < ball.Pos.Y)
             {
                 foePaddle.MoveDown(dt);
             }
