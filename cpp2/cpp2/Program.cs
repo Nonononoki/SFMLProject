@@ -11,6 +11,7 @@ using System.IO;
 using gpp2;
 using System.Threading;
 using gpp2.Pong;
+using gpp2.BreakOut;
 
 namespace cpp2
 {
@@ -23,15 +24,15 @@ namespace cpp2
             //main window
             const int windowHeight = 400;
             const int windowWidth = 400;
-            RenderWindow mainWindow = new RenderWindow(new VideoMode(windowWidth, windowHeight), "Nho Quy Dinh GPP2", Styles.Default);
+            RenderWindow mainWindow = new RenderWindow(new VideoMode(windowWidth, windowHeight), "Nho Quy Dinh GPP", Styles.Default);
 
             //pong buttons
             Sprite pongStart = new Sprite();
             Sprite pongOptions = new Sprite();
 
             //brickbreak buttons
-            Sprite brickBreakStart = new Sprite();
-            Sprite brickBreakOptions = new Sprite();
+            Sprite breakOutStart = new Sprite();
+            Sprite breakOutOptions = new Sprite();
 
             //spaceshooter buttons
             Sprite spaceShooterStart = new Sprite();
@@ -46,19 +47,23 @@ namespace cpp2
             Vector2f optionButtonSize = new Vector2f(100, 100);
 
             Vector2f pongStartStart         = new Vector2f(0, 0);
-            Vector2f brickBreakStartStart   = new Vector2f(0, 1 * gameButtonSize.Y);
+            Vector2f breakOutStartStart   = new Vector2f(0, 1 * gameButtonSize.Y);
             Vector2f spaceShooterStartStart = new Vector2f(0, 2 * gameButtonSize.Y);
             Vector2f myGameStartStart       = new Vector2f(0, 3 * gameButtonSize.Y);
 
             Vector2f pongOptionStart         = new Vector2f(gameButtonSize.X, 0);
-            Vector2f brickBreakOptionStart   = new Vector2f(gameButtonSize.X, 1 * optionButtonSize.Y);
+            Vector2f breakOutOptionStart   = new Vector2f(gameButtonSize.X, 1 * optionButtonSize.Y);
             Vector2f spaceShooterOptionStart = new Vector2f(gameButtonSize.X, 2 * optionButtonSize.Y);
             Vector2f myGameOptionStart       = new Vector2f(gameButtonSize.X, 3 * optionButtonSize.Y);
 
             Texture settingTexture = new Texture("../../../sprites/settings.png");
+            Texture settingHoverTexture = new Texture("../../../sprites/settings_hover.png");
+
             Texture pongTexture = new Texture("../../../sprites/pong.png");
             Texture pongHoverTexture = new Texture("../../../sprites/pong_hover.png");
-            Texture settingHoverTexture = new Texture("../../../sprites/settings_hover.png");
+
+            Texture breakOutTexture = new Texture("../../../sprites/breakOut.png");
+            Texture breakOutHoverTexture = new Texture("../../../sprites/breakOut_hover.png");
 
             pongStart.Texture = pongTexture;
             pongStart.Position = pongStartStart;
@@ -67,10 +72,16 @@ namespace cpp2
             pongOptions.Texture = settingTexture;
             pongOptions.Position = pongOptionStart;
             pongOptions.Scale = new Vector2f(optionButtonSize.X / settingTexture.Size.X, optionButtonSize.Y / settingTexture.Size.Y);
-            
+
+            breakOutStart.Texture = breakOutTexture;
+            breakOutStart.Position = breakOutStartStart;
+            breakOutStart.Scale = new Vector2f(gameButtonSize.X / pongTexture.Size.X, gameButtonSize.Y / breakOutTexture.Size.Y);
+
+            breakOutOptions.Texture = settingTexture;
+            breakOutOptions.Position = breakOutOptionStart;
+            breakOutOptions.Scale = new Vector2f(optionButtonSize.X / settingTexture.Size.X, optionButtonSize.Y / settingTexture.Size.Y);
 
             Run();
-
 
 
             void Run()
@@ -91,11 +102,12 @@ namespace cpp2
                     mainWindow.Draw(pongStart);
                     mainWindow.Draw(pongOptions);
 
+                    mainWindow.Draw(breakOutStart);
+                    mainWindow.Draw(breakOutOptions);
+
                     //display window
                     mainWindow.Display();
                 }
-
-
             }
 
             void Update()
@@ -137,6 +149,12 @@ namespace cpp2
                         PongSettings pongSettings = new PongSettings();
                         pongSettings.Run();
                     }
+
+                    //breakOut
+                    if (MouseOverSprite(breakOutStart, mainWindow))
+                    {
+                        BreakOut breakOut = new BreakOut();
+                    }
                 }
             }
 
@@ -150,11 +168,8 @@ namespace cpp2
                 {
                     return true;
                 }
-
                 return false;
             }
-
         }
-
   	}
 }

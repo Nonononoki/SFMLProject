@@ -1,6 +1,7 @@
 ﻿using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Common;
 using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using SFML.Graphics;
 using SFML.Window;
@@ -11,14 +12,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace gpp2.BrickBreak
+namespace gpp2.BreakOut
 {
     class BreakOut
     {
         //initialize window
         const int windowHeight = 1400;
         const int windowWidth = 1400;
-        RenderWindow breakOutWindow = new RenderWindow(new VideoMode(windowWidth, windowHeight), "BreakOut", Styles.Default);
+        RenderWindow window = new RenderWindow(new VideoMode(windowWidth, windowHeight), "BreakOut", Styles.Default);
+
+        const float density = 1f;
+        BreakOutCanvas canvas;
 
         //World, no gravity
         World world = new World(new Vector2(0,0));
@@ -26,42 +30,42 @@ namespace gpp2.BrickBreak
         DeltaTime dt;
 
         //paddle
-        Vector2 paddleSize = new Vector2(200, 20);
-        Vector2 paddlePos;
-        Body paddleBody;
         BreakOutPaddle paddle;
-        RectangleShape myPaddle;
+        Vector2 paddlePosition;
+        Texture paddleTexture;
+        Vertices paddleVertices;
+        Vector2 paddleSize;
 
+        //ball
+        BreakOutBall ball;
+        Vector2 ballPosition;
+        Texture ballTexture;
+        Vector2 ballSize;
 
         public BreakOut()
         {
-
-        }
-
-        public void Start()
-        {
             dt = new DeltaTime();
 
-            //paddle
-            paddlePos = new Vector2(windowHeight, windowWidth - (paddleSize.X/2));
-            paddleBody = new Body(world, paddlePos);
-            paddleBody.Position = paddlePos;
+            canvas = new BreakOutCanvas(0, windowHeight, 0, windowWidth);
 
-            Vertices paddleVerticies = new Vertices(4);
+            //paddle attributes
+            paddleSize = new Vector2(4,2);
+            paddleVertices.Add(new Vector2(paddleSize.X/2, paddleSize.Y / 2));
+            paddleVertices.Add(new Vector2(paddleSize.X / 2, -paddleSize.Y / 2));
+            paddleVertices.Add(new Vector2(-paddleSize.X / 2, paddleSize.Y / 2));
+            paddleVertices.Add(new Vector2(-paddleSize.X / 2, -paddleSize.Y / 2));
+            paddlePosition = new Vector2(canvas.Right/2 + paddleSize.X/2, 0 - paddleSize.Y / 2);
+            paddleTexture = new Texture("../../../sprites/breakOut/paddle.png");
+            paddle = new BreakOutPaddle(0, windowWidth);
+            paddle.Set(paddlePosition, paddleTexture, paddleVertices, paddleSize, ref world);
 
-            //testing values
-            paddleVerticies.Add(new Vector2(2.6f, 0.10f));
-            paddleVerticies.Add(new Vector2(2.375f, 0.46f));
-            paddleVerticies.Add(new Vector2(0.58f, 0.92f));
-            paddleVerticies.Add(new Vector2(0.46f, 0.72f));
-            PolygonShape paddleShape = new PolygonShape(paddleVerticies, 1f);
-
-
+            Run();
 
         }
 
         public void Update()
         {
+            Events();
 
         }
 
@@ -84,6 +88,8 @@ namespace gpp2.BrickBreak
             while(running)
             {
                 dt.Start();
+
+                Update();
 
                 breakOutWindow.Clear(Color.Black);
                 breakOutWindow.DispatchEvents();

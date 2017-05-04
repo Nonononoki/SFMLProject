@@ -8,38 +8,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace gpp2.BrickBreak
+namespace gpp2.BreakOut
 {
-    class BreakOutPaddle
+    class BreakOutPaddle : GameObject
     {
-        public Body body;
-
         //limit movement range of Paddle
         public float LeftLimit { get; set; }
         public float RightLimit { get; set; }
-        public float MoveForce { get; set; }
-        public Vector2 Size { get; set; }
+        public Vector2 MoveForce { get; set; }
 
-        public BreakOutPaddle(Body body, float leftLimit, float rightLimit)
+        public BreakOutPaddle(float leftLimit, float rightLimit)
         {
-            this.body = body;
             this.LeftLimit = leftLimit;
             this.RightLimit = rightLimit;
-            MoveForce = 10f;
         }
 
         public void MoveLeft(DeltaTime dt)
         {           
             //limit left movement
-            if (body.Position.Y + Size.X / 2 < LeftLimit)
-                body.ApplyForce(new Vector2(-MoveForce * dt.Time, 0));
+            if (Body.Position.Y + Size.X / 2 < LeftLimit)
+                Body.ApplyForce(-MoveForce * dt.Time);
         }
 
         public void MoveRight(DeltaTime dt)
         {
             //limit right movement
-            if (body.Position.Y - Size.X / 2 > RightLimit)
-                body.ApplyForce(new Vector2(MoveForce * dt.Time, 0));
+            if (Body.Position.Y - Size.X / 2 > RightLimit)
+                Body.ApplyForce(MoveForce * dt.Time);
         }
 
 
