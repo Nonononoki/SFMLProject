@@ -10,34 +10,22 @@ namespace gpp2.BreakOut
 
     class BreakOutPhysics
     {
-        void BallTopCollision(BreakOutBall ball, BreakOutCanvas canvas)
+        void BallCollision(BreakOutBall ball, List<GameObject> list)
         {
-            if(ball.Position.Y >  )
+            foreach(GameObject go in list)
+            {
+                //if(ball.Body.ContactList.)
+                //collides with paddle
+                if (go.GetType().Equals(typeof(BreakOutPaddle)))
+                {
+
+                }
+
+            }
             
+
         }
-
-        void BallSideCollision(BreakOutBall ball, BreakOutCanvas canvas)
-        {
-            //left
-
-            //right
             
-        }
-
-        void BallBrickCollision(BreakOutBall ball, List<BreakOutBricks> bricks)
-        {
-            //left
         
-            //right
-
-            //top
-
-            //down
-        }
-
-        void BallPaddleCollision(BreakOutBall ball, BreakOutPaddle paddle)
-        {
-
-        }
     }
 }

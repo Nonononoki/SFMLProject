@@ -20,6 +20,9 @@ namespace gpp2
         public Sprite Sprite { set; get; }
         public Texture Texture { set; get; }
         public Body Body { set; get; }
+
+        //public FarseerPhysics.Collision.Shapes.Shape Shape { set; get; }
+        public Fixture Fixture { set; get; }
         public Vertices Vertices { set; get; }
         public Vector2 Size { set; get; } //width, height or radius
 
@@ -34,12 +37,20 @@ namespace gpp2
             this.Position = position;
             this.Vertices = vertices;
             this.Size = size;
+            this.Texture = texture;
              
-            this.Body = BodyFactory.CreatePolygon(world, Vertices, density, Position);
-            this.Body.Position = this.Position;
+            Body = BodyFactory.CreatePolygon(world, Vertices, density, Position);
+            Fixture = FixtureFactory.AttachPolygon(Vertices, density, Body);
 
+            //Sprite handling
             Sprite = new Sprite();
+            Sprite.Scale = new Vector2f(Size.X / Texture.Size.X, Size.Y / Texture.Size.Y);
+            Sprite.Position = new Vector2f(Position.X, Position.Y);
+            Sprite.Origin = new Vector2f(Texture.Size.X / 2, Texture.Size.Y / 2);
             Sprite.Texture = texture;
+
+            ID();
+
         }
 
         //Circle
@@ -47,11 +58,16 @@ namespace gpp2
         {
             this.Position = position;
             this.Size = size;
+            this.Texture = texture;
 
-            this.Body = BodyFactory.CreateCircle(world, Size.X, density, Position);
-            this.Body.Position = this.Position;
+            Body = BodyFactory.CreateCircle(world, Size.X, density, Position);
+            Fixture = FixtureFactory.AttachCircle(Size.X, density, Body);
 
+            //Sprite handling
             Sprite = new Sprite();
+            Sprite.Scale = new Vector2f(Size.X / Texture.Size.X, Size.Y / Texture.Size.Y);
+            Sprite.Origin = new Vector2f(Texture.Size.X / 2, Texture.Size.Y / 2);
+            Sprite.Position = new Vector2f(Position.X, Position.Y);
             Sprite.Texture = texture;
 
             ID();
@@ -68,6 +84,11 @@ namespace gpp2
 
         private void ID() //assign id, count id
         {
+            if (_list == null)
+            {
+                _list = new List<GameObject>();
+            }
+
             id = _id++;
             _list.Add(this);
         }
