@@ -15,7 +15,6 @@ namespace gpp2.BreakOut
         //limit movement range of Paddle
         public float LeftLimit { get; set; }
         public float RightLimit { get; set; }
-        public float Speed { get; set; }
 
         public BreakOutPaddle(float leftLimit, float rightLimit)
         {
@@ -23,24 +22,36 @@ namespace gpp2.BreakOut
             this.RightLimit = rightLimit;
         }
 
-        public void MoveLeft(DeltaTime dt)
+        public void MoveLeft(DeltaTime dt, BreakOutBall ball)
         {
             //limit left movement
             if (Sprite.Position.X - Size.X / 2 > LeftLimit)
             {
-                Vector2 v = new Vector2(-Speed * dt.Time, 0);
-                this.Move(v);
-            }
+                Direction = new Vector2(-1, 0);
+                this.Move(dt.Time);
+
+                //check if ball is sticky
+                if (ball.Sticky)
+                {
+                    ball.Position = new Vector2(Position.X, ball.Position.Y);
+                }
+            }    
         }
 
-        public void MoveRight(DeltaTime dt)
+        public void MoveRight(DeltaTime dt, BreakOutBall ball)
         {
             //limit right movement
             if (Sprite.Position.X + Size.X / 2 < RightLimit)
             {
-                Vector2 v = new Vector2(Speed * dt.Time, 0);
-                this.Move(v);
-            }
+                Direction = new Vector2(1, 0);
+                this.Move(dt.Time);
+
+                //check if ball is sticky
+                if (ball.Sticky)
+                {
+                    ball.Position = new Vector2(Position.X, ball.Position.Y);
+                }
+            }   
         }
 
 

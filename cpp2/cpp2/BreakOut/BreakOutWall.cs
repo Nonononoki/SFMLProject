@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace gpp2.BreakOut
 {
-    class BreakOutLives
+    class BreakOutWall : GameObject
     {
-        public int Lives { get; set; }
+
     }
 }

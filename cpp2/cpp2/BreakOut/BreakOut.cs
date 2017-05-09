@@ -24,7 +24,6 @@ namespace gpp2.BreakOut
         const float density = 1f;
 
         BreakOutCanvas canvas;
-        float canvasPadding = 10f;
 
         //World, no gravity
         World world = new World(new Vector2(0,0));
@@ -43,7 +42,24 @@ namespace gpp2.BreakOut
         Vector2 ballPosition;
         Texture ballTexture;
         Vector2 ballSize;
-        
+
+        //walls
+        const float wallThickness = 30;
+        BreakOutWall wallTop;
+        Vector2 wallTopPosition;
+        Texture wallTopTexture;
+        Vertices wallTopVertices;
+        Vector2 wallTopSize;
+
+        BreakOutWall wallLeft;
+        Vector2 wallLeftPosition;
+        Texture wallSideTexture;
+        Vertices wallSideVertices;
+        Vector2 wallSideSize;
+
+        BreakOutWall wallRight;
+        Vector2 wallRightPosition;
+
 
         public BreakOut()
         {
@@ -52,27 +68,44 @@ namespace gpp2.BreakOut
             // Limit the framerate to 60 frames per second
             window.SetFramerateLimit(60);
 
-            canvas = new BreakOutCanvas(0 + canvasPadding, windowHeight - canvasPadding, 0 + canvasPadding, windowWidth - canvasPadding);
+            canvas = new BreakOutCanvas(0 , windowHeight, 0 , windowWidth);
 
             //paddle attributes
             paddleSize = new Vector2(200,20);
-            paddleVertices = new Vertices();
-            paddleVertices.Add(new Vector2(paddleSize.X/2, paddleSize.Y / 2));
-            paddleVertices.Add(new Vector2(paddleSize.X / 2, -paddleSize.Y / 2));
-            paddleVertices.Add(new Vector2(-paddleSize.X / 2, paddleSize.Y / 2));
-            paddleVertices.Add(new Vector2(-paddleSize.X / 2, -paddleSize.Y / 2));
-            paddlePosition = new Vector2(canvas.Right/2 + paddleSize.X/2, canvas.Bottom - paddleSize.Y / 2);
+            paddleVertices = GameObject.RechtangleVertices(paddleSize);
+            paddlePosition = new Vector2(canvas.Right/2, canvas.Bottom);
             paddleTexture = new Texture("../../../sprites/breakOut/paddle.png");
-            paddle = new BreakOutPaddle(canvasPadding, windowWidth - canvasPadding);
+            paddle = new BreakOutPaddle(wallThickness, windowWidth - wallThickness);
             paddle.Set(paddlePosition, paddleTexture, paddleVertices, paddleSize, ref world);
-            paddle.Speed = 300f;
+            paddle.Speed = 30000f;
+            paddle.Body.Mass = 1000f; //high mass
 
-            ballSize = new Vector2(50, 50);
-            ballPosition = new Vector2(canvas.Right / 2 + paddleSize.X / 2, canvas.Bottom - paddleSize.Y / 2 - ballSize.X);
+            //ball attributes
+            ballSize = new Vector2(100, 100);
+            ballPosition = new Vector2(canvas.Right / 2 , canvas.Bottom - 2*ballSize.X);
             ballTexture = new Texture("../../../sprites/breakOut/ball.png");
             ball = new BreakOutBall();
             ball.Set(ballPosition, ballTexture, ballSize, ref world);
             ball.Speed = 300f;
+
+            //wall attributes
+            wallTopPosition = new Vector2(canvas.Right / 2, canvas.Top);
+            wallTopSize = new Vector2(windowWidth, wallThickness);
+            wallTopVertices = GameObject.RechtangleVertices(wallTopSize);
+            wallTopTexture = new Texture("../../../sprites/breakOut/wall_horizontal.png");
+            wallTop = new BreakOutWall();
+            wallTop.Set(wallTopPosition, wallTopTexture, wallTopVertices, wallTopSize, ref world);
+
+            wallLeftPosition = new Vector2(canvas.Left, canvas.Bottom / 2);
+            wallSideSize = new Vector2(wallThickness, windowHeight);
+            wallSideVertices = GameObject.RechtangleVertices(wallSideSize);
+            wallSideTexture = new Texture("../../../sprites/breakOut/wall_vertical.png");
+            wallLeft = new BreakOutWall();
+            wallLeft.Set(wallLeftPosition, wallSideTexture, wallSideVertices, wallSideSize, ref world);
+
+            wallRightPosition = new Vector2(canvas.Right, canvas.Bottom / 2);
+            wallRight = new BreakOutWall();
+            wallRight.Set(wallRightPosition, wallSideTexture, wallSideVertices, wallSideSize, ref world);
 
             Run();
         }
@@ -80,6 +113,10 @@ namespace gpp2.BreakOut
         public void Update(DeltaTime dt)
         {
             Events();
+
+            //moving bodies
+            ball.Move(dt.Time);
+            paddle.Move(dt.Time);
         }
 
         public void Events()
@@ -87,11 +124,27 @@ namespace gpp2.BreakOut
             //key press events
             if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
             {
-                paddle.MoveLeft(dt);
+                paddle.MoveLeft(dt, ball);
             }
             if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
             {
-                paddle.MoveRight(dt);
+                paddle.MoveRight(dt, ball);
+            }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
+            {
+                if (ball.Sticky) ball.Launch();
+            }
+
+            //key release events
+            if (!Keyboard.IsKeyPressed(Keyboard.Key.Left))
+            {
+                paddle.Direction = new Vector2(0, 0);
+                if(ball.Sticky) ball.Direction = new Vector2(0, 0);
+            }
+            if (!Keyboard.IsKeyPressed(Keyboard.Key.Right))
+            {
+                paddle.Direction = new Vector2(0, 0);
+                if (ball.Sticky) ball.Direction = new Vector2(0, 0);
             }
         }
         
@@ -107,22 +160,27 @@ namespace gpp2.BreakOut
 
                 Update(dt);
 
+                //Farseer Physics
+                world.Step(dt.Time);
+
                 window.Clear(Color.Black);
                 window.DispatchEvents();
                 window.Closed += (sender, evtArgs) => running = false;
 
-                //draw stuff
-                window.Draw(paddle.Sprite);
-                window.Draw(ball.Sprite);
+                foreach (GameObject go in GameObject._list)
+                {
 
+                    window.Draw(go.Sprite);
+                    //debugging
+                    window.Draw(go.Shape);
+                }
 
                 window.Display();
 
                 dt.Stop();
-
             }
-
             window.Close();
+            world.Clear();
         }
     }
 }
