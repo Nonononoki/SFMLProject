@@ -18,18 +18,7 @@ namespace gpp2
     {
 
         private const float density = 1f;
-        public Vector2 Position
-        { set
-            { 
-                Sprite.Position = new Vector2f(Position.X, Position.Y);
-                Body.Position = new Vector2(Position.X, Position.Y);
-                Shape.Position = new Vector2f(Position.X, Position.Y);
-            }
-            get
-            {
-                return;
-            }
-        }
+        public Vector2 Position { set; get; }
         public Sprite Sprite { set; get; }
         public Texture Texture { set; get; }
         public Body Body { set; get; }
@@ -60,7 +49,6 @@ namespace gpp2
             Body.BodyType = BodyType.Dynamic;
             Body.Awake = true;
             Fixture = FixtureFactory.AttachPolygon(Vertices, density, Body);
-            Fixture.OnCollision += OnCollision;
 
             //debugging
             Shape = new SFML.Graphics.RectangleShape(new Vector2f(Size.X, Size.Y));
@@ -73,31 +61,32 @@ namespace gpp2
         {
             BasicSet(position, texture, size, ref world);
 
+            this.Size = size/2; //radius is only half the size
             Body = BodyFactory.CreateCircle(world, Size.X, density, Position);
             Body.BodyType = BodyType.Dynamic;
             Body.Awake = true;
             Fixture = FixtureFactory.AttachCircle(Size.X, density, Body);
-            Fixture.OnCollision += OnCollision;
 
             //debugging
-            Shape = new SFML.Graphics.CircleShape(Size.X/2);
+            Shape = new SFML.Graphics.CircleShape(Size.X);
             Shape.FillColor = Color.Red;
-            Shape.Origin = new Vector2f(Size.X / 2, Size.Y / 2);
+            Shape.Origin = new Vector2f(Size.X, Size.Y);
             Shape.Position = new Vector2f(Position.X, Position.Y);
         }
 
         //sets all basic attributes
         private void BasicSet(Vector2 position, Texture texture, Vector2 size, ref World world)
         {
-            Speed = 1;
+            Speed = 1f;
             Direction = new Vector2(0, 0);
 
-            this.Position = position;
             this.Size = size;
+            this.Position = position;
             this.Texture = texture;
             
             //Sprite handling
             Sprite = new Sprite();
+            Sprite.Position = new Vector2f(Position.X, Position.Y);
             Sprite.Scale = new Vector2f(Size.X / Texture.Size.X, Size.Y / Texture.Size.Y);
             Sprite.Origin = new Vector2f(Texture.Size.X / 2, Texture.Size.Y / 2); 
             Sprite.Texture = texture;
@@ -108,19 +97,11 @@ namespace gpp2
         //move body with sprite while moving
         public void Move(float dt)
         {
-            //Body.ApplyForce(Direction * Speed, Position);
             Body.ApplyLinearImpulse(Direction * Speed);
             Position = Body.Position;
-
-            /*
-            Position = new Vector2(Shape.Position.X + (Direction.X * Speed * dt), Shape.Position.Y + (Direction.Y * Speed * dt));
+      
             Sprite.Position = new Vector2f(Position.X, Position.Y);
             Shape.Position = new Vector2f(Position.X, Position.Y);
-            */
-
-            Sprite.Position = new Vector2f(Position.X, Position.Y);
-            Shape.Position = new Vector2f(Position.X, Position.Y);
-
         }
 
         private void ID() //assign id, count id
@@ -132,12 +113,6 @@ namespace gpp2
 
             id = _id++;
             _list.Add(this);
-        }
-
-        //collision handling
-        protected bool OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
-        {
-            return false;
         }
 
         

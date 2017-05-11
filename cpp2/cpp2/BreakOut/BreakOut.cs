@@ -4,6 +4,7 @@ using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using Microsoft.Xna.Framework;
 using SFML.Graphics;
+using SFML.System;
 using SFML.Window;
 
 using System;
@@ -30,6 +31,9 @@ namespace gpp2.BreakOut
 
         DeltaTime dt;
 
+        int lives = 3;
+        int score = 0;
+
         //paddle
         BreakOutPaddle paddle;
         Vector2 paddlePosition;
@@ -42,6 +46,7 @@ namespace gpp2.BreakOut
         Vector2 ballPosition;
         Texture ballTexture;
         Vector2 ballSize;
+        float ballPaddleDistance; //distance when ball is sticky
 
         //walls
         const float wallThickness = 30;
@@ -77,16 +82,19 @@ namespace gpp2.BreakOut
             paddleTexture = new Texture("../../../sprites/breakOut/paddle.png");
             paddle = new BreakOutPaddle(wallThickness, windowWidth - wallThickness);
             paddle.Set(paddlePosition, paddleTexture, paddleVertices, paddleSize, ref world);
-            paddle.Speed = 30000f;
-            paddle.Body.Mass = 1000f; //high mass
+            paddle.Speed = 300f;
+            paddle.Body.Mass = 1f; 
 
             //ball attributes
-            ballSize = new Vector2(100, 100);
-            ballPosition = new Vector2(canvas.Right / 2 , canvas.Bottom - 2*ballSize.X);
+            ballSize = new Vector2(50, 50);
+            ballPaddleDistance = 2 * ballSize.X;
+            ballPosition = new Vector2(canvas.Right / 2 , canvas.Bottom - ballPaddleDistance);
             ballTexture = new Texture("../../../sprites/breakOut/ball.png");
             ball = new BreakOutBall();
             ball.Set(ballPosition, ballTexture, ballSize, ref world);
-            ball.Speed = 300f;
+            ball.Speed = 30f;
+            ball.Body.Mass = 1f;
+            ball.EnableCollision();
 
             //wall attributes
             wallTopPosition = new Vector2(canvas.Right / 2, canvas.Top);
@@ -95,6 +103,7 @@ namespace gpp2.BreakOut
             wallTopTexture = new Texture("../../../sprites/breakOut/wall_horizontal.png");
             wallTop = new BreakOutWall();
             wallTop.Set(wallTopPosition, wallTopTexture, wallTopVertices, wallTopSize, ref world);
+            wallTop.Body.BodyType = BodyType.Static;            
 
             wallLeftPosition = new Vector2(canvas.Left, canvas.Bottom / 2);
             wallSideSize = new Vector2(wallThickness, windowHeight);
@@ -102,10 +111,13 @@ namespace gpp2.BreakOut
             wallSideTexture = new Texture("../../../sprites/breakOut/wall_vertical.png");
             wallLeft = new BreakOutWall();
             wallLeft.Set(wallLeftPosition, wallSideTexture, wallSideVertices, wallSideSize, ref world);
+            wallLeft.Body.BodyType = BodyType.Static;
 
             wallRightPosition = new Vector2(canvas.Right, canvas.Bottom / 2);
             wallRight = new BreakOutWall();
             wallRight.Set(wallRightPosition, wallSideTexture, wallSideVertices, wallSideSize, ref world);
+            wallRight.Body.BodyType = BodyType.Static;
+            
 
             Run();
         }
@@ -116,35 +128,38 @@ namespace gpp2.BreakOut
 
             //moving bodies
             ball.Move(dt.Time);
-            paddle.Move(dt.Time);
         }
 
         public void Events()
         {
+
+            paddle.Body.LinearVelocity = new Vector2(0, 0);
+            if (ball.Sticky) ball.Direction = new Vector2(0, 0);
+
             //key press events
             if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
             {
-                paddle.MoveLeft(dt, ball);
+                paddle.MoveLeft(dt, ball, ballPaddleDistance);
             }
             if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
             {
-                paddle.MoveRight(dt, ball);
+                paddle.MoveRight(dt, ball, ballPaddleDistance);
             }
             if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
             {
                 if (ball.Sticky) ball.Launch();
             }
 
-            //key release events
-            if (!Keyboard.IsKeyPressed(Keyboard.Key.Left))
+
+            //Lose when ball touches bottomcanvas
+            if(ball.Position.Y + ball.Size.X > canvas.Bottom)
             {
-                paddle.Direction = new Vector2(0, 0);
-                if(ball.Sticky) ball.Direction = new Vector2(0, 0);
-            }
-            if (!Keyboard.IsKeyPressed(Keyboard.Key.Right))
-            {
-                paddle.Direction = new Vector2(0, 0);
-                if (ball.Sticky) ball.Direction = new Vector2(0, 0);
+                if (lives > 0)
+                {
+                    lives--;
+                    ball.Reset(ballPosition);
+                    paddle.Reset(paddlePosition);
+                }
             }
         }
         
@@ -169,18 +184,16 @@ namespace gpp2.BreakOut
 
                 foreach (GameObject go in GameObject._list)
                 {
-
                     window.Draw(go.Sprite);
-                    //debugging
-                    window.Draw(go.Shape);
                 }
 
                 window.Display();
 
                 dt.Stop();
             }
-            window.Close();
+
             world.Clear();
+            window.Close();
         }
     }
 }

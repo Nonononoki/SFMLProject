@@ -22,36 +22,42 @@ namespace gpp2.BreakOut
             this.RightLimit = rightLimit;
         }
 
-        public void MoveLeft(DeltaTime dt, BreakOutBall ball)
+        public void MoveLeft(DeltaTime dt, BreakOutBall ball, float ballPaddleDistance)
         {
-            //limit left movement
-            if (Sprite.Position.X - Size.X / 2 > LeftLimit)
-            {
-                Direction = new Vector2(-1, 0);
-                this.Move(dt.Time);
 
-                //check if ball is sticky
-                if (ball.Sticky)
-                {
-                    ball.Position = new Vector2(Position.X, ball.Position.Y);
-                }
-            }    
+            Direction = new Vector2(-1, 0);
+            this.Move(dt.Time);
+
+            //check if ball is sticky
+            if (ball.Sticky)
+            {
+                Vector2 v = new Vector2(Sprite.Position.X, Sprite.Position.Y);
+                 ball.SetPosition(v, ballPaddleDistance);
+            }
+               
         }
 
-        public void MoveRight(DeltaTime dt, BreakOutBall ball)
+        public void MoveRight(DeltaTime dt, BreakOutBall ball, float ballPaddleDistance)
         {
-            //limit right movement
-            if (Sprite.Position.X + Size.X / 2 < RightLimit)
-            {
-                Direction = new Vector2(1, 0);
-                this.Move(dt.Time);
 
-                //check if ball is sticky
-                if (ball.Sticky)
-                {
-                    ball.Position = new Vector2(Position.X, ball.Position.Y);
-                }
-            }   
+            Direction = new Vector2(1, 0);
+            this.Move(dt.Time);
+
+            //check if ball is sticky
+            if (ball.Sticky)
+            {
+                //ball.SetPosition(Position);
+                Vector2 v = new Vector2(Sprite.Position.X, Sprite.Position.Y);
+                ball.SetPosition(v, ballPaddleDistance);
+            }
+        }
+
+        //reset paddle after losing
+        public void Reset(Vector2 v)
+        {
+            Position = v;
+            Body.Position = v;
+            Sprite.Position = new Vector2f(v.X, v.Y);
         }
 
 
