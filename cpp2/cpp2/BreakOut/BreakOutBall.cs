@@ -41,6 +41,8 @@ namespace gpp2.BreakOut
                 case 1:
                     Direction = new Vector2(-1, -1); break;
             }
+
+            Move();
         }
 
         //reset ball after losing
@@ -49,9 +51,7 @@ namespace gpp2.BreakOut
             Sticky = true;
             Direction = new Vector2(0, 0);
             Position = v;
-            Body.Position = v;
             Body.LinearVelocity = new Vector2(0, 0);
-            Sprite.Position = new Vector2f(v.X, v.Y);
         }
 
         public void EnableCollision()
@@ -82,7 +82,10 @@ namespace gpp2.BreakOut
                     Vector2 contactPoint = worldPoints[0];
                     Direction = Vector2.Reflect(Direction, normal);
 
-                    fixtureA.Body.ApplyLinearImpulse(Direction * Speed);
+                    //Reflect with new Direction
+                    //Body.ApplyLinearImpulse(Direction * Speed);
+                    Move();
+
                     int bodyid = fixtureB.Body.BodyId;
                     CollisionBodyID.Add(bodyid);
                 }
@@ -90,13 +93,13 @@ namespace gpp2.BreakOut
             return true;
         }
 
+        //check if ball is touching the same body of the fixture
         private bool IsTouching(Fixture f)
         {
             foreach(int i in CollisionBodyID)
             {
                 if (i == f.Body.BodyId) return true;
             }
-
             return false;
         }
              

@@ -9,15 +9,15 @@ namespace gpp2.BreakOut
 {
     class BreakOutInput
     {
-        public void KeyboardInPut(BreakOutPaddle paddle, BreakOutBall ball, DeltaTime dt, float ballPaddleDistance)
+        public void KeyboardInPut(BreakOutPaddle paddle, BreakOutBall ball, float ballPaddleDistance)
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
             {
-                paddle.MoveLeft(dt, ball, ballPaddleDistance);
+                paddle.MoveLeft(ball, ballPaddleDistance);
             }
             if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
             {
-                paddle.MoveRight(dt, ball, ballPaddleDistance);
+                paddle.MoveRight(ball, ballPaddleDistance);
             }
             if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
             {

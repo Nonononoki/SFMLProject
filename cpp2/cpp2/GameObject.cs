@@ -36,25 +36,21 @@ namespace gpp2
         //polygon
         public void Set(Vector2 position, Texture texture, Vertices vertices, Vector2 size, ref World world)
         {
-            BasicSet(position, texture, size, ref world);
-
             Vertices = vertices;           
-            Body = BodyFactory.CreatePolygon(world, Vertices, density, Position);
-            Body.BodyType = BodyType.Dynamic;
-            Body.Awake = true;
+            Body = BodyFactory.CreatePolygon(world, vertices, density, position);
             Fixture = FixtureFactory.AttachPolygon(Vertices, density, Body);
+
+            BasicSet(position, texture, size, ref world);
         }
 
         //Circle
         public void Set(Vector2 position, Texture texture, Vector2 size, ref World world)
         {
-            BasicSet(position, texture, size, ref world);
-
             this.Size = size/2; //radius is only half the size
-            Body = BodyFactory.CreateCircle(world, Size.X, density, Position);
-            Body.BodyType = BodyType.Dynamic;
-            Body.Awake = true;
+            Body = BodyFactory.CreateCircle(world, Size.X, density, position);
             Fixture = FixtureFactory.AttachCircle(Size.X, density, Body);
+
+            BasicSet(position, texture, size, ref world);
         }
 
         //sets all basic attributes
@@ -74,15 +70,21 @@ namespace gpp2
             Sprite.Origin = new Vector2f(Texture.Size.X / 2, Texture.Size.Y / 2); 
             Sprite.Texture = texture;
 
+            //Body settings
+            Body.BodyType = BodyType.Dynamic;
+            Body.Awake = true;
+            Body.Friction = 0;
+
             ID();
         }
 
         //move body with sprite while moving
-        public void Move(float dt)
+        public void Move()
         {
-            Body.ApplyLinearImpulse(Direction * Speed * Body.Mass);
-            Position = Body.Position;
-      
+            Vector2 impulse = Direction * Speed *Body.Mass;
+            Body.ApplyLinearImpulse(impulse);
+
+            Position = Body.Position; 
             Sprite.Position = new Vector2f(Position.X, Position.Y);
         }
 
@@ -121,6 +123,13 @@ namespace gpp2
                 }
             }
             return null;
+        }
+
+        //update sprite and body position
+        public void UpdatePosition()
+        {
+            Position = Body.Position;
+            Sprite.Position = new Vector2f(Position.X, Position.Y);
         }
     }
 }

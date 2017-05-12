@@ -22,26 +22,25 @@ namespace gpp2.BreakOut
             this.RightLimit = rightLimit;
         }
 
-        public void MoveLeft(DeltaTime dt, BreakOutBall ball, float ballPaddleDistance)
+        public void MoveLeft(BreakOutBall ball, float ballPaddleDistance)
         {
 
             Direction = new Vector2(-1, 0);
-            this.Move(dt.Time);
+            this.Move();
 
             //check if ball is sticky
             if (ball.Sticky)
             {
                 Vector2 v = new Vector2(Sprite.Position.X, Sprite.Position.Y);
-                 ball.SetPosition(v, ballPaddleDistance);
+                ball.SetPosition(v, ballPaddleDistance);
             }
                
         }
 
-        public void MoveRight(DeltaTime dt, BreakOutBall ball, float ballPaddleDistance)
+        public void MoveRight(BreakOutBall ball, float ballPaddleDistance)
         {
-
             Direction = new Vector2(1, 0);
-            this.Move(dt.Time);
+            this.Move();
 
             //check if ball is sticky
             if (ball.Sticky)

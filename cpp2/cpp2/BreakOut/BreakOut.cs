@@ -85,7 +85,7 @@ namespace gpp2.BreakOut
             paddleTexture = new Texture("../../../sprites/breakOut/paddle.png");
             paddle = new BreakOutPaddle(wallThickness, windowWidth - wallThickness);
             paddle.Set(paddlePosition, paddleTexture, paddleVertices, paddleSize, ref world);
-            paddle.Speed = 300f;
+            paddle.Speed = 30000000f;
             paddle.Body.Mass = 1f; 
 
             //ball attributes
@@ -95,7 +95,7 @@ namespace gpp2.BreakOut
             ballTexture = new Texture("../../../sprites/breakOut/ball.png");
             ball = new BreakOutBall();
             ball.Set(ballPosition, ballTexture, ballSize, ref world);
-            ball.Speed = 3f;
+            ball.Speed = 3000f;
             ball.Body.Mass = 1f;
             ball.EnableCollision();
 
@@ -130,7 +130,7 @@ namespace gpp2.BreakOut
             Events();
 
             //moving bodies
-            ball.Move(dt.Time);
+            //ball.Move(dt.Time);
         }
 
         public void Events()
@@ -140,7 +140,7 @@ namespace gpp2.BreakOut
 
 
             //key press events
-            breakOutInout.KeyboardInPut(paddle, ball, dt, ballPaddleDistance);
+            breakOutInout.KeyboardInPut(paddle, ball, ballPaddleDistance);
 
             //Lose when ball touches bottomcanvas
             if (ball.Position.Y + ball.Size.X > canvas.Bottom)
@@ -176,6 +176,7 @@ namespace gpp2.BreakOut
                 //draw sprites
                 foreach (GameObject go in GameObject._list)
                 {
+                    go.UpdatePosition();
                     window.Draw(go.Sprite);
                 }
 
