@@ -64,9 +64,10 @@
     <Compile Include="BreakOut\BreakOutBricks.cs" />
     <Compile Include="BreakOut\BreakOutCanvas.cs" />
     <Compile Include="BreakOut\BreakOutEdge.cs" />
+    <Compile Include="BreakOut\BreakOutInput.cs" />
     <Compile Include="BreakOut\BreakOutLevels.cs" />
     <Compile Include="BreakOut\BreakOutPaddle.cs" />
-    <Compile Include="BreakOut\BreakOutPhysics.cs" />
+    <Compile Include="BreakOut\BreakOutPattern.cs" />
     <Compile Include="BreakOut\BreakOutWall.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Pong\PongBall.cs" />

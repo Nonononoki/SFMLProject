@@ -25,14 +25,17 @@ namespace gpp2.BreakOut
         const float density = 1f;
 
         BreakOutCanvas canvas;
+        BreakOutInput breakOutInout = new BreakOutInput();
 
         //World, no gravity
         World world = new World(new Vector2(0,0));
 
         DeltaTime dt;
 
-        int lives = 3;
-        int score = 0;
+        private int lives = 3;
+        private int score = 0;
+        private int level = 1; //Start at level 1
+        private int maxLevel = 2;
 
         //paddle
         BreakOutPaddle paddle;
@@ -92,7 +95,7 @@ namespace gpp2.BreakOut
             ballTexture = new Texture("../../../sprites/breakOut/ball.png");
             ball = new BreakOutBall();
             ball.Set(ballPosition, ballTexture, ballSize, ref world);
-            ball.Speed = 30f;
+            ball.Speed = 3f;
             ball.Body.Mass = 1f;
             ball.EnableCollision();
 
@@ -132,27 +135,15 @@ namespace gpp2.BreakOut
 
         public void Events()
         {
-
+            //Stop paddle if no buttons are pressed
             paddle.Body.LinearVelocity = new Vector2(0, 0);
-            if (ball.Sticky) ball.Direction = new Vector2(0, 0);
+
 
             //key press events
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
-            {
-                paddle.MoveLeft(dt, ball, ballPaddleDistance);
-            }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
-            {
-                paddle.MoveRight(dt, ball, ballPaddleDistance);
-            }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
-            {
-                if (ball.Sticky) ball.Launch();
-            }
-
+            breakOutInout.KeyboardInPut(paddle, ball, dt, ballPaddleDistance);
 
             //Lose when ball touches bottomcanvas
-            if(ball.Position.Y + ball.Size.X > canvas.Bottom)
+            if (ball.Position.Y + ball.Size.X > canvas.Bottom)
             {
                 if (lives > 0)
                 {
@@ -182,6 +173,7 @@ namespace gpp2.BreakOut
                 window.DispatchEvents();
                 window.Closed += (sender, evtArgs) => running = false;
 
+                //draw sprites
                 foreach (GameObject go in GameObject._list)
                 {
                     window.Draw(go.Sprite);

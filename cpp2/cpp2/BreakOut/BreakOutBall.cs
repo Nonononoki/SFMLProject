@@ -106,7 +106,6 @@ namespace gpp2.BreakOut
         {
             Position = new Vector2(v.X, v.Y - ballPaddleDistance);
             Body.Position = new Vector2(Position.X, Position.Y);
-            Shape.Position = new Vector2f(Position.X, Position.Y);
             Sprite.Position = new Vector2f(Position.X, Position.Y);
         }
     }

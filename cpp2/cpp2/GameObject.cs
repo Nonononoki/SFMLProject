@@ -24,15 +24,9 @@ namespace gpp2
         public Body Body { set; get; }
         public Vector2 Direction { set; get; }
         public float Speed { set; get; }
-
-
-        //debugging
-        public SFML.Graphics.Shape Shape { set; get; }
-
-        //public FarseerPhysics.Collision.Shapes.Shape Shape { set; get; }
         public Fixture Fixture { set; get; }
         public Vertices Vertices { set; get; }
-        public Vector2 Size { set; get; } //width, height or radius
+        public Vector2 Size { set; get; } //width, height or diameter of circles
 
         private uint id = 0; //current id, no two are the same
         public static uint _id = 0; //counter for Id 
@@ -49,11 +43,6 @@ namespace gpp2
             Body.BodyType = BodyType.Dynamic;
             Body.Awake = true;
             Fixture = FixtureFactory.AttachPolygon(Vertices, density, Body);
-
-            //debugging
-            Shape = new SFML.Graphics.RectangleShape(new Vector2f(Size.X, Size.Y));
-            Shape.Origin = new Vector2f(Size.X / 2, Size.Y / 2);
-            Shape.Position = new Vector2f(Position.X, Position.Y);
         }
 
         //Circle
@@ -66,12 +55,6 @@ namespace gpp2
             Body.BodyType = BodyType.Dynamic;
             Body.Awake = true;
             Fixture = FixtureFactory.AttachCircle(Size.X, density, Body);
-
-            //debugging
-            Shape = new SFML.Graphics.CircleShape(Size.X);
-            Shape.FillColor = Color.Red;
-            Shape.Origin = new Vector2f(Size.X, Size.Y);
-            Shape.Position = new Vector2f(Position.X, Position.Y);
         }
 
         //sets all basic attributes
@@ -97,11 +80,10 @@ namespace gpp2
         //move body with sprite while moving
         public void Move(float dt)
         {
-            Body.ApplyLinearImpulse(Direction * Speed);
+            Body.ApplyLinearImpulse(Direction * Speed * Body.Mass);
             Position = Body.Position;
       
             Sprite.Position = new Vector2f(Position.X, Position.Y);
-            Shape.Position = new Vector2f(Position.X, Position.Y);
         }
 
         private void ID() //assign id, count id
