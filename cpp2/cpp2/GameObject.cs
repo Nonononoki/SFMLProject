@@ -1,4 +1,5 @@
-﻿using FarseerPhysics.Collision.Shapes;
+﻿using FarseerPhysics;
+using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Common;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
@@ -36,8 +37,8 @@ namespace gpp2
         //polygon
         public void Set(Vector2 position, Texture texture, Vertices vertices, Vector2 size, ref World world)
         {
-            Vertices = vertices;           
-            Body = BodyFactory.CreatePolygon(world, vertices, density, position);
+            Vertices = vertices;
+            Body = BodyFactory.CreatePolygon(world, vertices, density);
             Fixture = FixtureFactory.AttachPolygon(Vertices, density, Body);
 
             BasicSet(position, texture, size, ref world);
@@ -46,11 +47,13 @@ namespace gpp2
         //Circle
         public void Set(Vector2 position, Texture texture, Vector2 size, ref World world)
         {
-            this.Size = size/2; //radius is only half the size
-            Body = BodyFactory.CreateCircle(world, Size.X, density, position);
-            Fixture = FixtureFactory.AttachCircle(Size.X, density, Body);
+            Body = BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(size.X), density);
+            Fixture = FixtureFactory.AttachCircle(ConvertUnits.ToSimUnits(size.X), density, Body);
+            Body.ResetMassData();
 
             BasicSet(position, texture, size, ref world);
+
+            Sprite.Scale = new Vector2f(Size.X*2 / Texture.Size.X, Size.Y*2 / Texture.Size.Y);
         }
 
         //sets all basic attributes
@@ -71,9 +74,9 @@ namespace gpp2
             Sprite.Texture = texture;
 
             //Body settings
-            Body.BodyType = BodyType.Dynamic;
+            Body.Position = ConvertUnits.ToSimUnits(Position);
+            //Body.Position = position;
             Body.Awake = true;
-            Body.Friction = 0;
 
             ID();
         }
@@ -81,11 +84,10 @@ namespace gpp2
         //move body with sprite while moving
         public void Move()
         {
-            Vector2 impulse = Direction * Speed *Body.Mass;
-            Body.ApplyLinearImpulse(impulse);
-
-            Position = Body.Position; 
-            Sprite.Position = new Vector2f(Position.X, Position.Y);
+            Vector2 impulse = Direction * Speed * Body.Mass;
+            //Body.ApplyLinearImpulse(impulse);
+            Body.LinearVelocity = new Vector2(0,0);
+            Body.ApplyForce(impulse);
         }
 
         private void ID() //assign id, count id
@@ -103,6 +105,7 @@ namespace gpp2
         //create rechtangle vertices
         public static Vertices RechtangleVertices(Vector2 size)
         {
+            size = ConvertUnits.ToSimUnits(size);
             Vertices v = new Vertices();
             v.Add(new Vector2(size.X / 2, size.Y / 2));
             v.Add(new Vector2(size.X / 2, -size.Y / 2));
@@ -127,9 +130,10 @@ namespace gpp2
 
         //update sprite and body position
         public void UpdatePosition()
-        {
-            Position = Body.Position;
-            Sprite.Position = new Vector2f(Position.X, Position.Y);
+        {   
+            //Position = Body.Position;
+            Position = ConvertUnits.ToDisplayUnits(Body.Position);
+            Sprite.Position = new Vector2f(Position.X, Position.Y);                     
         }
     }
 }

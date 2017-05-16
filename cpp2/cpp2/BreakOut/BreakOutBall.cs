@@ -1,4 +1,5 @@
-﻿using FarseerPhysics.Common;
+﻿using FarseerPhysics;
+using FarseerPhysics.Common;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
 using Microsoft.Xna.Framework;
@@ -83,9 +84,9 @@ namespace gpp2.BreakOut
                     Direction = Vector2.Reflect(Direction, normal);
 
                     //Reflect with new Direction
-                    //Body.ApplyLinearImpulse(Direction * Speed);
                     Move();
 
+                    //save id so it wont collide again with same object
                     int bodyid = fixtureB.Body.BodyId;
                     CollisionBodyID.Add(bodyid);
                 }
@@ -107,9 +108,12 @@ namespace gpp2.BreakOut
         //move ball with when paddle is sticky
         public void SetPosition(Vector2 v, float ballPaddleDistance)
         {
+            
             Position = new Vector2(v.X, v.Y - ballPaddleDistance);
-            Body.Position = new Vector2(Position.X, Position.Y);
+            //Body.Position = Position;
+            Body.Position = ConvertUnits.ToSimUnits(Position);
             Sprite.Position = new Vector2f(Position.X, Position.Y);
+            
         }
     }
 }

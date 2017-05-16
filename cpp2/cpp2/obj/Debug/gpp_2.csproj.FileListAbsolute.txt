@@ -36,3 +36,5 @@ C:\Users\nonon\Desktop\gpp\cpp2\cpp2\obj\Debug\gpp2.exe
 C:\Users\nonon\Desktop\gpp\cpp2\cpp2\obj\Debug\gpp2.pdb
 C:\Users\Nonononoki\Desktop\gpp\cpp2\cpp2\bin\Debug\FarseerPhysics.dll
 C:\Users\nonon\Desktop\gpp\cpp2\cpp2\bin\Debug\FarseerPhysics.dll
+C:\Users\Nonononoki\Desktop\gpp\cpp2\cpp2\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Nonononoki\Desktop\gpp\cpp2\cpp2\bin\Debug\Newtonsoft.Json.xml
