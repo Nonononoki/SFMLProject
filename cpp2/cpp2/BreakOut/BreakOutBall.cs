@@ -47,11 +47,11 @@ namespace gpp2.BreakOut
         }
 
         //reset ball after losing
-        public void Reset(Vector2 v)
+        public void Reset()
         {
             Sticky = true;
             Direction = new Vector2(0, 0);
-            Position = v;
+            SetPosition(DefaultPosition);
             Body.LinearVelocity = new Vector2(0, 0);
         }
 
@@ -71,6 +71,10 @@ namespace gpp2.BreakOut
         {
             if(!IsTouching(fixtureB))
             {
+                //play hit sound
+                BreakOutSound.PlaySound("hit");
+
+
                 /* Get contact point
                  * https://gamedev.stackexchange.com/questions/72658/how-can-i-determine-the-contact-point-of-a-collision
                  */
@@ -82,6 +86,23 @@ namespace gpp2.BreakOut
                 {
                     Vector2 contactPoint = worldPoints[0];
                     Direction = Vector2.Reflect(Direction, normal);
+
+
+                    //Special reflection if ball hits paddle
+                    if (fixtureB.Body.UserData != null && fixtureB.Body.UserData.Equals("Paddle"))
+                    {
+                        //calculate x distance of ball and paddle
+                        Vector2 v = (this.Body.Position - fixtureB.Body.Position);
+                        float distance = v.Length();
+                        float factor = 20; //multiply distance with factor because distance is too small
+
+                        //check if ball is left or right from paddlePosition
+                        if (v.X < 0)
+                            factor = -factor;
+
+                        //rotate vector of direction
+                        Direction = Vector2.Transform(Direction, Matrix.CreateRotationZ(MathHelper.ToRadians(distance*factor)));
+                    }
 
                     //Reflect with new Direction
                     Move();
@@ -107,13 +128,10 @@ namespace gpp2.BreakOut
 
         //move ball with when paddle is sticky
         public void SetPosition(Vector2 v, float ballPaddleDistance)
-        {
-            
+        {           
             Position = new Vector2(v.X, v.Y - ballPaddleDistance);
-            //Body.Position = Position;
             Body.Position = ConvertUnits.ToSimUnits(Position);
-            Sprite.Position = new Vector2f(Position.X, Position.Y);
-            
+            Sprite.Position = new Vector2f(Position.X, Position.Y);            
         }
     }
 }

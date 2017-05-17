@@ -20,6 +20,7 @@ namespace gpp2
 
         private const float density = 1f;
         public Vector2 Position { set; get; }
+        public Vector2 DefaultPosition { set; get; }
         public Sprite Sprite { set; get; }
         public Texture Texture { set; get; }
         public Body Body { set; get; }
@@ -35,29 +36,29 @@ namespace gpp2
 
 
         //polygon
-        public void Set(Vector2 position, Texture texture, Vertices vertices, Vector2 size, ref World world)
+        public void Set(Vector2 position, Texture texture, Vertices vertices, Vector2 size, World world)
         {
             Vertices = vertices;
             Body = BodyFactory.CreatePolygon(world, vertices, density);
             Fixture = FixtureFactory.AttachPolygon(Vertices, density, Body);
 
-            BasicSet(position, texture, size, ref world);
+            BasicSet(position, texture, size, world);
         }
 
         //Circle
-        public void Set(Vector2 position, Texture texture, Vector2 size, ref World world)
+        public void Set(Vector2 position, Texture texture, Vector2 size, World world)
         {
             Body = BodyFactory.CreateCircle(world, ConvertUnits.ToSimUnits(size.X), density);
             Fixture = FixtureFactory.AttachCircle(ConvertUnits.ToSimUnits(size.X), density, Body);
             Body.ResetMassData();
 
-            BasicSet(position, texture, size, ref world);
+            BasicSet(position, texture, size, world);
 
             Sprite.Scale = new Vector2f(Size.X*2 / Texture.Size.X, Size.Y*2 / Texture.Size.Y);
         }
 
         //sets all basic attributes
-        private void BasicSet(Vector2 position, Texture texture, Vector2 size, ref World world)
+        private void BasicSet(Vector2 position, Texture texture, Vector2 size, World world)
         {
             Speed = 1f;
             Direction = new Vector2(0, 0);
@@ -65,7 +66,8 @@ namespace gpp2
             this.Size = size;
             this.Position = position;
             this.Texture = texture;
-            
+            this.DefaultPosition = Position;
+
             //Sprite handling
             Sprite = new Sprite();
             Sprite.Position = new Vector2f(Position.X, Position.Y);
@@ -85,9 +87,10 @@ namespace gpp2
         public void Move()
         {
             Vector2 impulse = Direction * Speed * Body.Mass;
-            //Body.ApplyLinearImpulse(impulse);
-            Body.LinearVelocity = new Vector2(0,0);
-            Body.ApplyForce(impulse);
+            Body.LinearVelocity = new Vector2(0, 0);
+            Body.ApplyLinearImpulse(impulse);
+
+            //Body.ApplyForce(impulse);
         }
 
         private void ID() //assign id, count id
@@ -128,12 +131,37 @@ namespace gpp2
             return null;
         }
 
-        //update sprite and body position
+        //update sprite and with body Position
         public void UpdatePosition()
         {   
-            //Position = Body.Position;
             Position = ConvertUnits.ToDisplayUnits(Body.Position);
             Sprite.Position = new Vector2f(Position.X, Position.Y);                     
+        }
+
+        //instantly move go to position
+        public void SetPosition(Vector2 v)
+        {
+            Position = v;
+            Body.Position = ConvertUnits.ToSimUnits(v);
+            Sprite.Position = new Vector2f(v.X, v.Y);
+        }
+
+        //destroy GameObject
+        public void Destroy()
+        {
+            _list.Remove(this);
+            this.Body.Dispose();
+            this.Sprite.Dispose();
+        }
+
+        //destroy every gameObject on the list
+        public static void DestroyAll()
+        {
+            foreach(GameObject g in _list)
+            {
+                g.Body.Dispose();
+                g.Sprite.Dispose();
+            }
         }
     }
 }

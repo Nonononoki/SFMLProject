@@ -1,4 +1,5 @@
-﻿using FarseerPhysics.Dynamics;
+﻿using FarseerPhysics;
+using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using SFML.System;
 
@@ -25,40 +26,47 @@ namespace gpp2.BreakOut
         public void MoveLeft(BreakOutBall ball, float ballPaddleDistance)
         {
 
-            Direction = new Vector2(-1, 0);
-            this.Move();
-
-            //check if ball is sticky
-            if (ball.Sticky)
+            if (Position.X - Size.X / 2 > LeftLimit)
             {
-                Vector2 v = new Vector2(Sprite.Position.X, Sprite.Position.Y);
-                ball.SetPosition(v, ballPaddleDistance);
+                Direction = new Vector2(-1, 0);
+                //this.Move();
+                //dont apply force, just set position
+                Vector2 newPos = Position + Direction * Speed;
+                SetPosition(newPos);
+
+                //check if ball is sticky
+                if (ball.Sticky)
+                {
+                    Vector2 v = new Vector2(Sprite.Position.X, Sprite.Position.Y);
+                    ball.SetPosition(v, ballPaddleDistance);
+                }
             }
-               
+
         }
 
         public void MoveRight(BreakOutBall ball, float ballPaddleDistance)
         {
-            Direction = new Vector2(1, 0);
-            this.Move();
-
-            //check if ball is sticky
-            if (ball.Sticky)
+            if (Position.X + Size.X / 2 < RightLimit)
             {
-                //ball.SetPosition(Position);
-                Vector2 v = new Vector2(Sprite.Position.X, Sprite.Position.Y);
-                ball.SetPosition(v, ballPaddleDistance);
+                Direction = new Vector2(1, 0);
+                //this.Move();
+                //dont apply force, just set position
+                Vector2 newPos = Position + Direction * Speed;
+                SetPosition(newPos);
+
+                //check if ball is sticky
+                if (ball.Sticky)
+                {
+                    Vector2 v = new Vector2(Sprite.Position.X, Sprite.Position.Y);
+                    ball.SetPosition(v, ballPaddleDistance);
+                }
             }
         }
 
         //reset paddle after losing
-        public void Reset(Vector2 v)
+        public void Reset()
         {
-            Position = v;
-            Body.Position = v;
-            Sprite.Position = new Vector2f(v.X, v.Y);
+            SetPosition(DefaultPosition);
         }
-
-
     }
 }

@@ -121,7 +121,6 @@ namespace cpp2
                 {
                     pongStart.Texture = pongTexture;
                 }
-
                 if (MouseOverSprite(pongOptions, mainWindow))
                 {
                     pongOptions.Texture = settingHoverTexture;
@@ -129,6 +128,16 @@ namespace cpp2
                 else
                 {
                     pongOptions.Texture = settingTexture;
+                }
+
+                //breakOut
+                if (MouseOverSprite(breakOutStart, mainWindow))
+                {
+                    breakOutStart.Texture = breakOutHoverTexture;
+                }
+                else
+                {
+                    breakOutStart.Texture = breakOutTexture;
                 }
             }
 

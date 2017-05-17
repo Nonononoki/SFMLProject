@@ -12,28 +12,26 @@ namespace gpp2.BreakOut
 {
     class BreakOutBricks : GameObject
     {
-
+        private int score = 100; //get score from breaking block
         public int hp;
-        public int maxLevel;
         public static List<BreakOutBricks> _bricks;
-        private static BreakOutPattern _pattern;
 
+        //store reference of pattern 
+        private BreakOutPattern pattern;
 
-        public BreakOutBricks(int hp, int maxLevel)
+        public BreakOutBricks(int hp, BreakOutPattern pattern)
         {
             this.hp = hp;
-            this.maxLevel = maxLevel;
+            this.pattern = pattern;
             if (_bricks == null) _bricks = new List<BreakOutBricks>();
-            if (_pattern == null) _pattern = new BreakOutPattern(maxLevel);
         }
 
         //Set position for single brick
-        public void Spawn(Vector2 pos)
+        public void Spawn()
         {
-            this.Position = pos;
-            Body.Position = pos;
-            Sprite.Position = new Vector2f(pos.X, pos.Y);
+            Body.BodyType = BodyType.Static;
             Fixture.OnCollision += OnCollision;
+            _bricks.Add(this);
         }
 
         private bool OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
@@ -44,11 +42,17 @@ namespace gpp2.BreakOut
             {
                 //destroy block when blockHP reaches 0
                 _bricks.Remove(this);
+                this.Destroy();
+
+                //increase score
+                pattern.score.Score += score;
+                pattern.score.UpdateScore();
 
                 //check if every brick has been destroyed
                 if (!_bricks.Any())
                 {
-
+                    pattern.currentLevel++;
+                    pattern.LoadPattern(pattern.currentLevel);
                 }
 
             }
