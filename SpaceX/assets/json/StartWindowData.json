@@ -1,0 +1,21 @@
+{
+	"BackGroundPositionX": 0,
+	"BackGroundPositionY": 0,
+	"BackGroundSizeX": 100,
+	"BackGroundSizeY": 100,
+	"BackGroundTexture": "../../../assets/texture/StartWindow/Background.png",
+	
+	"LogoPositionX": 50,
+	"LogoPositionY": 30,
+	"LogoSizeX": 35,
+	"LogoSizeY": 15,
+	"LogoTexture": "../../../assets/texture/StartWindow/Logo.png",
+
+	"StartPositionX": 50,
+	"StartPositionY": 70,
+	"StartSizeX": 10,
+	"StartSizeY": 5,
+	"StartTexture": "../../../assets/texture/StartWindow/Start.png",
+
+	"Enter": "Return"	
+}
