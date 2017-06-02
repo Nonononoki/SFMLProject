@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static SFML.Window.Keyboard;
 
 namespace SpaceX.window
 {
@@ -33,17 +34,17 @@ namespace SpaceX.window
         public GameObject LogoObject { set; get; }
         public GameObject StartObject { set; get; }
 
-        public String Enter { set; get; }
+        public Key Enter { set; get; }
         public StartButtonLogic SBL { set; get; }
 
 
-        public StartWindowData(RenderWindow Window, String path)
+        public StartWindowData(StartWindow StartWindow)
         {
             //all int values are in percent, relative to canvas
-            String addedPath = "../../../assets/json/" + path + ".json";
-            JObject o = JObject.Parse(File.ReadAllText(@addedPath));
+            String path = "../../../assets/json/StartWindowData.json";
+            JObject o = JObject.Parse(File.ReadAllText(@path));
 
-            Enter = o.Value<String>("Enter");
+            Enter = Converter.StringKey(o.Value<String>("Enter"));
 
             BackgroundSize = new Vector2f(o.Value<int>("BackGroundSizeX"), o.Value<int>("BackGroundSizeY"));
             LogoSize = new Vector2f(o.Value<int>("LogoSizeX"), o.Value<int>("LogoSizeY"));
@@ -59,9 +60,9 @@ namespace SpaceX.window
             StartTexture = new Texture(o.Value<String>("StartTexture"));
 
             //create rendering components
-            RenderingComponent BackgroundRenderingComponent = new RenderingComponent(BackgroundPosition, BackgroundTexture, BackgroundSize, Window, false);
-            RenderingComponent LogoRenderingComponent = new RenderingComponent(LogoPosition, LogoTexture, LogoSize, Window, false);
-            RenderingComponent StartRenderingComponent = new RenderingComponent(StartPosition, StartTexture, StartSize, Window, false);
+            RenderingComponent BackgroundRenderingComponent = new RenderingComponent(BackgroundPosition, BackgroundTexture, BackgroundSize, false);
+            RenderingComponent LogoRenderingComponent = new RenderingComponent(LogoPosition, LogoTexture, LogoSize, false);
+            RenderingComponent StartRenderingComponent = new RenderingComponent(StartPosition, StartTexture, StartSize, false);
 
             //set as gameobjects
             BackgroundObject = new GameObject();
@@ -73,7 +74,7 @@ namespace SpaceX.window
             LogoObject.AddComponent(LogoRenderingComponent);
             StartObject.AddComponent(StartRenderingComponent);
 
-            SBL = new StartButtonLogic(Enter, Window);
+            SBL = new StartButtonLogic(Enter, StartWindow);
             StartObject.AddComponent(SBL);
         }
     }

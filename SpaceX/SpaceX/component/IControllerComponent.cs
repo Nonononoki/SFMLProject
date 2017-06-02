@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpaceX
+namespace SpaceX.component
 {
-    class Button
+    interface IControllerComponent : IComponent
     {
-        List<Button> _list;
-        bool selected;
     }
 }

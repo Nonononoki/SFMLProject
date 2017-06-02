@@ -26,5 +26,17 @@ namespace SpaceX
         {
             return new Vector2f(v.X, v.Y);
         }
+
+        //convert position in relation to Window
+        public static Vector2f RelativeWindow(Vector2f Position)
+        {
+            return new Vector2f(Position.X * Program.Window.Size.X, Position.Y * Program.Window.Size.Y) / 100;
+        }
+
+        //convert int in relation to Windowwidth
+        public static int RelativeWindow(int value)
+        {
+            return (int)((value / 100) * Program.Window.Size.X);
+        }
     }
 }

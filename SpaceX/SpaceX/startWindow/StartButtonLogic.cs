@@ -7,30 +7,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static SFML.Window.Keyboard;
 
 namespace SpaceX.startWindow.logic
 {
     class StartButtonLogic : ILogicComponent
     {
-        public String Enter { set; get; }
+        public Key Enter { set; get; }
         public RenderWindow Window { set; get; }
-
-        public StartButtonLogic(String Enter, RenderWindow Window)
+        public StartWindow StartWindow { set; get; }
+ 
+        public StartButtonLogic(Key Enter, StartWindow StartWindow)
         {
             this.Enter = Enter;
             this.Window = Window;
+            this.StartWindow = StartWindow;
         }
         public void Destroy()
         {
-            Enter = null;
+            Window = null;
         }
 
         public void Update()
         {
-            if (Keyboard.IsKeyPressed(Converter.StringKey(Enter)))
+            if (Keyboard.IsKeyPressed(Enter))
             {
-                //Open new Window
-                GameWindow GW = new GameWindow(Window);
+                //Open next Window
+                GameObject.DestroyAll();
+                GameWindow GW = new GameWindow();
+                Program.Windows.Add(GW);
+                Program.Windows.Remove(StartWindow);
             }
         }
     }

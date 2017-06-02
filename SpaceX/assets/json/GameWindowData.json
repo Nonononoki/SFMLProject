@@ -1,0 +1,48 @@
+{
+	"BackGroundPositionX": 0,
+	"BackGroundPositionY": 0,
+	"BackGroundSizeX": 100,
+	"BackGroundSizeY": 100,
+	"BackGroundTexture": "../../../assets/texture/GameWindow/Background.png",
+
+	"MyShipPositionX": 50,
+	"MyShipPositionY": 90,
+	"MyShipSizeX": 4,
+	"MyShipSizeY": 6,
+	"MyShipTexture": "../../../assets/texture/GameWindow/MyShip.png",
+	"MyShipHealth": 10,
+	"MyShipSpeed": 10,
+	"MyShipMass": 10,
+
+	"MyBulletPositionX": 0,
+	"MyBulletPositionY": -100,
+	"MyBulletSizeX": 1,
+	"MyBulletSizeY": 6,
+	"MyBulletTexture": "../../../assets/texture/GameWindow/MyBullet.png",
+	"MyBulletDelay": 300,
+	"MyBulletSpeed": 5,
+	"MyBulletMass": 10,
+	"MyBulletMax": 20,
+	"MyBulletDuration": 2000,
+
+	"AsteroidTexture": "../../../assets/texture/GameWindow/Asteroid.png",
+
+	"Font": "../../../assets/fonts/pixel.ttf",
+	"FontSize": 20,
+	"FontColorR": 255,
+	"FontColorG": 255,
+	"FontColorB": 255,
+	"FontColorA": 150,
+
+	"HealthPositionX": 3,
+	"HealthPositionY": 5,
+	"HealthValue": 10,
+
+	"ScorePositionX": 3,
+	"ScorePositionY": 10,
+
+	"LevelPositionX": 3,
+	"LevelPositionY": 15,
+
+	"MaxLevel": 2	
+}

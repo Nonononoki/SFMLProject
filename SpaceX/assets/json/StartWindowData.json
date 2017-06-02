@@ -1,20 +1,20 @@
 {
-	"BackGroundPositionX": 0,
-	"BackGroundPositionY": 0,
+	"BackGroundPositionX": 50,
+	"BackGroundPositionY": 50,
 	"BackGroundSizeX": 100,
 	"BackGroundSizeY": 100,
 	"BackGroundTexture": "../../../assets/texture/StartWindow/Background.png",
 	
 	"LogoPositionX": 50,
 	"LogoPositionY": 30,
-	"LogoSizeX": 35,
-	"LogoSizeY": 15,
+	"LogoSizeX": 70,
+	"LogoSizeY": 30,
 	"LogoTexture": "../../../assets/texture/StartWindow/Logo.png",
 
 	"StartPositionX": 50,
 	"StartPositionY": 70,
-	"StartSizeX": 10,
-	"StartSizeY": 5,
+	"StartSizeX": 20,
+	"StartSizeY": 10,
 	"StartTexture": "../../../assets/texture/StartWindow/Start.png",
 
 	"Enter": "Return"	

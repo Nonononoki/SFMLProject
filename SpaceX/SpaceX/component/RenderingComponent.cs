@@ -14,20 +14,33 @@ namespace SpaceX
     class RenderingComponent : IComponent
     {
         public Sprite Sprite { set; get; }
+        public bool IsVisible { set; get; }
         PhysicsComponent _physics { set; get; } //reference to _physics of GameObject
 
-        public RenderingComponent(Vector2f Position, Texture Texture, Vector2f Size, RenderWindow Window, bool IsCirlce)
+        public RenderingComponent(Vector2f Position, Texture Texture, Vector2f Size, bool IsCircle)
         {
+            IsVisible = true;
+
             //Position is in percentage
             Sprite = new Sprite();
-            Sprite.Position = new Vector2f(Position.X/100 * Window.Size.X, Position.Y/100 * Window.Size.Y);        
-
-            Sprite.Texture = Texture;
             Sprite.Origin = new Vector2f(Texture.Size.X / 2, Texture.Size.Y / 2);
+            Sprite.Position = Converter.RelativeWindow(Position);
+            Sprite.Texture = Texture;
 
             //Size is also in percentage
-            if(IsCirlce) Sprite.Scale = new Vector2f((Size.X * 2 / 100) * Window.Size.X / Texture.Size.X, (Size.Y * 2 / 100) * Window.Size.X / Texture.Size.Y);
-            else Sprite.Scale = new Vector2f( (Size.X * 2 / 100) * Window.Size.X  / Texture.Size.X, (Size.Y * 2 / 100) * Window.Size.Y / Texture.Size.Y);
+            if (IsCircle) Sprite.Scale = new Vector2f(Size.X * Program.Window.Size.X / Texture.Size.X, Size.Y * Program.Window.Size.X / Texture.Size.Y) / 100 * 2;
+            else Sprite.Scale = new Vector2f( Size.X / Texture.Size.X * Program.Window.Size.X, Size.Y / Texture.Size.Y * Program.Window.Size.Y) / 100;
+        }
+
+        public void AddPhysics(PhysicsComponent pc)
+        {
+            _physics = pc;
+        }
+
+        public void Draw()
+        {
+            if (Sprite != null && IsVisible)
+                Program.Window.Draw(Sprite);
         }
 
         public void Update()
@@ -37,11 +50,18 @@ namespace SpaceX
                 Vector2f v = new Vector2f(ConvertUnits.ToDisplayUnits(_physics.Body.Position.X), ConvertUnits.ToDisplayUnits(_physics.Body.Position.Y));
                 this.Sprite.Position = v;
             }
+
+            Draw();
         }
 
         public void Destroy()
         {
             Sprite = null;
+        }
+
+        public void PlayDestructionAnimation(UserData ud)
+        {
+            //Play animation here
         }
     }
 }

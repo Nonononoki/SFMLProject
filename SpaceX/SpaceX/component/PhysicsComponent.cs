@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FarseerPhysics.Dynamics.Contacts;
+using SFML.System;
 
 namespace SpaceX
 {
@@ -16,39 +17,42 @@ namespace SpaceX
     {
         private const float density = 1f;
         public Body Body { set; get; }
-        public Vector2 Direction { set; get; }
         public float Speed { set; get; }
+        public Vector2 Size { set; get; } //in World Units
         public Fixture Fixture { set; get; }
         public Vertices Vertices { set; get; }
+        public Vector2 Direction { set; get; }
 
-        public PhysicsComponent(Vector2 Position, Vector2 Size, Vertices vertices, bool IsCircle, World World)
+        public PhysicsComponent(Vector2 Position, Vector2 Size, Vertices vertices, bool IsCircle)
         {
             if(IsCircle)
             {
-                //Body and Fixture for polygon
-                Body = BodyFactory.CreateCircle(World, ConvertUnits.ToSimUnits(Size.X), density);
+                //Body and Fixture for circles
+                Body = BodyFactory.CreateCircle(Program.World, ConvertUnits.ToSimUnits(Size.X), density);
                 Fixture = FixtureFactory.AttachCircle(ConvertUnits.ToSimUnits(Size.X), density, Body);
             }
             else
             {
-                //Body and Fixture for Circles
+                //Body and Fixture for polygons
                 Vertices = vertices;
-                Body = BodyFactory.CreatePolygon(World, vertices, density);
+                Body = BodyFactory.CreatePolygon(Program.World, vertices, density);
                 Fixture = FixtureFactory.AttachPolygon(Vertices, density, Body);
             }
 
-            Body.Position = Position;
+            Vector2 newPos = ConvertUnits.ToSimUnits(Converter.Vector( new Vector2f(Position.X * Program.Window.Size.X, Position.Y * Program.Window.Size.Y) / 100));
+            Body.Position = newPos;
+
+            this.Size = Size;
+
+            Direction = new Vector2(0, 0);
 
             Body.Awake = true;
-            Direction = new Vector2(0, 0);
             Speed = 0;
         }
-
-        public void AddGameObjectID(GameObject go)
+        public void AddUserData(GameObject go, String type)
         {
-            //Add gameobject id to body userdata
-            uint id = go.id;
-            Body.UserData = id;
+            UserData ud = new UserData(type, go.id);
+            Body.UserData = ud;           
         }
 
         //create rechtangle vertices
@@ -66,14 +70,12 @@ namespace SpaceX
 
         public void Update()
         {
-
         }
 
-        public void Move()
-        {
-            Vector2 impulse = Direction * Speed * Body.Mass;
-            Body.LinearVelocity = new Vector2(0, 0);
-            Body.ApplyLinearImpulse(impulse);
+        public void Move(Vector2 Direction)
+        {            
+            Vector2 impulse = Direction * Speed * Body.Mass;          
+            Body.ApplyLinearImpulse(impulse);           
         }
 
         public void Destroy()

@@ -28,7 +28,7 @@ namespace SpaceX
             ID();
         }
 
-        //update position of GameObject and its components
+        //update components
         public void Update()
         {
             foreach(IComponent c in _components)
@@ -54,16 +54,6 @@ namespace SpaceX
             return list.ElementAt(0);
         }
 
-
-        public void Draw(RenderWindow Window)
-        {
-            //draw Sprite of GameObject if available
-            RenderingComponent rc = GetComponent<RenderingComponent>();
-
-            if(rc.Sprite != null)
-                Window.Draw(rc.Sprite);
-        }
-
         private void ID() //assign id, count id
         {
             if (_list == null)
@@ -76,7 +66,7 @@ namespace SpaceX
         }
 
         //for debugging
-        public GameObject FindById(uint id)
+        public static GameObject FindById(uint id)
         {
             foreach (GameObject g in _list)
             {
@@ -105,7 +95,7 @@ namespace SpaceX
                 }
             }
 
-            foreach (GameObject g in _list)
+            foreach (GameObject g in _list.ToList<GameObject>())
             {
                 _list.Remove(g);
             }

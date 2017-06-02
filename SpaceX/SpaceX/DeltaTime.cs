@@ -9,7 +9,7 @@ namespace SpaceX
 {
     public class DeltaTime
     {
-        public float Time { get; set; }
+        public static float Time { get; set; }
         Stopwatch sw;
 
         public DeltaTime()

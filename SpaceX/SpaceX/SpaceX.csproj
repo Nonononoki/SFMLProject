@@ -62,18 +62,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Button.cs" />
-    <Compile Include="component\AIControlComponent.cs" />
     <Compile Include="component\AudioComponent.cs" />
+    <Compile Include="component\IControllerComponent.cs" />
     <Compile Include="component\IComponent.cs" />
-    <Compile Include="component\LogicComponent.cs" />
-    <Compile Include="component\PlayerControlComponent.cs" />
+    <Compile Include="component\ILogicComponent.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="DeltaTime.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="component\PhysicsComponent.cs" />
-    <Compile Include="gameWindow\Bullet.cs" />
-    <Compile Include="gameWindow\Ship.cs" />
+    <Compile Include="gameWindow\asteroid\Asteroid.cs" />
+    <Compile Include="gameWindow\asteroid\AsteroidLogicComponent.cs" />
+    <Compile Include="gameWindow\asteroid\AsteroidPhysicsComponent.cs" />
+    <Compile Include="gameWindow\asteroid\AsteroidPool.cs" />
+    <Compile Include="gameWindow\bullet\Bullet.cs" />
+    <Compile Include="gameWindow\bullet\BulletLogicComponent.cs" />
+    <Compile Include="gameWindow\bullet\BulletPhysicsComponent.cs" />
+    <Compile Include="gameWindow\bullet\BulletPool.cs" />
+    <Compile Include="gameWindow\hud\Health.cs" />
+    <Compile Include="gameWindow\hud\HUD.cs" />
+    <Compile Include="gameWindow\hud\Level.cs" />
+    <Compile Include="gameWindow\hud\Score.cs" />
+    <Compile Include="gameWindow\LevelData.cs" />
+    <Compile Include="gameWindow\ship\Ship.cs" />
+    <Compile Include="gameWindow\ship\ShipControllerComponent.cs" />
+    <Compile Include="gameWindow\ship\ShipLogicComponent.cs" />
+    <Compile Include="gameWindow\ship\ShipPhysicsComponent.cs" />
+    <Compile Include="Integer.cs" />
     <Compile Include="program\Program.cs" />
     <Compile Include="program\ProgramData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,9 +96,13 @@
     <Compile Include="gameWindow\GameWindowData.cs" />
     <Compile Include="mainWindow\MainWindow.cs" />
     <Compile Include="mainWindow\MainWindowData.cs" />
-    <Compile Include="startWindow\logic\StartButtonLogic.cs" />
+    <Compile Include="Running.cs" />
+    <Compile Include="Spawner.cs" />
+    <Compile Include="startWindow\StartButtonLogic.cs" />
     <Compile Include="startWindow\StartWindow.cs" />
     <Compile Include="startWindow\StartWindowData.cs" />
+    <Compile Include="UserData.cs" />
+    <Compile Include="IWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

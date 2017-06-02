@@ -7,48 +7,22 @@ using System.Threading.Tasks;
 
 namespace SpaceX.window
 {
-    class StartWindow
+    class StartWindow : IWindow
     {
         public StartWindowData SD;
-        public RenderWindow Window;
 
-        public StartWindow(RenderWindow Window)
+        public StartWindow()
         {
-            this.Window = Window;
-
-            SD = new StartWindowData(Window, "StartWindowData");
-
-            //Start GameLoop
-            Update();
+            SD = new StartWindowData(this);
         }
 
 
         public void Update()
         {
-            //main game loop
-            bool running = true;
-
-            //DeltaTime
-            DeltaTime dt = new DeltaTime();
-
-            while (running)
+            //draw sprites
+            foreach (GameObject go in GameObject._list.ToList<GameObject>())
             {
-                dt.Start();
-
-                Window.Clear(Color.Black);
-                Window.DispatchEvents();
-                Window.Closed += (sender, evtArgs) => running = false;
-
-                //draw sprites
-                foreach (GameObject go in GameObject._list)
-                {
-                    go.Update();
-                    go.Draw(Window);
-                }
-
-                  Window.Display();
-
-                dt.Stop();
+                go.Update();
             }
         }
     }

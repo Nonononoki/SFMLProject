@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpaceX.gameObject
+namespace SpaceX
 {
-    class Ship : GameObject
+    class Spawner
     {
     }
 }
