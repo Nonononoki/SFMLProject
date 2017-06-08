@@ -51,7 +51,12 @@ namespace SpaceX.gameWindow.asteroid
                     {
                         Score.Value += Asteroid.Points;
                         GameObject.Destroy(Asteroid);
+                        Asteroid.AsteroidDestroy.Sound.Play();
                      }
+                    else
+                    {
+                        Asteroid.AsteroidHit.Sound.Play();
+                    }
                 }
             }
         }

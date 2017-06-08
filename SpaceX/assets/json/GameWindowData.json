@@ -6,6 +6,7 @@
 	"BackGroundTexture": "../../../assets/texture/GameWindow/Background/0.png",
 	"BackGroundAnimationSpritesPath": "../../../assets/texture/GameWindow/Background/",
 	"BackGroundAnimationSpritesCount": 36,
+	"BackGroundSpeed": 17,
 	
 
 	"MyShipPositionX": 50,
@@ -45,5 +46,13 @@
 	"LevelPositionX": 3,
 	"LevelPositionY": 15,
 
-	"MaxLevel": 10
+	"MaxLevel": 10,
+
+	"AsteroidDestroySFX": "../../../assets/sound/sfx/AsteroidDestroy.ogg",
+	"AsteroidHitSFX": "../../../assets/sound/sfx/AsteroidHit.ogg",
+	"LaserSpawnSFX": "../../../assets/sound/sfx/Laser.ogg",
+	"ShipHitSFX": "../../../assets/sound/sfx/ShipHit.ogg",
+	"LevelUpSFX": "../../../assets/sound/sfx/LevelUp.ogg",
+	
+	"BackGroundBGM": "../../../assets/sound/bgm/GameBackground.ogg"
 }

@@ -89,7 +89,6 @@
     <Compile Include="gameWindow\bullet\BulletLogicComponent.cs" />
     <Compile Include="gameWindow\bullet\BulletPhysicsComponent.cs" />
     <Compile Include="gameWindow\bullet\BulletSpawner.cs" />
-    <Compile Include="gameWindow\GameWindowBackground.cs" />
     <Compile Include="gameWindow\hud\Health.cs" />
     <Compile Include="gameWindow\hud\GameHUD.cs" />
     <Compile Include="gameWindow\hud\Level.cs" />

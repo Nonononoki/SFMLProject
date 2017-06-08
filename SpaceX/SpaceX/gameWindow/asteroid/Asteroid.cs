@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using SFML.Graphics;
 using SFML.System;
+using SpaceX.component;
 using SpaceX.gameObject;
 using SpaceX.gameWindow.asteroid;
 using SpaceX.window;
@@ -27,9 +28,11 @@ namespace SpaceX.gameWindow
         public AsteroidLogicComponent ALC { set; get; }
         public AsteroidPhysicsComponent APC { set; get; }
         public RenderingComponent RC { set; get; }
+        public AudioComponent AsteroidHit { set; get; }
+        public AudioComponent AsteroidDestroy { set; get; }
         public Ship Ship { set; get; }
 
-        public void Components()
+        public void Start(GameWindowData gwd)
         {
             ALC = new AsteroidLogicComponent(this);
             APC = new AsteroidPhysicsComponent(this, ALC);
@@ -37,10 +40,14 @@ namespace SpaceX.gameWindow
             RC = new RenderingComponent(Position, Texture, new Vector2f(Size, Size), true);
             RC.AddPhysics(APC);
             RC.IsVisible = false;
+            AsteroidHit = new AudioComponent(gwd.AsteroidHitPath, false);
+            AsteroidDestroy = new AudioComponent(gwd.AsteroidDestroyPath, false);
 
             this.AddComponent(APC);
             this.AddComponent(RC);
             this.AddComponent(ALC);
+            this.AddComponent(AsteroidHit);
+            this.AddComponent(AsteroidDestroy);
         }
 
         public void Spawn()

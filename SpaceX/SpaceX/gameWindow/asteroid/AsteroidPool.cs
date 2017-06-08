@@ -18,7 +18,7 @@ namespace SpaceX.gameWindow.asteroid
         public List<Asteroid> Asteroids { set; get; }
         public int LevelDuration { set; get; }
         public Stopwatch SW { set; get; }
-        public AsteroidPool(LevelData ld, Ship Ship)
+        public AsteroidPool(LevelData ld, GameWindowData gwd, Ship Ship)
         {
 
             LevelDuration = ld.LevelDuration;
@@ -40,9 +40,9 @@ namespace SpaceX.gameWindow.asteroid
                 Asteroid.Duration = ld.AsteroidDuration;
                 Asteroid.Texture = ld.AsteroidTexture;
                 Asteroid.Ship = Ship;
-                Asteroid.Components();
-                Asteroids.Add(Asteroid);
 
+                Asteroid.Start(gwd);
+                Asteroids.Add(Asteroid);
             }
 
             SW = new Stopwatch();

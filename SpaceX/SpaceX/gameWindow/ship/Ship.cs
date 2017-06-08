@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Newtonsoft.Json.Linq;
 using SFML.Graphics;
 using SFML.System;
+using SpaceX.component;
 using SpaceX.gameWindow;
 using SpaceX.window;
 using System;
@@ -24,16 +25,19 @@ namespace SpaceX.gameObject
         public RenderingComponent RC { set; get; }
         public ShipControllerComponent SCC { set; get; }
         public  BulletSpawner BulletSpawner { set; get; }
+        public AudioComponent ShipHitAudio { set; get; }
+
         public Ship(GameWindowData gwd) : base()
         {
             Position = Converter.RelativeWindow(gwd.MyShipPosition);
-            SLC = new ShipLogicComponent();
+            SLC = new ShipLogicComponent(this);
             SPC = new ShipPhysicsComponent(gwd, SLC, this);
             SPC.Speed = gwd.MyShipSpeed;
             SPC.AddUserData(this, "MyShip");
             RC = new RenderingComponent(new Vector2f(0,0), gwd.MyShipTexture, Converter.Vector(gwd.MyShipSize), false);
             RC.AddPhysics(SPC);
             SCC = new ShipControllerComponent(SPC, gwd);
+            ShipHitAudio = new AudioComponent(gwd.ShipHitPath, false);
 
             BulletSpawner = new BulletSpawner(gwd, this);
 
@@ -42,6 +46,7 @@ namespace SpaceX.gameObject
             this.AddComponent(RC);
             this.AddComponent(SCC);
             this.AddComponent(BulletSpawner);
+            this.AddComponent(ShipHitAudio);
         }
     }
 }

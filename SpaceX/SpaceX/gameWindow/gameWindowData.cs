@@ -23,6 +23,7 @@ namespace SpaceX.window
         public String BackGroundAnimationSpritesPath { set; get; }
 	    public int BackGroundAnimationSpritesCount { set; get; }
         public Sprite[] BackgroundAnimation { set; get;}
+        public int BackGroundSpeed { set; get; }
 
         //Ship Data
         public Vector2 MyShipPosition { set; get; }
@@ -56,6 +57,14 @@ namespace SpaceX.window
 
         public int MaxLevel { set; get; }
 
+        //Sound
+        public String AsteroidDestroyPath { set; get; }
+        public String AsteroidHitPath { set; get; }
+        public String ShipHitPath { set; get; }
+        public String LaserSpawnPath { set; get; }
+        public String LevelUpPath{ set; get; }
+        public String BackgroundBGM { set; get; }
+
         //Control  buttons
         public Key Up { set; get; }
         public Key Down { set; get; }
@@ -75,11 +84,13 @@ namespace SpaceX.window
             BackgroundTexture = new Texture(o.Value<String>("BackGroundTexture"));
             BackGroundAnimationSpritesPath = o.Value<String>("BackGroundAnimationSpritesPath");
             BackGroundAnimationSpritesCount = o.Value<int>("BackGroundAnimationSpritesCount");
+            BackGroundSpeed = o.Value<int>("Speed");
 
+            BackgroundAnimation = new Sprite[BackGroundAnimationSpritesCount];
             //assign Sprites from path
-            for(int i = 0; i < BackGroundAnimationSpritesCount; i++)
+            for (int i = 0; i < BackGroundAnimationSpritesCount; i++)
             {
-                BackgroundAnimation[i] = new Sprite(new Texture("BackGroundAnimationSpritesPath" + i + ".png"));
+                BackgroundAnimation[i] = new Sprite(new Texture(BackGroundAnimationSpritesPath + i + ".png"));
             }
 
             //ship
@@ -115,6 +126,16 @@ namespace SpaceX.window
             FontSize = (uint)o.Value<int>("FontSize");
 
             MaxLevel = o.Value<int>("MaxLevel");
+
+            //sound
+            AsteroidDestroyPath = o.Value<String>("AsteroidDestroySFX");
+            AsteroidHitPath = o.Value<String>("AsteroidHitSFX");
+            ShipHitPath = o.Value<String>("ShipHitSFX");
+            LaserSpawnPath = o.Value<String>("LaserSpawnSFX");
+            LevelUpPath = o.Value<String>("LevelUpSFX");
+
+
+            BackgroundBGM = o.Value<String>("BackGroundBGM");
 
             //PlayerControl Strings
             String path2 = "../../../assets/json/Control.json";

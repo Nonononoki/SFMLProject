@@ -8,16 +8,19 @@ using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
 using SpaceX.gameWindow.hud;
 using SpaceX.window;
+using SpaceX.gameObject;
 
 namespace SpaceX.gameWindow
 {
     class ShipLogicComponent : ILogicComponent
     {
         public List<int> CollisionID { set; get; }
+        public Ship Ship { set; get; }
 
-        public ShipLogicComponent()
+        public ShipLogicComponent(Ship ship)
         {
             CollisionID = new List<int>();
+            this.Ship = ship;
         }
 
         public void OnSeparation(Fixture fixtureA, Fixture fixtureB)
@@ -35,6 +38,7 @@ namespace SpaceX.gameWindow
 
                 if (u.Type == "Asteroid")
                 {
+                    Ship.ShipHitAudio.Sound.Play();
                     Health.Value -= 1;
 
                     if (Health.Value <= 0)

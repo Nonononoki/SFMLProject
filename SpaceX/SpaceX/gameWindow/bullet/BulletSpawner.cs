@@ -47,6 +47,7 @@ namespace SpaceX.gameWindow
                 while (Firing)
                 {
                     Bullet.Clone();
+                    Bullet.AC.Sound.Play();
                     Thread.Sleep(Delay);
                 }
 

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using SFML.Graphics;
 using SFML.System;
+using SpaceX.component;
 using SpaceX.gameObject;
 using SpaceX.spawner;
 using SpaceX.window;
@@ -20,6 +21,7 @@ namespace SpaceX.gameWindow
         public BulletPhysicsComponent BPC { set; get; }
         public RenderingComponent RC { set; get; }
         public BulletLogicComponent BLC { set; get; }
+        public AudioComponent AC { set; get; }
         public Vector2 Position { set; get; } //position is relative to ship size
         public GameWindowData gwd { set; get; }
 
@@ -32,10 +34,12 @@ namespace SpaceX.gameWindow
             BPC = new BulletPhysicsComponent(gwd, this);
             RC = new RenderingComponent(Converter.Vector(gwd.MyBulletPosition), gwd.MyBulletTexture, Converter.Vector(gwd.MyBulletSize), false);
             RC.AddPhysics(BPC);
+            AC = new AudioComponent(gwd.LaserSpawnPath, false);
 
             this.AddComponent(BLC);
             this.AddComponent(BPC);
             this.AddComponent(RC);
+            this.AddComponent(AC);
 
             Duration = gwd.MyBulletDuration; //Time after Bullet resets itself
 

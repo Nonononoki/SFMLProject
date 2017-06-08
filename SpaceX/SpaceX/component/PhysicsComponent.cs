@@ -40,9 +40,6 @@ namespace SpaceX
                 Fixture = FixtureFactory.AttachPolygon(Vertices, density, Body);
             }
 
-            //Vector2 newPos = ConvertUnits.ToSimUnits(new Vector2(Position.X * Program.Window.Size.X, Position.Y * Program.Window.Size.Y) / 100);
-            //Body.Position = newPos;
-
             Body.Position = ConvertUnits.ToSimUnits(Position);
 
             this.Size = Size;
