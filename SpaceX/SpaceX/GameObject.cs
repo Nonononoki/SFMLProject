@@ -137,6 +137,8 @@ namespace SpaceX
             {
                 _list.Remove(g);
             }
+
+            _id = 0;
         }
     }
 }

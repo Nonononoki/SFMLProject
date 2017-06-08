@@ -46,6 +46,7 @@ namespace SpaceX.gameWindow
 
                 while (Firing)
                 {
+                    //Cloning may be reason why game crashes
                     Bullet.Clone();
                     Bullet.AC.Sound.Play();
                     Thread.Sleep(Delay);

@@ -50,7 +50,8 @@ namespace SpaceX.gameWindow
                     //find gameobject of fixture B and play destruction Animation
                     UserData ud = (UserData)fixtureB.Body.UserData;
                     GameObject Asteroid = GameObject.FindById(ud.ID);
-                    GameObject.Destroy(Asteroid);
+                    //GameObject.Destroy(Asteroid);
+                    GameWindow.ToBeRemoved.Add(Asteroid);
                 }
             }
         }

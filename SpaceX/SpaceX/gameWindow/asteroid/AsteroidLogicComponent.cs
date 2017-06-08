@@ -1,6 +1,7 @@
 ﻿using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
 using SpaceX.component;
+using SpaceX.window;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -42,7 +43,9 @@ namespace SpaceX.gameWindow.asteroid
                     //Destroy Bulllet
                     UserData bulletData = (UserData)fixtureB.Body.UserData;
                     GameObject Bullet = GameObject.FindById(bulletData.ID);
-                    GameObject.Destroy(Bullet);
+
+                    //GameObject.Destroy(Bullet);
+                    GameWindow.ToBeRemoved.Add(Bullet);
 
                     //reduce asteroid hp
                     Asteroid.Health--;
@@ -50,7 +53,8 @@ namespace SpaceX.gameWindow.asteroid
                     if (Asteroid.Health <= 0)
                     {
                         Score.Value += Asteroid.Points;
-                        GameObject.Destroy(Asteroid);
+                        //GameObject.Destroy(Asteroid);
+                        GameWindow.ToBeRemoved.Add(Asteroid);
                         Asteroid.AsteroidDestroy.Sound.Play();
                      }
                     else

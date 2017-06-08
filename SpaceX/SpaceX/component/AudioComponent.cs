@@ -9,6 +9,8 @@ namespace SpaceX.component
 {
     class AudioComponent : IComponent
     {
+        //sound play independently from any gameobject!
+
         public Sound Sound { set; get; }
 
         public AudioComponent(String path, bool IsBGM)

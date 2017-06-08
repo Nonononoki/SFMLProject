@@ -25,6 +25,8 @@ namespace SpaceX.window
         public GameBackground GBG { set; get; }
         public static AudioComponent LevelUpSFX {set;get;}
 
+        public static List<GameObject> ToBeRemoved { set; get; }
+
         public GameWindow()
         {
             GameObject.DestroyAll();
@@ -46,6 +48,9 @@ namespace SpaceX.window
             //spawn asteroids
             AsteroidPool = new AsteroidPool(LevelData, GameWindowData, Ship);
             Ship.AddComponent(AsteroidPool);
+
+            //remove to be deleted gameobjects
+            ToBeRemoved = new List<GameObject>();
         }
 
         public void Update()
@@ -54,6 +59,12 @@ namespace SpaceX.window
             foreach (GameObject go in GameObject._list.ToList<GameObject>())
             {
                 go.Update();
+            }
+
+            foreach(GameObject go in ToBeRemoved.ToList<GameObject>())
+            {
+                ToBeRemoved.Remove(go);
+                go.Destroy();
             }
         }
 

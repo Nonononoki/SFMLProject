@@ -47,15 +47,14 @@ namespace SpaceX
                 Window.DispatchEvents();
                 Window.Closed += (sender, evtArgs) => Running.IsRunning = false;
 
-                //Farseer Physics
-                if(World != null)
-                World.Step(dt.Time);
-
                 //update Windows
                 foreach (IWindow w in Windows.ToList<IWindow>())
                 {
                     w.Update();
                 }
+
+                //Farseer Physics
+                World.Step(dt.Time);
 
                 Window.Display();
                 dt.Stop();       

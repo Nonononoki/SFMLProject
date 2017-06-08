@@ -1,6 +1,7 @@
 ﻿using FarseerPhysics;
 using Microsoft.Xna.Framework;
 using SpaceX.component;
+using SpaceX.window;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -33,7 +34,8 @@ namespace SpaceX.gameWindow
             if (SW.ElapsedMilliseconds >= Bullet.Duration)
             {
                 Destroy();
-                Bullet.Destroy();
+                //Bullet.Destroy();
+                GameWindow.ToBeRemoved.Add(Bullet);
             }
         }
 

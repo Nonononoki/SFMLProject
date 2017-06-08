@@ -41,9 +41,7 @@ namespace SpaceX
             }
 
             Body.Position = ConvertUnits.ToSimUnits(Position);
-
             this.Size = Size;
-
             Direction = new Vector2(0, 0);
 
             Body.Awake = true;
