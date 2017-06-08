@@ -32,11 +32,7 @@ namespace SpaceX.startWindow.logic
         {
             if (Keyboard.IsKeyPressed(Enter))
             {
-                //Open next Window
-                GameObject.DestroyAll();
-                GameWindow GW = new GameWindow();
-                Program.Windows.Add(GW);
-                Program.Windows.Remove(StartWindow);
+                StartWindow.LoadNextWindow();
             }
         }
     }

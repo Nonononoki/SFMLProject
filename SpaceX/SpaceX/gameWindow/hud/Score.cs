@@ -1,4 +1,6 @@
 ﻿using SFML.Graphics;
+using SFML.System;
+using SpaceX.gameOverWindow;
 using SpaceX.window;
 using System;
 using System.Collections.Generic;

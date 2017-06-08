@@ -1,6 +1,10 @@
 ﻿using SFML.System;
+using SpaceX.gameObject;
+using SpaceX.gameWindow.hud;
+using SpaceX.window;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -8,14 +12,16 @@ using System.Threading.Tasks;
 
 namespace SpaceX.gameWindow.asteroid
 {
-    class AsteroidPool
+    class AsteroidPool : IComponent, ISpawner
     {
+        public bool Spawning { set; get; }
         public List<Asteroid> Asteroids { set; get; }
-        public bool Firing { set; get; }
-
-        public AsteroidPool(LevelData ld)
+        public int LevelDuration { set; get; }
+        public Stopwatch SW { set; get; }
+        public AsteroidPool(LevelData ld, Ship Ship)
         {
-            Firing = true;
+
+            LevelDuration = ld.LevelDuration;
 
             //generate Asteroids
             Asteroids = new List<Asteroid>();
@@ -23,16 +29,26 @@ namespace SpaceX.gameWindow.asteroid
             {
                 Asteroid Asteroid = new Asteroid();
                 Asteroid.Mass = ld.AsteroidMass.ElementAt(i);
-                Asteroid.Health = new Integer(ld.AsteroidHealth.ElementAt(i));
+                Asteroid.Health = ld.AsteroidHealth.ElementAt(i);
                 Asteroid.Speed = ld.AsteroidSpeed.ElementAt(i);
-                Asteroid.Size = Converter.RelativeWindow(ld.AsteroidSize.ElementAt(i));
+
+                Asteroid.Size = ld.AsteroidSize.ElementAt(i);
                 Asteroid.SpawnDelay = ld.SpawnDelay.ElementAt(i);
                 Asteroid.Points = ld.Points.ElementAt(i);
-                Asteroid.SpawnPosition = ld.SpawnPosition.ElementAt(i);
+
+                Asteroid.Position = Converter.RelativeWindow(ld.SpawnPosition.ElementAt(i));
+                Asteroid.Duration = ld.AsteroidDuration;
+                Asteroid.Texture = ld.AsteroidTexture;
+                Asteroid.Ship = Ship;
+                Asteroid.Components();
                 Asteroids.Add(Asteroid);
+
             }
 
-
+            SW = new Stopwatch();
+            SW.Start();
+            Spawning = true;
+            StartFiring();
         }
 
         public void StartFiring()
@@ -44,14 +60,28 @@ namespace SpaceX.gameWindow.asteroid
                 Thread.CurrentThread.IsBackground = true;
                 /* run your code here */
 
-                while (Firing)
+                for(int i = 0; i < Asteroids.Count && Spawning; i++)
                 {
-                    FireBullet();
-                    Thread.Sleep(Bullet.Delay);
+                    Asteroids.ElementAt(i).Spawn();
+                    Thread.Sleep(Asteroids.ElementAt(i).SpawnDelay);
                 }
 
-
             }).Start();
+        }
+
+        public void Update()
+        {
+            if (SW.ElapsedMilliseconds >= LevelDuration)
+            {
+                GameWindow.LoadNextLevel();
+                Destroy();
+            }
+        }
+
+
+        public void Destroy()
+        {
+            Spawning = false;
         }
     }
 }

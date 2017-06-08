@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Newtonsoft.Json.Linq;
+using SFML.Graphics;
 using SFML.System;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,13 @@ namespace SpaceX.gameWindow
     class LevelData
     {
         public int AsteroidCount { set; get; }
+        public int LevelDuration { set; get; }
+        public int AsteroidDuration { set; get; }
         public List<int> AsteroidHealth { set; get; }
         public List<int> AsteroidSpeed { set; get; }
         public List<int> AsteroidMass { set; get; }
         public List<int> AsteroidSize { set; get; }
+        public Texture AsteroidTexture { set; get; }
         public List<Vector2f> SpawnPosition { set; get; }
         public List<int> SpawnDelay { set; get; }
         public List<int> Points { set; get; }
@@ -28,12 +32,15 @@ namespace SpaceX.gameWindow
             JObject o = JObject.Parse(File.ReadAllText(path));
 
             AsteroidCount = o.Value<int>("AsteroidCount");
+            LevelDuration = o.Value<int>("LevelDuration");
+            AsteroidDuration = o.Value<int>("AsteroidDuration");
 
             //various attributes 
             AsteroidSize = o.Value<JToken>("Size").ToObject<List<int>>();
             AsteroidHealth = o.Value<JToken>("Health").ToObject<List<int>>();
             AsteroidMass = o.Value<JToken>("Mass").ToObject<List<int>>();
             AsteroidSpeed = o.Value<JToken>("Speed").ToObject<List<int>>();
+            AsteroidTexture = new Texture(o.Value<String>("Texture"));
 
             SpawnDelay = o.Value<JToken>("SpawnDelay").ToObject<List<int>>();
             Points = o.Value<JToken>("Points").ToObject<List<int>>();

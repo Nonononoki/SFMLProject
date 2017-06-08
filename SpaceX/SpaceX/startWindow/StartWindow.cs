@@ -9,14 +9,16 @@ namespace SpaceX.window
 {
     class StartWindow : IWindow
     {
+        public static int Index { set; get; }
         public StartWindowData SD;
 
         public StartWindow()
         {
+            Program.Windows.Add(this);
+            Index = Program.Windows.IndexOf(this);
             SD = new StartWindowData(this);
         }
-
-
+        
         public void Update()
         {
             //draw sprites
@@ -24,6 +26,13 @@ namespace SpaceX.window
             {
                 go.Update();
             }
+        }
+
+        public static void LoadNextWindow()
+        {
+            //Open next Window
+            Program.Windows.RemoveAt(Index);
+            GameWindow GW = new GameWindow();
         }
     }
 }

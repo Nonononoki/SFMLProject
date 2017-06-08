@@ -32,11 +32,21 @@ namespace SpaceX
         {
             return new Vector2f(Position.X * Program.Window.Size.X, Position.Y * Program.Window.Size.Y) / 100;
         }
+        public static Vector2 RelativeWindow(Vector2 Position)
+        {
+            return new Vector2(Position.X * Program.Window.Size.X, Position.Y * Program.Window.Size.Y) / 100;
+        }
 
         //convert int in relation to Windowwidth
         public static int RelativeWindow(int value)
         {
             return (int)((value / 100) * Program.Window.Size.X);
+        }
+
+        //convert Vector to a specific length
+        public static Vector2 ResizeVector(Vector2 v, float desiredLength)
+        {
+            return v / v.Length() * desiredLength;
         }
     }
 }

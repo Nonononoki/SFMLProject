@@ -1,9 +1,12 @@
 {
-	"BackGroundPositionX": 0,
-	"BackGroundPositionY": 0,
+	"BackGroundPositionX": 50,
+	"BackGroundPositionY": 50,
 	"BackGroundSizeX": 100,
 	"BackGroundSizeY": 100,
-	"BackGroundTexture": "../../../assets/texture/GameWindow/Background.png",
+	"BackGroundTexture": "../../../assets/texture/GameWindow/Background/0.png",
+	"BackGroundAnimationSpritesPath": "../../../assets/texture/GameWindow/Background/",
+	"BackGroundAnimationSpritesCount": 36,
+	
 
 	"MyShipPositionX": 50,
 	"MyShipPositionY": 90,
@@ -20,12 +23,10 @@
 	"MyBulletSizeY": 6,
 	"MyBulletTexture": "../../../assets/texture/GameWindow/MyBullet.png",
 	"MyBulletDelay": 300,
-	"MyBulletSpeed": 5,
-	"MyBulletMass": 10,
+	"MyBulletSpeed": 20,
+	"MyBulletMass": 2,
 	"MyBulletMax": 20,
-	"MyBulletDuration": 2000,
-
-	"AsteroidTexture": "../../../assets/texture/GameWindow/Asteroid.png",
+	"MyBulletDuration": 10000,
 
 	"Font": "../../../assets/fonts/pixel.ttf",
 	"FontSize": 20,
@@ -36,7 +37,7 @@
 
 	"HealthPositionX": 3,
 	"HealthPositionY": 5,
-	"HealthValue": 10,
+	"HealthValue": 5,
 
 	"ScorePositionX": 3,
 	"ScorePositionY": 10,
@@ -44,5 +45,5 @@
 	"LevelPositionX": 3,
 	"LevelPositionY": 15,
 
-	"MaxLevel": 2	
+	"MaxLevel": 10
 }

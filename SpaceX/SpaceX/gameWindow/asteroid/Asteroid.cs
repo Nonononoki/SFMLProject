@@ -1,4 +1,8 @@
-﻿using SFML.System;
+﻿using FarseerPhysics.Dynamics;
+using Microsoft.Xna.Framework;
+using SFML.Graphics;
+using SFML.System;
+using SpaceX.gameObject;
 using SpaceX.gameWindow.asteroid;
 using SpaceX.window;
 using System;
@@ -11,23 +15,46 @@ namespace SpaceX.gameWindow
 {
     class Asteroid : GameObject
     {
-        public Integer Health { set; get; }
-        public AsteroidLogicComponent ALC { set; get; }
+        public int Health { set; get; }
         public int Speed { set; get; }
         public int Mass { set; get; }
         public int Size { set; get; }
-        public Vector2f SpawnPosition { set; get; }
+        public Vector2f Position { set; get; }
         public int SpawnDelay { set; get; }
         public int Points { set; get; }
+        public int Duration { set; get; }
+        public Texture Texture { set; get; }
+        public AsteroidLogicComponent ALC { set; get; }
+        public AsteroidPhysicsComponent APC { set; get; }
+        public RenderingComponent RC { set; get; }
+        public Ship Ship { set; get; }
 
-        public Asteroid()
+        public void Components()
         {
-            //ALC = new AsteroidLogicComponent(Health);
+            ALC = new AsteroidLogicComponent(this);
+            APC = new AsteroidPhysicsComponent(this, ALC);
+            APC.Body.Enabled = false;
+            RC = new RenderingComponent(Position, Texture, new Vector2f(Size, Size), true);
+            RC.AddPhysics(APC);
+            RC.IsVisible = false;
+
+            this.AddComponent(APC);
+            this.AddComponent(RC);
+            this.AddComponent(ALC);
         }
 
         public void Spawn()
         {
+            ALC.SW.Start();
+
             //spawn and launch asteroids
+            RC.IsVisible = true;
+            APC.Body.Enabled = true;
+
+            //calculate dir Vector and resize it to the length of 1
+            Vector2 v = Converter.ResizeVector(Ship.SPC.Body.Position - APC.Body.Position, 1);
+            APC.Move(v);
+
         }
 
     }

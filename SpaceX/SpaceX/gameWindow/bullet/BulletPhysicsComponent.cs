@@ -12,16 +12,18 @@ namespace SpaceX.gameWindow
 {
     class BulletPhysicsComponent : PhysicsComponent
     {
-        public BulletPhysicsComponent(GameWindowData gwd, GameObject go)
-            : base(gwd.MyBulletPosition, gwd.MyBulletSize, gwd.MyBulletVertices, false)
+        public BulletPhysicsComponent(GameWindowData gwd, Bullet Bullet)
+            : base(Bullet.Position, gwd.MyBulletSize, gwd.MyBulletVertices, false)
         {
             Body.BodyType = BodyType.Dynamic;
             Body.IsBullet = true;
-            Body.Enabled = false;
-            Body.Mass = 1;
+            Body.Mass = gwd.MyBulletMass;
             Speed = gwd.MyBulletSpeed;
 
-            AddUserData(go, "Bullet");
+            AddUserData(Bullet, "Bullet");
+
+            Body.CollisionCategories = Category.Cat3;
+            Body.CollidesWith = Category.Cat2;
         }
     }
 }

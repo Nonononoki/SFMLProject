@@ -15,6 +15,15 @@ namespace SpaceX.window
 {
     class GameWindowData
     {
+        //BackgroundData
+        public Vector2f BackgroundSize { set; get; }
+        public Vector2f BackgroundPosition { set; get; }
+        public Texture BackgroundTexture { set; get; }
+
+        public String BackGroundAnimationSpritesPath { set; get; }
+	    public int BackGroundAnimationSpritesCount { set; get; }
+        public Sprite[] BackgroundAnimation { set; get;}
+
         //Ship Data
         public Vector2 MyShipPosition { set; get; }
         public Vector2 MyShipSize { set; get; }
@@ -23,9 +32,6 @@ namespace SpaceX.window
         public int MyShipHealth { set; get; }
         public int MyShipSpeed { set; get; }
         public int MyShipMass { set; get; }
-
-        //Asteroid Data
-        public Texture AsteroidTexture { set; get; }
 
         //Bullet Data
         public Vector2 MyBulletPosition { set; get; }
@@ -48,6 +54,8 @@ namespace SpaceX.window
         public Font Font { set; get; }
         public uint FontSize { set; get; }
 
+        public int MaxLevel { set; get; }
+
         //Control  buttons
         public Key Up { set; get; }
         public Key Down { set; get; }
@@ -61,6 +69,19 @@ namespace SpaceX.window
             String path = "../../../assets/json/GameWindowData.json";
             JObject o = JObject.Parse(File.ReadAllText(path));
 
+            //background
+            BackgroundSize = new Vector2f(o.Value<int>("BackGroundSizeX"), o.Value<int>("BackGroundSizeY"));
+            BackgroundPosition = new Vector2f(o.Value<int>("BackGroundPositionX"), o.Value<int>("BackGroundPositionY"));
+            BackgroundTexture = new Texture(o.Value<String>("BackGroundTexture"));
+            BackGroundAnimationSpritesPath = o.Value<String>("BackGroundAnimationSpritesPath");
+            BackGroundAnimationSpritesCount = o.Value<int>("BackGroundAnimationSpritesCount");
+
+            //assign Sprites from path
+            for(int i = 0; i < BackGroundAnimationSpritesCount; i++)
+            {
+                BackgroundAnimation[i] = new Sprite(new Texture("BackGroundAnimationSpritesPath" + i + ".png"));
+            }
+
             //ship
             MyShipPosition = new Vector2(o.Value<int>("MyShipPositionX"), o.Value<int>("MyShipPositionY"));
             MyShipSize = new Vector2(o.Value<int>("MyShipSizeX"), o.Value<int>("MyShipSizeY"));
@@ -68,9 +89,6 @@ namespace SpaceX.window
             MyShipTexture = new Texture(o.Value<String>("MyShipTexture"));
             MyShipHealth = o.Value<int>("MyShipHealth");
             MyShipSpeed = o.Value<int>("MyShipSpeed");
-
-            //asteroid
-            AsteroidTexture = new Texture(o.Value<String>("AsteroidTexture"));
 
             //bullet
             MyBulletPosition = new Vector2(o.Value<int>("MyBulletPositionX"), o.Value<int>("MyBulletPositionY"));
@@ -96,6 +114,7 @@ namespace SpaceX.window
             Font = new Font(o.Value<String>("Font"));
             FontSize = (uint)o.Value<int>("FontSize");
 
+            MaxLevel = o.Value<int>("MaxLevel");
 
             //PlayerControl Strings
             String path2 = "../../../assets/json/Control.json";

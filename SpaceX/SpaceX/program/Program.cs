@@ -32,7 +32,6 @@ namespace SpaceX
 
             //begin with StartWindow
             StartWindow SW = new StartWindow();
-            Windows.Add(SW);
 
             //update open windows
             Update(dt);
@@ -49,7 +48,8 @@ namespace SpaceX
                 Window.Closed += (sender, evtArgs) => Running.IsRunning = false;
 
                 //Farseer Physics
-                World.Step(DeltaTime.Time);
+                if(World != null)
+                World.Step(dt.Time);
 
                 //update Windows
                 foreach (IWindow w in Windows.ToList<IWindow>())

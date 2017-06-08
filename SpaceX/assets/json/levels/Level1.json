@@ -1,13 +1,16 @@
 {
 	"AsteroidCount": 5,
+	"LevelDuration": 10000,
+	"AsteroidDuration": 10000,
 	
 	"SpawnPositionX": [0, 25, 50, 75, 100],
 	"SpawnPositionY": [-10, -10, -10, -10, -10],
 	"SpawnDelay": [1000, 1000, 1000, 1000, 1000],
 
+	"Texture": "../../../assets/texture/GameWindow/Asteroid.png",
 	"Size": [10, 10, 10, 10, 20],
 	"Health": [3, 3, 3, 3, 10],
-	"Mass": [10, 10, 10, 10, 10],
-	"Speed": [10, 10, 10, 10, 5],
+	"Mass": [100, 100, 100, 100, 200],
+	"Speed": [30000, 30000, 30000, 30000, 30000],
 	"Points": [10, 10, 10, 10, 100]					
 }

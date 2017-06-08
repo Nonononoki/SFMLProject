@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace SpaceX.gameWindow.hud
 {
-    class HUD : GameObject
+    class GameHUD : GameObject
     {
         Health Health;
         Level Level;
         Score Score;
 
-        public HUD(GameWindowData gwd)
+        public GameHUD(GameWindowData gwd)
         {
             Health = new Health(gwd);
             Level = new Level(gwd);

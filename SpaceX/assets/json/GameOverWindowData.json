@@ -1,0 +1,19 @@
+{
+	"Font": "../../../assets/fonts/pixel.ttf",
+	"FontSize": 50,
+	"FontColorR": 255,
+	"FontColorG": 255,
+	"FontColorB": 255,
+	"FontColorA": 255,
+
+	"ScorePositionX": 50,
+	"ScorePositionY": 50,
+
+	"Enter": "Return",
+
+	"BackGroundPositionX": 50,
+	"BackGroundPositionY": 50,
+	"BackGroundSizeX": 100,
+	"BackGroundSizeY": 100,
+	"BackGroundTexture": "../../../assets/texture/GameOverWindow/Background.png",
+}

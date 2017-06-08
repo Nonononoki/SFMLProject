@@ -31,9 +31,12 @@ namespace SpaceX
         //update components
         public void Update()
         {
-            foreach(IComponent c in _components)
+            if (_components != null)
             {
-                c.Update();
+                foreach (IComponent c in _components.ToList<IComponent>())
+                {
+                    c.Update();
+                }
             }
         }
 
@@ -43,6 +46,14 @@ namespace SpaceX
                 _components = new List<IComponent>();
 
             _components.Add(component);
+        }
+
+        public void RemoveComponent(IComponent component)
+        {
+            if (_components == null)
+                _components = new List<IComponent>();
+
+            _components.Remove(component);
         }
 
         public T GetComponent<T>()
@@ -81,7 +92,37 @@ namespace SpaceX
         //destroy GameObject
         public void Destroy()
         {
+            if(_components != null)
+                RemoveAllComponents();
+
             _list.Remove(this);
+        }
+
+        public static void Destroy(GameObject go)
+        {
+            if (go != null)
+            {
+                if (go._components != null)
+                    GameObject.RemoveAllComponents(go);
+
+                _list.Remove(go);
+            }
+        }
+
+        public void RemoveAllComponents()
+        {
+            foreach (IComponent c in _components)
+            {
+                c.Destroy();
+            }
+        }
+
+        public static void RemoveAllComponents(GameObject g)
+        {
+            foreach (IComponent c in g._components)
+            {
+                c.Destroy();
+            }
         }
 
         //destroy every gameObject on the list
@@ -89,10 +130,7 @@ namespace SpaceX
         {
             foreach (GameObject g in _list)
             {
-                foreach(IComponent c in g._components)
-                {
-                    c.Destroy();
-                }
+                g.RemoveAllComponents();
             }
 
             foreach (GameObject g in _list.ToList<GameObject>())

@@ -15,14 +15,22 @@ namespace SpaceX.gameWindow
     class ShipPhysicsComponent : PhysicsComponent
     {
         public ShipLogicComponent SLC { set; get; }
-        public ShipPhysicsComponent(GameWindowData gwd, ShipLogicComponent SLC) 
-            : base(gwd.MyShipPosition, gwd.MyShipSize, gwd.MyShipVertices, false)
+        public ShipPhysicsComponent(GameWindowData gwd, ShipLogicComponent SLC, Ship Ship) 
+            : base(Ship.Position, gwd.MyShipSize, gwd.MyShipVertices, false)
         {
             Fixture.OnCollision += OnCollision;
+            Fixture.OnSeparation += OnSeparation;
             this.SLC = SLC;
 
             Body.BodyType = BodyType.Dynamic;
             Body.Mass = gwd.MyShipMass;
+            Body.CollisionCategories = Category.Cat1;
+            Body.CollidesWith = Category.Cat2;
+        }
+
+        private void OnSeparation(Fixture fixtureA, Fixture fixtureB)
+        {
+            SLC.OnSeparation(fixtureA, fixtureB);
         }
 
         private bool OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)

@@ -4,6 +4,7 @@ using FarseerPhysics.Dynamics.Contacts;
 using Microsoft.Xna.Framework;
 using Newtonsoft.Json.Linq;
 using SFML.Graphics;
+using SFML.System;
 using SpaceX.gameWindow;
 using SpaceX.window;
 using System;
@@ -17,25 +18,30 @@ namespace SpaceX.gameObject
 {
     class Ship : GameObject
     {
+        public Vector2 Position { set; get; }
         public ShipLogicComponent SLC { set; get; }
         public ShipPhysicsComponent SPC { set; get; }
         public RenderingComponent RC { set; get; }
         public ShipControllerComponent SCC { set; get; }
-
+        public  BulletSpawner BulletSpawner { set; get; }
         public Ship(GameWindowData gwd) : base()
         {
+            Position = Converter.RelativeWindow(gwd.MyShipPosition);
             SLC = new ShipLogicComponent();
-            SPC = new ShipPhysicsComponent(gwd, SLC);
+            SPC = new ShipPhysicsComponent(gwd, SLC, this);
             SPC.Speed = gwd.MyShipSpeed;
             SPC.AddUserData(this, "MyShip");
-            RC = new RenderingComponent(Converter.Vector(gwd.MyShipPosition), gwd.MyShipTexture, Converter.Vector(gwd.MyShipSize), false);
+            RC = new RenderingComponent(new Vector2f(0,0), gwd.MyShipTexture, Converter.Vector(gwd.MyShipSize), false);
             RC.AddPhysics(SPC);
             SCC = new ShipControllerComponent(SPC, gwd);
-      
+
+            BulletSpawner = new BulletSpawner(gwd, this);
+
             this.AddComponent(SLC);
             this.AddComponent(SPC);
             this.AddComponent(RC);
             this.AddComponent(SCC);
+            this.AddComponent(BulletSpawner);
         }
     }
 }
