@@ -39,6 +39,7 @@ namespace SpaceX.gameWindow.asteroid
         private bool OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             ALC.OnCollision(fixtureA, fixtureB, contact);
+            GameWindow.CollisionList.Add(ALC);
             return true;
         }
     }

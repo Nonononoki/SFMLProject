@@ -6,15 +6,13 @@
 	"BackGroundTexture": "../../../assets/texture/GameWindow/Background/0.png",
 	"BackGroundAnimationSpritesPath": "../../../assets/texture/GameWindow/Background/",
 	"BackGroundAnimationSpritesCount": 36,
-	"BackGroundSpeed": 17,
-	
+	"BackGroundSpeed": 30,	
 
 	"MyShipPositionX": 50,
 	"MyShipPositionY": 90,
 	"MyShipSizeX": 4,
 	"MyShipSizeY": 6,
 	"MyShipTexture": "../../../assets/texture/GameWindow/MyShip.png",
-	"MyShipHealth": 10,
 	"MyShipSpeed": 10,
 	"MyShipMass": 10,
 

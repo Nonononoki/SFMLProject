@@ -111,17 +111,20 @@ namespace SpaceX
 
         public void RemoveAllComponents()
         {
-            foreach (IComponent c in _components)
+            foreach (IComponent c in _components.ToList<IComponent>())
             {
+                _components.Remove(c);
                 c.Destroy();
-            }
+            }  
         }
 
         public static void RemoveAllComponents(GameObject g)
         {
-            foreach (IComponent c in g._components)
+            foreach (IComponent c in g._components.ToList<IComponent>())
             {
+                g._components.Remove(c);
                 c.Destroy();
+
             }
         }
 

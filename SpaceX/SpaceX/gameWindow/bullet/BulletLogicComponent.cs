@@ -41,7 +41,6 @@ namespace SpaceX.gameWindow
 
         public void Destroy()
         {
-            //SW = null;
         }
     }
 }

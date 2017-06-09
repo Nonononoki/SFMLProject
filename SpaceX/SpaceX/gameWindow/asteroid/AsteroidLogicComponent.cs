@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SpaceX.gameWindow.asteroid
 {
-    class AsteroidLogicComponent : ILogicComponent
+    class AsteroidLogicComponent : ICollidingComponent
     {
         public Asteroid Asteroid{ set; get; }
         public List<int> CollisionID { set; get; }
@@ -25,12 +25,19 @@ namespace SpaceX.gameWindow.asteroid
             SW = new Stopwatch();
         }
 
-        public void OnSeparation(Fixture fixtureA, Fixture fixtureB)
+        public override void OnSeparation(Fixture fixtureA, Fixture fixtureB)
         {
             CollisionID.Remove(fixtureB.Body.BodyId);
         }
 
-        public void OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        public override void OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            this.fixtureA = fixtureA;
+            this.fixtureB = fixtureB;
+            this.contact = contact;
+        }
+
+        public override void CollisionHandling()
         {
             UserData u = (UserData)fixtureB.Body.UserData;
 
@@ -38,7 +45,7 @@ namespace SpaceX.gameWindow.asteroid
             {
                 CollisionID.Add(fixtureB.Body.BodyId);
 
-                if (u.Type == "Bullet" )
+                if (u.Type == "Bullet")
                 {
                     //Destroy Bulllet
                     UserData bulletData = (UserData)fixtureB.Body.UserData;
@@ -56,7 +63,7 @@ namespace SpaceX.gameWindow.asteroid
                         //GameObject.Destroy(Asteroid);
                         GameWindow.ToBeRemoved.Add(Asteroid);
                         Asteroid.AsteroidDestroy.Sound.Play();
-                     }
+                    }
                     else
                     {
                         Asteroid.AsteroidHit.Sound.Play();
@@ -64,7 +71,7 @@ namespace SpaceX.gameWindow.asteroid
                 }
             }
         }
-        
+
         private bool IsOnList(Fixture f)
         {
             int id = f.Body.BodyId;
@@ -79,11 +86,12 @@ namespace SpaceX.gameWindow.asteroid
             return false;
         }
 
-        public void Destroy()
+        public override void Destroy()
         {
+            CollisionID = null;
         }
 
-        public void Update()
+        public override void Update()
         {
             if(SW.ElapsedMilliseconds >= Asteroid.Duration)
             {

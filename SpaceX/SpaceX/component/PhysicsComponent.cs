@@ -79,6 +79,9 @@ namespace SpaceX
         public void Destroy()
         {
             Program.World.RemoveBody(Body);
+            Fixture = null;
+            Vertices = null;
+            Body = null;
         }
     }
 }

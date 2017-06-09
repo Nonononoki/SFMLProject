@@ -84,7 +84,7 @@ namespace SpaceX.window
             BackgroundTexture = new Texture(o.Value<String>("BackGroundTexture"));
             BackGroundAnimationSpritesPath = o.Value<String>("BackGroundAnimationSpritesPath");
             BackGroundAnimationSpritesCount = o.Value<int>("BackGroundAnimationSpritesCount");
-            BackGroundSpeed = o.Value<int>("Speed");
+            BackGroundSpeed = o.Value<int>("BackGroundSpeed");
 
             BackgroundAnimation = new Sprite[BackGroundAnimationSpritesCount];
             //assign Sprites from path

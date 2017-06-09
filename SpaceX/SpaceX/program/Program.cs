@@ -43,6 +43,9 @@ namespace SpaceX
             {
                 dt.Start();
 
+                //farseer steps
+                World.Step(dt.Time);
+
                 Window.Clear(Color.Black);
                 Window.DispatchEvents();
                 Window.Closed += (sender, evtArgs) => Running.IsRunning = false;
@@ -52,9 +55,6 @@ namespace SpaceX
                 {
                     w.Update();
                 }
-
-                //Farseer Physics
-                World.Step(dt.Time);
 
                 Window.Display();
                 dt.Stop();       

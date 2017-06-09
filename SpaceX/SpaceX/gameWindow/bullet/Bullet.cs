@@ -32,8 +32,10 @@ namespace SpaceX.gameWindow
 
             BLC = new BulletLogicComponent(this);
             BPC = new BulletPhysicsComponent(gwd, this);
+            BPC.Body.Enabled = false;
             RC = new RenderingComponent(Converter.Vector(gwd.MyBulletPosition), gwd.MyBulletTexture, Converter.Vector(gwd.MyBulletSize), false);
             RC.AddPhysics(BPC);
+            RC.IsVisible = false;
             AC = new AudioComponent(gwd.LaserSpawnPath, false);
 
             this.AddComponent(BLC);
@@ -42,12 +44,12 @@ namespace SpaceX.gameWindow
             this.AddComponent(AC);
 
             Duration = gwd.MyBulletDuration; //Time after Bullet resets itself
-
-             Spawn();
         }
 
         public void Spawn()
         {
+            BPC.Body.Enabled = true;
+            RC.IsVisible = true;
             BLC.Spawn();
         }
 

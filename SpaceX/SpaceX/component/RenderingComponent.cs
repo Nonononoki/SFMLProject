@@ -45,24 +45,22 @@ namespace SpaceX
 
         public void Update()
         {
+            
             if (_physics != null && _physics.Body != null)
             {
                 Vector2f v = new Vector2f(ConvertUnits.ToDisplayUnits(_physics.Body.Position.X),
                 ConvertUnits.ToDisplayUnits(_physics.Body.Position.Y));
                 this.Sprite.Position = v;
             }
+            
 
             Draw();
         }
 
         public void Destroy()
         {
-            //Sprite = null;
-        }
-
-        public void PlayDestructionAnimation()
-        {
-            //Play animation here
+            IsVisible = false;
+            Sprite = null; 
         }
     }
 }

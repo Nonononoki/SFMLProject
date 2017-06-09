@@ -5,6 +5,7 @@ using SpaceX.gameObject;
 using SpaceX.window;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -20,7 +21,7 @@ namespace SpaceX.gameWindow
         public Bullet Bullet { set; get; }        //create instance of bullet
         public Ship Ship { set; get; }
         public int Delay { set; get; }
-
+        public Stopwatch SW { set; get; }
         public BulletSpawner(GameWindowData gwd, Ship Ship)
         {
             this.Ship = Ship;
@@ -32,33 +33,26 @@ namespace SpaceX.gameWindow
 
             this.Bullet = new Bullet(gwd);
 
-            StartFiring();
+            SW = new Stopwatch();
+            SW.Start();
         }
 
-        public void StartFiring()
+        public void Fire()
         {
-            //create bullets during runtime and shoot!
-            //https://stackoverflow.com/questions/363377/how-do-i-run-a-simple-bit-of-code-in-a-new-thread
-            new Thread(() =>
-            {
-                Thread.CurrentThread.IsBackground = true;
-                /* run your code here */
-
-                while (Firing)
-                {
-                    //Cloning may be reason why game crashes
-                    Bullet.Clone();
-                    Bullet.AC.Sound.Play();
-                    Thread.Sleep(Delay);
-                }
-
-
-            }).Start();
+             Bullet newBullet = Bullet.Clone();
+             newBullet.Spawn();
+             newBullet.AC.Sound.Play();
         }
 
         public void Update()
         {
             Position = ConvertUnits.ToDisplayUnits(Ship.SPC.Body.Position) + Offset;
+
+            if(SW.ElapsedMilliseconds >= Delay)
+            {
+                Fire();
+                SW.Restart();
+            }
         }
 
         public void Destroy()

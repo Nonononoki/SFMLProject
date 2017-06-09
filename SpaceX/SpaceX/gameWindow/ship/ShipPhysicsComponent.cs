@@ -36,6 +36,7 @@ namespace SpaceX.gameWindow
         private bool OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             SLC.OnCollision(fixtureA, fixtureB, contact);
+            GameWindow.CollisionList.Add(SLC);
             return true;
         }
     }

@@ -17,10 +17,13 @@ namespace SpaceX.gameWindow.asteroid
         public bool Spawning { set; get; }
         public List<Asteroid> Asteroids { set; get; }
         public int LevelDuration { set; get; }
-        public Stopwatch SW { set; get; }
+        public Stopwatch LevelSW { set; get; }
+        public Stopwatch DelaySW { set; get; }
+        public int CurrentAsteroid { set; get; }
+
+
         public AsteroidPool(LevelData ld, GameWindowData gwd, Ship Ship)
         {
-
             LevelDuration = ld.LevelDuration;
 
             //generate Asteroids
@@ -45,39 +48,35 @@ namespace SpaceX.gameWindow.asteroid
                 Asteroids.Add(Asteroid);
             }
 
-            SW = new Stopwatch();
-            SW.Start();
+            CurrentAsteroid = 0;
+
+            LevelSW = new Stopwatch();
+            LevelSW.Start();
+
+            DelaySW = new Stopwatch();
+            DelaySW.Start();
             Spawning = true;
-            StartFiring();
         }
 
-        public void StartFiring()
-        {
-            //launch asteroids with delay
-            //https://stackoverflow.com/questions/363377/how-do-i-run-a-simple-bit-of-code-in-a-new-thread
-            new Thread(() =>
-            {
-                Thread.CurrentThread.IsBackground = true;
-                /* run your code here */
 
-                for(int i = 0; i < Asteroids.Count && Spawning; i++)
-                {
-                    Asteroids.ElementAt(i).Spawn();
-                    Thread.Sleep(Asteroids.ElementAt(i).SpawnDelay);
-                }
-
-            }).Start();
-        }
 
         public void Update()
         {
-            if (SW.ElapsedMilliseconds >= LevelDuration)
+            //spawn enemies in interval
+            if (CurrentAsteroid < Asteroids.Count && DelaySW.ElapsedMilliseconds >= Asteroids.ElementAt(CurrentAsteroid).SpawnDelay)
+            {
+                Asteroids.ElementAt(CurrentAsteroid).Spawn();
+                CurrentAsteroid++;
+                DelaySW.Restart();
+            }
+
+            //move to next level after a period of time
+            if (LevelSW.ElapsedMilliseconds >= LevelDuration)
             {
                 GameWindow.LoadNextLevel();
                 Destroy();
             }
         }
-
 
         public void Destroy()
         {

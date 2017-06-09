@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="component\AudioComponent.cs" />
+    <Compile Include="component\ICollidingComponent.cs" />
     <Compile Include="component\IControllerComponent.cs" />
     <Compile Include="component\IComponent.cs" />
     <Compile Include="component\ILogicComponent.cs" />

@@ -12,7 +12,7 @@ using SpaceX.gameObject;
 
 namespace SpaceX.gameWindow
 {
-    class ShipLogicComponent : ILogicComponent
+    class ShipLogicComponent : ICollidingComponent
     {
         public List<int> CollisionID { set; get; }
         public Ship Ship { set; get; }
@@ -23,12 +23,19 @@ namespace SpaceX.gameWindow
             this.Ship = ship;
         }
 
-        public void OnSeparation(Fixture fixtureA, Fixture fixtureB)
+        public override void OnSeparation(Fixture fixtureA, Fixture fixtureB)
         {
             CollisionID.Remove(fixtureB.Body.BodyId);
         }
 
-        public void OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        public override void OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            this.fixtureA = fixtureA;
+            this.fixtureB = fixtureB;
+            this.contact = contact;    
+        }
+
+        public override void CollisionHandling()
         {
             UserData u = (UserData)fixtureB.Body.UserData;
 
@@ -70,11 +77,12 @@ namespace SpaceX.gameWindow
             return false;
         }
 
-        public void Destroy()
+        public override void Destroy()
         {
+            CollisionID = null;
         }
 
-        public void Update()
+        public override void Update()
         {
         }
     }
