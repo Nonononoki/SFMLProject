@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SpaceX.component
 {
-    interface ILogicComponent : IComponent
+    interface IAnimationLogicComponent : ILogicComponent
     {
-        
+        void AfterAnimation();
     }
 }

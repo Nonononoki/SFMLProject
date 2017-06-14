@@ -21,8 +21,8 @@ namespace SpaceX.window
         public Texture BackgroundTexture { set; get; }
 
         public String BackGroundAnimationSpritesPath { set; get; }
-	    public int BackGroundAnimationSpritesCount { set; get; }
-        public Sprite[] BackgroundAnimation { set; get;}
+        public int BackGroundAnimationSpritesCount { set; get; }
+        public Sprite[] BackgroundAnimation { set; get; }
         public int BackGroundSpeed { set; get; }
 
         //Ship Data
@@ -62,7 +62,7 @@ namespace SpaceX.window
         public String AsteroidHitPath { set; get; }
         public String ShipHitPath { set; get; }
         public String LaserSpawnPath { set; get; }
-        public String LevelUpPath{ set; get; }
+        public String LevelUpPath { set; get; }
         public String BackgroundBGM { set; get; }
 
         //Control  buttons
@@ -118,9 +118,9 @@ namespace SpaceX.window
             ScorePosition = new Vector2f(o.Value<int>("ScorePositionX"), o.Value<int>("ScorePositionY"));
             LevelPosition = new Vector2f(o.Value<int>("LevelPositionX"), o.Value<int>("LevelPositionY"));
 
-            TextColor = new Color((byte)o.Value<int>("FontColorR"), 
-                                  (byte)o.Value<int>("FontColorG"), 
-                                  (byte)o.Value<int>("FontColorB"), 
+            TextColor = new Color((byte)o.Value<int>("FontColorR"),
+                                  (byte)o.Value<int>("FontColorG"),
+                                  (byte)o.Value<int>("FontColorB"),
                                   (byte)o.Value<int>("FontColorA"));
             Font = new Font(o.Value<String>("Font"));
             FontSize = (uint)o.Value<int>("FontSize");

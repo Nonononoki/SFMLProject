@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="component\AudioComponent.cs" />
+    <Compile Include="component\IAnimationLogicComponent.cs" />
     <Compile Include="component\ICollidingComponent.cs" />
     <Compile Include="component\IControllerComponent.cs" />
     <Compile Include="component\IComponent.cs" />
@@ -82,6 +83,8 @@
     <Compile Include="gameOverWindow\GameOverWindowData.cs" />
     <Compile Include="gameOverWindow\GameOverHUD.cs" />
     <Compile Include="gameWindow\asteroid\Asteroid.cs" />
+    <Compile Include="gameWindow\asteroid\AsteroidDestroyALC.cs" />
+    <Compile Include="gameWindow\asteroid\AsteroidHitALC.cs" />
     <Compile Include="gameWindow\asteroid\AsteroidLogicComponent.cs" />
     <Compile Include="gameWindow\asteroid\AsteroidPhysicsComponent.cs" />
     <Compile Include="gameWindow\asteroid\AsteroidPool.cs" />

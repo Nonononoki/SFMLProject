@@ -13,7 +13,7 @@ namespace SpaceX.gameWindow.asteroid
 {
     class AsteroidLogicComponent : ICollidingComponent
     {
-        public Asteroid Asteroid{ set; get; }
+        public Asteroid Asteroid { set; get; }
         public List<int> CollisionID { set; get; }
         public Stopwatch SW { set; get; }
 
@@ -57,16 +57,17 @@ namespace SpaceX.gameWindow.asteroid
                     //reduce asteroid hp
                     Asteroid.Health--;
 
+                    //Play Hit Animation
+                    Asteroid.HitAnimation.Start();
+
                     if (Asteroid.Health <= 0)
                     {
                         Score.Value += Asteroid.Points;
-                        //GameObject.Destroy(Asteroid);
-                        GameWindow.ToBeRemoved.Add(Asteroid);
-                        Asteroid.AsteroidDestroy.Sound.Play();
+                        DestroyAsteroidWithAnimation();
                     }
                     else
                     {
-                        Asteroid.AsteroidHit.Sound.Play();
+                        Asteroid.AsteroidHitSFX.Sound.Play();
                     }
                 }
             }
@@ -76,9 +77,9 @@ namespace SpaceX.gameWindow.asteroid
         {
             int id = f.Body.BodyId;
 
-            foreach(int i in CollisionID)
+            foreach (int i in CollisionID)
             {
-                if(i == id)
+                if (i == id)
                 {
                     return true;
                 }
@@ -86,17 +87,27 @@ namespace SpaceX.gameWindow.asteroid
             return false;
         }
 
-        public override void Destroy()
-        {
-            CollisionID = null;
-        }
 
         public override void Update()
         {
-            if(SW.ElapsedMilliseconds >= Asteroid.Duration)
+            //self destruct after a while
+            if (SW.ElapsedMilliseconds >= Asteroid.Duration)
             {
                 Asteroid.Destroy();
+                SW.Reset();
             }
+        }
+
+        public override void Destroy()
+        {
+            //throw new NotImplementedException();
+        }
+
+        public void DestroyAsteroidWithAnimation()
+        {
+            Asteroid.APC.Body.CollisionCategories = Category.Cat3;
+            Asteroid.AsteroidDestroySFX.Sound.Play();
+            Asteroid.DestructionAnimation.Start();
         }
     }
 }

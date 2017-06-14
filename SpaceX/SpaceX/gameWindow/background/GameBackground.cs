@@ -18,7 +18,7 @@ namespace SpaceX.gameWindow.background
         public GameBackground(GameWindowData gwd)
         {
             RC = new RenderingComponent(gwd.BackgroundPosition, gwd.BackgroundTexture, gwd.BackgroundSize, false);
-            AC = new AnimationComponent(gwd.BackgroundAnimation, gwd.BackGroundSpeed, RC);
+            AC = new AnimationComponent(gwd.BackgroundAnimation, gwd.BackGroundSpeed, RC, null, true);
             BGM = new AudioComponent(gwd.BackgroundBGM, true);
 
             this.AddComponent(AC);
@@ -26,6 +26,7 @@ namespace SpaceX.gameWindow.background
             this.AddComponent(BGM);
 
             BGM.Sound.Play();
+            AC.Start();
         }
     }
 }

@@ -32,8 +32,8 @@ namespace SpaceX.gameWindow.asteroid
             {
                 Asteroid Asteroid = new Asteroid();
                 Asteroid.Mass = ld.AsteroidMass.ElementAt(i);
-                Asteroid.Health = ld.AsteroidHealth.ElementAt(i);
                 Asteroid.Speed = ld.AsteroidSpeed.ElementAt(i);
+                Asteroid.Health = ld.AsteroidHealth.ElementAt(i);
 
                 Asteroid.Size = ld.AsteroidSize.ElementAt(i);
                 Asteroid.SpawnDelay = ld.SpawnDelay.ElementAt(i);
@@ -43,6 +43,10 @@ namespace SpaceX.gameWindow.asteroid
                 Asteroid.Duration = ld.AsteroidDuration;
                 Asteroid.Texture = ld.AsteroidTexture;
                 Asteroid.Ship = Ship;
+
+                Asteroid.AnimationSpeed = ld.AnimationSpeed;
+                Asteroid.ExplosionSprites = ld.ExplosionSprites;
+                Asteroid.HitSprites = ld.HitSprites;
 
                 Asteroid.Start(gwd);
                 Asteroids.Add(Asteroid);
@@ -81,6 +85,8 @@ namespace SpaceX.gameWindow.asteroid
         public void Destroy()
         {
             Spawning = false;
+            LevelSW = null;
+            DelaySW = null;
         }
     }
 }
