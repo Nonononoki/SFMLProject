@@ -63,7 +63,8 @@ namespace SpaceX.gameWindow.gameLoadingWindow
 
         public void Destroy()
         {
-            //MyGameObjects.Clear();
+            Converter.RemoveAllComponents(MyGameObjects);
+            MyGameObjects.Clear();
             Program.Windows.RemoveAt(Index);
         }
     }

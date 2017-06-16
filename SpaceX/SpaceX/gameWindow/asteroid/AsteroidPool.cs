@@ -85,8 +85,8 @@ namespace SpaceX.gameWindow.asteroid
         public void Destroy()
         {
             Spawning = false;
-            LevelSW = null;
-            DelaySW = null;
+            //LevelSW = null;
+            //DelaySW = null;
         }
     }
 }

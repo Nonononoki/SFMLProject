@@ -40,6 +40,7 @@ namespace SpaceX.window
         public void DeleteMe()
         {
             Program.Windows.RemoveAt(Index);
+            Converter.RemoveAllComponents(SD.MyGameobjects);
             SD.MyGameobjects.Clear();
         }
     }

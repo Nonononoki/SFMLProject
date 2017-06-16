@@ -104,8 +104,11 @@ namespace SpaceX.window
             {
                 //Game Over!
                 //Open next Window
+                Converter.RemoveAllComponents(MyGameObjects);
+                MyGameObjects.Clear();
                 Program.Windows.RemoveAt(Index);
                 GameOverWindow GOW = new GameOverWindow(Score.Value);
+                World = null;
                 IsOver = false;
             }
         }

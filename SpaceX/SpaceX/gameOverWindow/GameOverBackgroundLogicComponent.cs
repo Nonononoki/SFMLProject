@@ -12,9 +12,11 @@ namespace SpaceX.gameOverWindow
     class GameOverBackgroundLogicComponent : ILogicComponent
     {
         public Key Enter { set; get; }
-        public GameOverBackgroundLogicComponent(GameOverWindowData gowd)
+        public GameOverWindow GOW { set; get; }
+        public GameOverBackgroundLogicComponent(GameOverWindowData gowd, GameOverWindow gow)
         {
             this.Enter = gowd.Enter;
+            this.GOW = gow;
 
         }
         public void Destroy()
@@ -25,7 +27,7 @@ namespace SpaceX.gameOverWindow
         {
             if (Keyboard.IsKeyPressed(Enter))
             {
-                GameOverWindow.LoadNextWindow();
+                GOW.LoadNextWindow();
             }
         }
     }

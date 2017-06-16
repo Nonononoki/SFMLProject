@@ -48,5 +48,13 @@ namespace SpaceX
         {
             return v / v.Length() * desiredLength;
         }
+
+        public static void RemoveAllComponents(List<GameObject> list)
+        {
+            foreach(GameObject go in list.ToList())
+            {
+                go.RemoveAllComponents();
+            }
+        }
     }
 }

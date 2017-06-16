@@ -16,16 +16,23 @@ namespace SpaceX.gameOverWindow
         public GameOverBackground GOBG { set; get; }
         public GameOverWindowData GOWD { set; get; }
 
+        public List<GameObject> MyGameObjects { set; get; }
+
         public GameOverWindow(int score)
         {
+            MyGameObjects = new List<GameObject>();
+
             GOWD = new GameOverWindowData();
-            GameObject.DestroyAll();
+            //GameObject.DestroyAll();
 
             //stop bgm
-            GameBackground.BGM.Sound.Stop();
+            //GameBackground.BGM.Sound.Stop();
 
-            GOBG = new GameOverBackground(GOWD);
+            GOBG = new GameOverBackground(GOWD, this);
             Hud = new GameOverHUD(GOWD, score);
+
+            MyGameObjects.Add(GOBG);
+            MyGameObjects.Add(Hud);
 
             //assign window ID
             Program.Windows.Add(this);
@@ -41,9 +48,11 @@ namespace SpaceX.gameOverWindow
             }
         }
 
-        public static void LoadNextWindow()
+        public void LoadNextWindow()
         {
             //Open next Window
+            Converter.RemoveAllComponents(MyGameObjects);
+            MyGameObjects.Clear();
             Program.Windows.RemoveAt(Index);
             StartWindow SW = new StartWindow();
         }

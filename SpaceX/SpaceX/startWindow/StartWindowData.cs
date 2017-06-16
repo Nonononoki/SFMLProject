@@ -36,7 +36,6 @@ namespace SpaceX.window
 
         public Key Enter { set; get; }
         public StartButtonLogic SBL { set; get; }
-
         public List<GameObject> MyGameobjects { set; get; }
 
 
