@@ -16,7 +16,6 @@ namespace SpaceX
     {
         public static List<IWindow> Windows;
         public static RenderWindow Window;
-        public static World World;
 
         static void Main(string[] args)
         {
@@ -25,7 +24,6 @@ namespace SpaceX
             Window = new RenderWindow(new VideoMode((uint)PG.WindowSize.X, (uint)PG.WindowSize.Y), "SpaceX", Styles.Default);
             Windows = new List<IWindow>();
             Running Running = new Running();
-            World = new World(new Vector2(0, 0));
 
             //DeltaTime
             DeltaTime dt = new DeltaTime();
@@ -42,9 +40,6 @@ namespace SpaceX
             while (Running.IsRunning)
             {
                 dt.Start();
-
-                //farseer steps
-                World.Step(dt.Time);
 
                 Window.Clear(Color.Black);
                 Window.DispatchEvents();

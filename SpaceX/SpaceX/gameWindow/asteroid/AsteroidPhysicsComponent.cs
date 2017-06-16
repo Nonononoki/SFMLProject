@@ -16,7 +16,7 @@ namespace SpaceX.gameWindow.asteroid
     {
         public AsteroidLogicComponent ALC { set; get; }
         public AsteroidPhysicsComponent(Asteroid Asteroid, AsteroidLogicComponent ALC) 
-            : base(Converter.Vector(Asteroid.Position), Converter.Vector(Converter.RelativeWindow(new Vector2f(Asteroid.Size, Asteroid.Size))), null, true)
+            : base(Converter.Vector(Asteroid.Position), Converter.Vector(Converter.RelativeWindow(new Vector2f(Asteroid.Size, Asteroid.Size))), null, GameWindow.World, true)
         {
             Fixture.OnCollision += OnCollision;
             Fixture.OnSeparation += OnSeparation;

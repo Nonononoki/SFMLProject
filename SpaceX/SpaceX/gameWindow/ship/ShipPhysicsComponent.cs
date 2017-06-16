@@ -16,7 +16,7 @@ namespace SpaceX.gameWindow
     {
         public ShipLogicComponent SLC { set; get; }
         public ShipPhysicsComponent(GameWindowData gwd, ShipLogicComponent SLC, Ship Ship) 
-            : base(Ship.Position, gwd.MyShipSize, gwd.MyShipVertices, false)
+            : base(Ship.Position, gwd.MyShipSize, gwd.MyShipVertices, GameWindow.World, false)
         {
             Fixture.OnCollision += OnCollision;
             Fixture.OnSeparation += OnSeparation;

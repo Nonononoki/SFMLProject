@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FarseerPhysics.Dynamics.Contacts;
 using SFML.System;
+using SpaceX.window;
 
 namespace SpaceX
 {
@@ -23,20 +24,20 @@ namespace SpaceX
         public Vertices Vertices { set; get; }
         public Vector2 Direction { set; get; }
 
-        public PhysicsComponent(Vector2 Position, Vector2 Size, Vertices vertices, bool IsCircle)
+        public PhysicsComponent(Vector2 Position, Vector2 Size, Vertices vertices, World World, bool IsCircle)
         {
 
             if(IsCircle)
             {
                 //Body and Fixture for circles
-                Body = BodyFactory.CreateCircle(Program.World, ConvertUnits.ToSimUnits(Size.X), density);
+                Body = BodyFactory.CreateCircle(World, ConvertUnits.ToSimUnits(Size.X), density);
                 Fixture = FixtureFactory.AttachCircle(ConvertUnits.ToSimUnits(Size.X), density, Body);
             }
             else
             {
                 //Body and Fixture for polygons
                 Vertices = vertices;
-                Body = BodyFactory.CreatePolygon(Program.World, vertices, density);
+                Body = BodyFactory.CreatePolygon(World, vertices, density);
                 Fixture = FixtureFactory.AttachPolygon(Vertices, density, Body);
             }
 
@@ -78,7 +79,7 @@ namespace SpaceX
 
         public void Destroy()
         {
-            Program.World.RemoveBody(Body);
+            GameWindow.World.RemoveBody(Body);
             Fixture = null;
             Vertices = null;
             Body = null;

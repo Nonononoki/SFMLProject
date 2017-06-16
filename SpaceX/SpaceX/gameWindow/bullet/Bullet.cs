@@ -44,6 +44,8 @@ namespace SpaceX.gameWindow
             this.AddComponent(AC);
 
             Duration = gwd.MyBulletDuration; //Time after Bullet resets itself
+
+            GameWindow.MyGameObjects.Add(this);
         }
 
         public void Spawn()

@@ -1,4 +1,6 @@
-﻿using SFML.Graphics;
+﻿using FarseerPhysics.Dynamics;
+using Microsoft.Xna.Framework;
+using SFML.Graphics;
 using SpaceX.component;
 using SpaceX.gameObject;
 using SpaceX.gameOverWindow;
@@ -17,6 +19,7 @@ namespace SpaceX.window
     class GameWindow : IWindow
     {
         public static int Index { set; get; }
+        public static World World { set; get; }
         public static GameWindowData GameWindowData { set; get; }
         public static LevelData LevelData { set; get; }
         public static Ship Ship { set; get; }
@@ -29,16 +32,20 @@ namespace SpaceX.window
         public static List<ICollidingComponent> CollisionList { set; get; }
         public static bool IsOver = false;
 
+        public static List<GameObject> MyGameObjects { set; get; }
+
         public GameWindow()
         {
-            GameObject.DestroyAll();
+            //GameObject.DestroyAll();
+
+            World = new World(new Vector2(0, 0));
 
             //static data first
             GameWindowData = new GameWindowData();
 
-            //assign window id
-            Program.Windows.Add(this);
-            Index = Program.Windows.IndexOf(this);
+            //list of window gameobjects
+            MyGameObjects = new List<GameObject>();
+
             LevelData = new LevelData(1);        
             LevelUpSFX = new AudioComponent(GameWindowData.LevelUpPath, false);
 
@@ -47,6 +54,11 @@ namespace SpaceX.window
             HUD = new GameHUD(GameWindowData);
             Ship = new Ship(GameWindowData);
 
+            //add to list
+            MyGameObjects.Add(GBG);
+            MyGameObjects.Add(HUD);
+            MyGameObjects.Add(Ship);
+
             //spawn asteroids
             AsteroidPool = new AsteroidPool(LevelData, GameWindowData, Ship);
             Ship.AddComponent(AsteroidPool);
@@ -54,12 +66,22 @@ namespace SpaceX.window
             //remove to be deleted gameobjects
             ToBeRemoved = new List<GameObject>();
             CollisionList = new List<ICollidingComponent>();
+
+            //assign window id 
+            Program.Windows.Add(this);
+            Index = Program.Windows.IndexOf(this);
+
+            //Because Loadscreen takes up 1 slot
+            Index -= 1;
         }
 
         public void Update()
         {
+            //farseer steps
+            World.Step(DeltaTime.Time);
+
             //draw sprites
-            foreach (GameObject go in GameObject._list.ToList<GameObject>())
+            foreach (GameObject go in MyGameObjects.ToList<GameObject>())
             {
                 go.Update();
             }

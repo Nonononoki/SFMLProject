@@ -75,6 +75,7 @@ namespace SpaceX.gameWindow
         public void Spawn()
         {
             ALC.SW.Start();
+            GameWindow.MyGameObjects.Add(this);
 
             //spawn and launch asteroids
             RC.IsVisible = true;
@@ -90,6 +91,7 @@ namespace SpaceX.gameWindow
         {
             //destruction animation played, time to destroy
             GameWindow.ToBeRemoved.Add(this);
+            GameWindow.MyGameObjects.Add(this);
         }
 
     }

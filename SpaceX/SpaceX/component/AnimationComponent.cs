@@ -24,15 +24,15 @@ namespace SpaceX.gameOverWindow
 
         public AnimationComponent(Sprite[] Sprites, int Speed, RenderingComponent RC, IAnimationLogicComponent ALC, bool Looping)
         {
+            Running = false;
             CurrentSpriteNumber = 0;
 
             this.Looping = Looping;
             this.Sprites = Sprites;
             this.Speed = Speed;
             this.RC = RC;
-            this.ALC = ALC;
-
             this.OriginalSprite = RC.Sprite;
+            this.ALC = ALC;
 
             SW = new Stopwatch();
             SW.Start();
@@ -57,6 +57,7 @@ namespace SpaceX.gameOverWindow
             {
                 RC.Sprite.Origin = new Vector2f(this.Sprites[CurrentSpriteNumber].Texture.Size.X / 2, this.Sprites[CurrentSpriteNumber].Texture.Size.Y / 2);
                 RC.Sprite.Texture = Sprites[CurrentSpriteNumber].Texture;
+                RC.Sprite = OriginalSprite;
 
                 //next sprite
                 CurrentSpriteNumber++;
@@ -65,7 +66,7 @@ namespace SpaceX.gameOverWindow
                 {
                     //stop animation if no loop
                     Stop();
-                    RC.Sprite = OriginalSprite;
+                    //RC.Sprite.Texture = OriginalSprite.Texture;
                     ALC.AfterAnimation();
                 }
 

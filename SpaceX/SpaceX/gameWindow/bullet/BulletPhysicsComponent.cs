@@ -13,7 +13,7 @@ namespace SpaceX.gameWindow
     class BulletPhysicsComponent : PhysicsComponent
     {
         public BulletPhysicsComponent(GameWindowData gwd, Bullet Bullet)
-            : base(Bullet.Position, gwd.MyBulletSize, gwd.MyBulletVertices, false)
+            : base(Bullet.Position, gwd.MyBulletSize, gwd.MyBulletVertices, GameWindow.World, false)
         {
             Body.BodyType = BodyType.Dynamic;
             Body.IsBullet = true;

@@ -58,7 +58,6 @@ namespace SpaceX.gameWindow
                     UserData ud = (UserData)fixtureB.Body.UserData;
                     Asteroid Asteroid = (Asteroid) GameObject.FindById(ud.ID);
                     //GameObject.Destroy(Asteroid);
-                    //GameWindow.ToBeRemoved.Add(Asteroid);
                     Asteroid.ALC.DestroyAsteroidWithAnimation();
                 }
             }

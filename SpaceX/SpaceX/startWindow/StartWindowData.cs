@@ -37,6 +37,8 @@ namespace SpaceX.window
         public Key Enter { set; get; }
         public StartButtonLogic SBL { set; get; }
 
+        public List<GameObject> MyGameobjects { set; get; }
+
 
         public StartWindowData(StartWindow StartWindow)
         {
@@ -68,6 +70,12 @@ namespace SpaceX.window
             BackgroundObject = new GameObject();
             LogoObject = new GameObject();
             StartObject = new GameObject();
+
+            //add go to list
+            MyGameobjects = new List<GameObject>();
+            MyGameobjects.Add(BackgroundObject);
+            MyGameobjects.Add(LogoObject);
+            MyGameobjects.Add(StartObject);
 
             //assign components to game objects
             BackgroundObject.AddComponent(BackgroundRenderingComponent);

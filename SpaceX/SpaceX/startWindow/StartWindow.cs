@@ -1,4 +1,5 @@
 ﻿using SFML.Graphics;
+using SpaceX.gameWindow.gameLoadingWindow;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace SpaceX.window
 {
     class StartWindow : IWindow
     {
-        public static int Index { set; get; }
+        public int Index { set; get; }
         public StartWindowData SD;
 
         public StartWindow()
@@ -22,17 +23,24 @@ namespace SpaceX.window
         public void Update()
         {
             //draw sprites
-            foreach (GameObject go in GameObject._list.ToList<GameObject>())
+            foreach (GameObject go in SD.MyGameobjects.ToList<GameObject>())
             {
                 go.Update();
             }
         }
 
-        public static void LoadNextWindow()
+        public void LoadNextWindow()
         {
-            //Open next Window
+            DeleteMe();
+            //Open next Window with loading screen
+            GameLoadingWindow GLW = new GameLoadingWindow();
+            //GameWindow GW = new GameWindow();
+        }
+
+        public void DeleteMe()
+        {
             Program.Windows.RemoveAt(Index);
-            GameWindow GW = new GameWindow();
+            SD.MyGameobjects.Clear();
         }
     }
 }

@@ -1,0 +1,10 @@
+{
+	"IconPositionX": 50,
+	"IconPositionY": 50,
+	"IconSizeX": 20,
+	"IconSizeY": 20,
+	"IconTexturePath": "../../../assets/texture/GameWindow/FlyingEnemy/0.png",
+	"AnimationSpritesPath": "../../../assets/texture/GameWindow/FlyingEnemy/",
+	"AnimationSpritesCount": 12,
+	"AnimationSpeed": 100
+}

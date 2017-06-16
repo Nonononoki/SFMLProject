@@ -34,13 +34,13 @@ namespace SpaceX.gameWindow
             if (SW.ElapsedMilliseconds >= Bullet.Duration)
             {
                 Destroy();
-                //Bullet.Destroy();
-                GameWindow.ToBeRemoved.Add(Bullet);
             }
         }
 
         public void Destroy()
         {
+            GameWindow.ToBeRemoved.Add(Bullet);
+            GameWindow.MyGameObjects.Remove(Bullet);
         }
     }
 }
