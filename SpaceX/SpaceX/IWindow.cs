@@ -8,6 +8,9 @@ namespace SpaceX
 {
     interface IWindow
     {
+        List<GameObject> GameObjects();
         void Update();
+        void Remove();
+        void Clear();
     }
 }

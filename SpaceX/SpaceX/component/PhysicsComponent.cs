@@ -23,9 +23,11 @@ namespace SpaceX
         public Fixture Fixture { set; get; }
         public Vertices Vertices { set; get; }
         public Vector2 Direction { set; get; }
+        public World World { set; get; }
 
         public PhysicsComponent(Vector2 Position, Vector2 Size, Vertices vertices, World World, bool IsCircle)
         {
+            this.World = World;
 
             if(IsCircle)
             {
@@ -79,7 +81,7 @@ namespace SpaceX
 
         public void Destroy()
         {
-            GameWindow.World.RemoveBody(Body);
+            World.RemoveBody(Body);
             Fixture = null;
             Vertices = null;
             Body = null;

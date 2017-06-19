@@ -45,7 +45,7 @@ namespace SpaceX.gameOverWindow
 
         public void Destroy()
         {
-            //throw new NotImplementedException();
+            Text.DisplayedString = "";
         }
     }
 }

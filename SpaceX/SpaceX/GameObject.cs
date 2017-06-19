@@ -62,7 +62,10 @@ namespace SpaceX
             //get the first object from list, there is only one of each type
             IEnumerable<T> list = _components.OfType<T>();
 
-            return list.ElementAt(0);
+            //only return if list is not empty
+            if (list.Any())
+                return list.ElementAt(0);
+            else return default(T);
         }
 
         private void ID() //assign id, count id
@@ -92,7 +95,7 @@ namespace SpaceX
         //destroy GameObject
         public void Destroy()
         {
-            if(_components != null)
+            if (_components != null)
                 RemoveAllComponents();
 
             _list.Remove(this);
@@ -115,7 +118,19 @@ namespace SpaceX
             {
                 _components.Remove(c);
                 c.Destroy();
-            }  
+            }
+        }
+
+        public void RemoveAllComponentsExcept(IComponent C)
+        {
+            foreach (IComponent c in _components.ToList<IComponent>())
+            {
+                if (c != C)
+                {
+                    _components.Remove(c);
+                    c.Destroy();
+                }
+            }
         }
 
         public static void RemoveAllComponents(GameObject g)

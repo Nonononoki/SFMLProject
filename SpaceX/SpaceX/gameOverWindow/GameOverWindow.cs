@@ -11,7 +11,6 @@ namespace SpaceX.gameOverWindow
 {
     class GameOverWindow : IWindow
     {
-        public static int Index { set; get; }
         public GameOverHUD Hud { set; get; }
         public GameOverBackground GOBG { set; get; }
         public GameOverWindowData GOWD { set; get; }
@@ -35,8 +34,8 @@ namespace SpaceX.gameOverWindow
             MyGameObjects.Add(Hud);
 
             //assign window ID
-            Program.Windows.Add(this);
-            Index = Program.Windows.IndexOf(this);
+            //Program.Windows.Add(this);
+            Program.Windows.Insert(0, this);
         }
 
         public void Update()
@@ -51,10 +50,24 @@ namespace SpaceX.gameOverWindow
         public void LoadNextWindow()
         {
             //Open next Window
-            Converter.RemoveAllComponents(MyGameObjects);
-            MyGameObjects.Clear();
-            Program.Windows.RemoveAt(Index);
+            Remove();
             StartWindow SW = new StartWindow();
+        }
+
+        public List<GameObject> GameObjects()
+        {
+            return MyGameObjects;
+        }
+
+        public void Remove()
+        {
+            Converter.RemoveAllComponents(this);
+        }
+
+        public void Clear()
+        {
+            MyGameObjects.Clear();
+            Program.Windows.Remove(this);
         }
     }
 }

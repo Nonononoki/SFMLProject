@@ -10,20 +10,21 @@ namespace SpaceX.window
 {
     class StartWindow : IWindow
     {
-        public int Index { set; get; }
         public StartWindowData SD;
+        public List<GameObject> MyGameObjects;
 
         public StartWindow()
         {
-            Program.Windows.Add(this);
-            Index = Program.Windows.IndexOf(this);
+            //Program.Windows.Add(this);
+            Program.Windows.Insert(0, this);
             SD = new StartWindowData(this);
+            MyGameObjects = SD.MyGameObjects;
         }
         
         public void Update()
         {
             //draw sprites
-            foreach (GameObject go in SD.MyGameobjects.ToList<GameObject>())
+            foreach (GameObject go in MyGameObjects.ToList<GameObject>())
             {
                 go.Update();
             }
@@ -31,17 +32,25 @@ namespace SpaceX.window
 
         public void LoadNextWindow()
         {
-            DeleteMe();
+            Remove();
             //Open next Window with loading screen
             GameLoadingWindow GLW = new GameLoadingWindow();
-            //GameWindow GW = new GameWindow();
         }
 
-        public void DeleteMe()
+        public List<GameObject> GameObjects()
         {
-            Program.Windows.RemoveAt(Index);
-            Converter.RemoveAllComponents(SD.MyGameobjects);
-            SD.MyGameobjects.Clear();
+            return MyGameObjects;
+        }
+
+        public void Remove()
+        {
+            Converter.RemoveAllComponents(this);
+        }
+
+        public void Clear()
+        {
+            MyGameObjects.Clear();
+            Program.Windows.Remove(this);
         }
     }
 }

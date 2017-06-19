@@ -18,7 +18,6 @@ namespace SpaceX.window
 {
     class GameWindow : IWindow
     {
-        public static int Index { set; get; }
         public static World World { set; get; }
         public static GameWindowData GameWindowData { set; get; }
         public static LevelData LevelData { set; get; }
@@ -67,18 +66,16 @@ namespace SpaceX.window
             ToBeRemoved = new List<GameObject>();
             CollisionList = new List<ICollidingComponent>();
 
-            //assign window id 
-            Program.Windows.Add(this);
-            Index = Program.Windows.IndexOf(this);
-
-            //Because Loadscreen takes up 1 slot
-            Index -= 1;
+            //add to windows
+            //Program.Windows.Add(this);
+            Program.Windows.Insert(0, this);
         }
 
         public void Update()
         {
             //farseer steps
-            World.Step(DeltaTime.Time);
+            if(World != null)
+                World.Step(DeltaTime.Time);
 
             //draw sprites
             foreach (GameObject go in MyGameObjects.ToList<GameObject>())
@@ -102,12 +99,9 @@ namespace SpaceX.window
 
             if (IsOver)
             {
-                //Game Over!
-                //Open next Window
-                Converter.RemoveAllComponents(MyGameObjects);
-                MyGameObjects.Clear();
-                Program.Windows.RemoveAt(Index);
+                Remove();
                 GameOverWindow GOW = new GameOverWindow(Score.Value);
+
                 World = null;
                 IsOver = false;
             }
@@ -137,6 +131,23 @@ namespace SpaceX.window
         public static void GameOver()
         {
             IsOver = true;
+        }
+
+        public List<GameObject> GameObjects()
+        {
+            return MyGameObjects;
+        }
+
+        public void Remove()
+        {
+            World = null;
+            Converter.RemoveAllComponents(this);
+        }
+
+        public void Clear()
+        {
+            MyGameObjects.Clear();
+            Program.Windows.Remove(this);
         }
 
     }

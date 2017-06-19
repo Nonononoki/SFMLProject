@@ -1,4 +1,7 @@
 {
 	"WindowHeight": 720,
-	"WindowWidth": 1280
+	"WindowWidth": 1280,
+
+	"FadeStep": 5,
+	"FadeSpeed": 10
 }

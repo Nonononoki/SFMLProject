@@ -34,6 +34,7 @@ namespace SpaceX.startWindow.logic
             {
                 StartWindow.LoadNextWindow();
             }
+
         }
     }
 }

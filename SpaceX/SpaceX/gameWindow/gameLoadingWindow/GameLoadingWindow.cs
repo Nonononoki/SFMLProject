@@ -11,7 +11,6 @@ namespace SpaceX.gameWindow.gameLoadingWindow
 {
     class GameLoadingWindow : IWindow
     {
-        public static int Index { set; get; }
         public GameWindow GameWindow { set; get; }
         public GameLoadingWindowData GLWD { set; get; }
 
@@ -23,8 +22,8 @@ namespace SpaceX.gameWindow.gameLoadingWindow
 
         public GameLoadingWindow()
         {
-            Program.Windows.Add(this);
-            Index = Program.Windows.IndexOf(this);
+            //Program.Windows.Add(this);
+            Program.Windows.Insert(0, this);
         
             GLWD = new GameLoadingWindowData();
 
@@ -46,7 +45,7 @@ namespace SpaceX.gameWindow.gameLoadingWindow
                 Thread.CurrentThread.IsBackground = true;
                 /* run your code here */
                 GameWindow = new GameWindow();
-                this.Destroy();
+                this.Remove();
 
             }).Start();
         }
@@ -61,11 +60,21 @@ namespace SpaceX.gameWindow.gameLoadingWindow
             }
         }
 
-        public void Destroy()
+        public void Remove()
         {
-            Converter.RemoveAllComponents(MyGameObjects);
+            Converter.RemoveAllComponents(this);
+        }
+
+        public List<GameObject> GameObjects()
+        {
+            return MyGameObjects;
+        }
+
+
+        public void Clear()
+        {
             MyGameObjects.Clear();
-            Program.Windows.RemoveAt(Index);
+            Program.Windows.Remove(this);
         }
     }
 }

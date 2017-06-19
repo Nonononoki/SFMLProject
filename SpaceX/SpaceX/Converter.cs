@@ -1,10 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
+using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SpaceX
@@ -20,7 +22,7 @@ namespace SpaceX
         //convert sfml vector to farseer vector and vice versa
         public static Vector2 Vector(Vector2f v)
         {
-            return new Vector2(v.X, v.Y); 
+            return new Vector2(v.X, v.Y);
         }
         public static Vector2f Vector(Vector2 v)
         {
@@ -49,11 +51,23 @@ namespace SpaceX
             return v / v.Length() * desiredLength;
         }
 
-        public static void RemoveAllComponents(List<GameObject> list)
+        public static void RemoveAllComponents(IWindow window)
         {
-            foreach(GameObject go in list.ToList())
+            List<GameObject> List = window.GameObjects();
+
+            foreach (GameObject go in List.ToList())
             {
-                go.RemoveAllComponents();
+                //retain renderingcomponent
+                if (go.GetComponent<RenderingComponent>() != null)
+                {
+                    go.RemoveAllComponentsExcept(go.GetComponent<RenderingComponent>());
+
+                    //fade effect
+                    RenderingComponent rc = go.GetComponent<RenderingComponent>();
+                    rc.Fading = true;
+                    rc.Window = window;
+                    rc.RemoveWindow = true;
+                }
             }
         }
     }

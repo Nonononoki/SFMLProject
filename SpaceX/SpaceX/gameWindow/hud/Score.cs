@@ -30,6 +30,7 @@ namespace SpaceX.gameWindow
 
         public void Destroy()
         {
+            Text.DisplayedString = "";
         }
 
         public void Update()

@@ -16,14 +16,20 @@ namespace SpaceX
     class Program
     {
         public static List<IWindow> Windows;
-        public static List<Stopwatch> Stopwatches;
+        //public static List<Stopwatch> Stopwatches;
         public static RenderWindow Window;
+        public static int FadeStep { set; get; }
+        public static int FadeSpeed { set; get; }
 
         static void Main(string[] args)
         {
             //load data for Program
             ProgramData PG = new ProgramData("ProgramData");
             Window = new RenderWindow(new VideoMode((uint)PG.WindowSize.X, (uint)PG.WindowSize.Y), "SpaceX", Styles.Default);
+
+            FadeStep = PG.FadeStep;
+            FadeSpeed = PG.FadeSpeed;
+
             Windows = new List<IWindow>();
             Running Running = new Running();
 
@@ -54,7 +60,7 @@ namespace SpaceX
                 }
 
                 Window.Display();
-                dt.Stop();       
+                dt.Stop();
             }
         }
     }
