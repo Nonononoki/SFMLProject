@@ -9,18 +9,21 @@ using FarseerPhysics.Dynamics.Contacts;
 using Microsoft.Xna.Framework;
 using SpaceX.gameObject;
 using SpaceX.window;
+using SpaceX.component;
 
 namespace SpaceX.gameWindow
 {
     class ShipPhysicsComponent : PhysicsComponent
     {
-        public ShipLogicComponent SLC { set; get; }
+        public CollidingComponent SLC { set; get; }
         public ShipPhysicsComponent(GameWindowData gwd, ShipLogicComponent SLC, Ship Ship) 
             : base(Ship.Position, gwd.MyShipSize, gwd.MyShipVertices, GameWindow.World, false)
         {
             Fixture.OnCollision += OnCollision;
             Fixture.OnSeparation += OnSeparation;
             this.SLC = SLC;
+
+            Speed = gwd.MyShipSpeed;
 
             Body.BodyType = BodyType.Dynamic;
             Body.Mass = gwd.MyShipMass;

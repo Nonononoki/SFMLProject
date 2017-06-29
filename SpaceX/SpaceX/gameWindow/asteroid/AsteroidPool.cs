@@ -30,23 +30,25 @@ namespace SpaceX.gameWindow.asteroid
             Asteroids = new List<Asteroid>();
             for (int i = 0; i < ld.AsteroidCount; i++)
             {
-                Asteroid Asteroid = new Asteroid();
-                Asteroid.Mass = ld.AsteroidMass.ElementAt(i);
-                Asteroid.Speed = ld.AsteroidSpeed.ElementAt(i);
-                Asteroid.Health = ld.AsteroidHealth.ElementAt(i);
+                Asteroid Asteroid = new Asteroid()
+                {
+                    Mass = ld.AsteroidMass.ElementAt(i),
+                    Speed = ld.AsteroidSpeed.ElementAt(i),
+                    Health = ld.AsteroidHealth.ElementAt(i),
 
-                Asteroid.Size = ld.AsteroidSize.ElementAt(i);
-                Asteroid.SpawnDelay = ld.SpawnDelay.ElementAt(i);
-                Asteroid.Points = ld.Points.ElementAt(i);
+                    Size = ld.AsteroidSize.ElementAt(i),
+                    SpawnDelay = ld.SpawnDelay.ElementAt(i),
+                    Points = ld.Points.ElementAt(i),
 
-                Asteroid.Position = Converter.RelativeWindow(ld.SpawnPosition.ElementAt(i));
-                Asteroid.Duration = ld.AsteroidDuration;
-                Asteroid.Texture = ld.AsteroidTexture;
-                Asteroid.Ship = Ship;
+                    Position = Converter.RelativeWindow(ld.SpawnPosition.ElementAt(i)),
+                    Duration = ld.AsteroidDuration,
+                    Texture = ld.AsteroidTexture,
+                    Ship = Ship,
 
-                Asteroid.AnimationSpeed = ld.AnimationSpeed;
-                Asteroid.ExplosionSprites = ld.ExplosionSprites;
-                Asteroid.HitSprites = ld.HitSprites;
+                    AnimationSpeed = ld.AnimationSpeed,
+                    ExplosionSprites = ld.ExplosionSprites,
+                    HitSprites = ld.HitSprites
+                };
 
                 Asteroid.Start(gwd);
                 Asteroids.Add(Asteroid);

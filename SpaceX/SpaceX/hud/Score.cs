@@ -1,4 +1,6 @@
 ﻿using SFML.Graphics;
+using SFML.System;
+using SpaceX.gameOverWindow;
 using SpaceX.window;
 using System;
 using System.Collections.Generic;
@@ -8,22 +10,24 @@ using System.Threading.Tasks;
 
 namespace SpaceX.gameWindow
 {
-    class Health : IComponent
+    class Score : IComponent
     {
         public static int Value { set; get; }
         public Text Text { set; get; }
         public String String { set; get; }
 
-        public Health(GameWindowData gwd)
+        public Score(GameWindowData gwd)
         {
-            String = "Health: ";
-            Value = gwd.HealthValue;
-            Text = new Text();
-            Text.Font = gwd.Font;
-            Text.CharacterSize = gwd.FontSize;
-            Text.FillColor = gwd.TextColor;
+            String = "Score: ";
+            Value = 0;
+            Text = new Text()
+            {
+                Font = gwd.Font,
+                CharacterSize = gwd.FontSize,
+                FillColor = gwd.TextColor,
 
-            Text.Position = Converter.RelativeWindow(gwd.HealthPosition);
+                Position = Converter.RelativeWindow(gwd.ScorePosition)
+            };
         }
 
         public void Destroy()

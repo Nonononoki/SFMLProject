@@ -1,0 +1,37 @@
+{
+	"BossPositionX": 50,
+	"BossPositionY": 5,
+	"BossSizeX": 12,
+	"BossSizeY": 20,
+	"BossTexture": "../../../assets/texture/BossWindow/Boss.png",
+	"BossSpeed": 400000,
+	"BossMass": 1000,
+	"BossHealth": 50,
+	"BossFireCooldown": 2000,
+	"BossHitPath": "../../../assets/sound/sfx/ShipHit.ogg",
+
+	"HeroPositionX": 50,
+	"HeroPositionY": 50,
+	"HeroSizeX": 3,
+	"HeroSizeY": 7,
+	"HeroTexture": "../../../assets/texture/BossWindow/Hero/Hero.png",
+	"HeroSpeed": 30,
+	"HeroMass": 5,
+	"HeroInvCooldown": 2000,
+	"HeroFireCooldown": 500,
+	"HeroHitPath": "../../../assets/sound/sfx/ShipHit.ogg",
+
+	"BossFireSizeX": 5,
+	"BossFireSizeY": 5,
+	"BossFireTexture": "../../../assets/texture/BossWindow/BossFire.png",
+	"BossFireSpeed": 3000,
+	"BossFireMass": 20,
+
+	"HeroBulletSizeX": 1,
+	"HeroBulletSizeY": 3,
+	"HeroBulletTexture": "../../../assets/texture/BossWindow/HeroBullet.png",
+	"HeroBulletSpeed": 10,
+	"HeroBulletMass": 1,
+
+	"MapPath": "../../../assets/maps/BossMap/BossMap.tmx"
+}

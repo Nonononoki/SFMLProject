@@ -18,12 +18,14 @@ namespace SpaceX.gameWindow
         {
             String = "Level: ";
             Value = 1;
-            Text = new Text();
-            Text.Font = gwd.Font;
-            Text.CharacterSize = gwd.FontSize;
-            Text.FillColor = gwd.TextColor;
+            Text = new Text()
+            {
+                Font = gwd.Font,
+                CharacterSize = gwd.FontSize,
+                FillColor = gwd.TextColor,
 
-            Text.Position = Converter.RelativeWindow(gwd.LevelPosition);
+                Position = Converter.RelativeWindow(gwd.LevelPosition)
+            };
         }
 
         public void Destroy()

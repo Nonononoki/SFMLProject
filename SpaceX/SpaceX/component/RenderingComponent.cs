@@ -98,6 +98,7 @@ namespace SpaceX
         public bool RemoveWindow = false;
         public void RemoveWindowAfterFading()
         {
+            Window.Clear();
             Program.Windows.Remove(Window);
         }
     }

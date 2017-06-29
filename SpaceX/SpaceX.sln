@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26228.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceX", "SpaceX\SpaceX.csproj", "{15E176E8-DB7B-472F-8FD3-DC0FBD9BFA92}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiled.SFML", "..\Tiled.SFML-master\Tiled.SFML\Tiled.SFML.csproj", "{7C90197E-16D2-4574-943F-AB588DBE10BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{15E176E8-DB7B-472F-8FD3-DC0FBD9BFA92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15E176E8-DB7B-472F-8FD3-DC0FBD9BFA92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15E176E8-DB7B-472F-8FD3-DC0FBD9BFA92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C90197E-16D2-4574-943F-AB588DBE10BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C90197E-16D2-4574-943F-AB588DBE10BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C90197E-16D2-4574-943F-AB588DBE10BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C90197E-16D2-4574-943F-AB588DBE10BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

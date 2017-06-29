@@ -41,7 +41,7 @@
       <HintPath>..\packages\FarseerPhysics.3.5.0\lib\NET40\FarseerPhysics.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="sfmlnet-audio-2, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Graphnode.SFML.Net.2.4\lib\sfmlnet-audio-2.dll</HintPath>
@@ -65,6 +65,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="bossWindow\BossArena.cs" />
+    <Compile Include="bossWindow\boss\Boss.cs" />
+    <Compile Include="bossWindow\boss\bossAttackPattern\BossPattern1.cs" />
+    <Compile Include="bossWindow\boss\bossAttackPattern\IBossAttackPattern.cs" />
+    <Compile Include="bossWindow\boss\BossFire.cs" />
+    <Compile Include="bossWindow\boss\BossFireLogic.cs" />
+    <Compile Include="bossWindow\boss\BossPhysicsComponent.cs" />
+    <Compile Include="bossWindow\hero\BossHeroControllerComponent.cs" />
+    <Compile Include="bossWindow\boss\BossCollidingComponent.cs" />
+    <Compile Include="bossWindow\BossWall.cs" />
+    <Compile Include="bossWindow\BossWindow.cs" />
+    <Compile Include="bossWindow\BossWindowData.cs" />
+    <Compile Include="bossWindow\hero\BossHero.cs" />
+    <Compile Include="bossWindow\hero\BossHeroCollidingComponent.cs" />
+    <Compile Include="bossWindow\hero\BossHeroPhysicsComponent.cs" />
+    <Compile Include="bossWindow\hero\HeroBullet.cs" />
+    <Compile Include="bossWindow\hero\HeroBulletLogic.cs" />
     <Compile Include="component\AudioComponent.cs" />
     <Compile Include="component\IAnimationLogicComponent.cs" />
     <Compile Include="component\ICollidingComponent.cs" />
@@ -93,12 +110,12 @@
     <Compile Include="gameWindow\bullet\BulletLogicComponent.cs" />
     <Compile Include="gameWindow\bullet\BulletPhysicsComponent.cs" />
     <Compile Include="gameWindow\bullet\BulletSpawner.cs" />
-    <Compile Include="gameWindow\gameLoadingWindow\GameLoadingWindow.cs" />
-    <Compile Include="gameWindow\gameLoadingWindow\GameLoadingWindowData.cs" />
-    <Compile Include="gameWindow\hud\Health.cs" />
-    <Compile Include="gameWindow\hud\GameHUD.cs" />
-    <Compile Include="gameWindow\hud\Level.cs" />
-    <Compile Include="gameWindow\hud\Score.cs" />
+    <Compile Include="gameLoadingWindow\GameLoadingWindow.cs" />
+    <Compile Include="gameLoadingWindow\GameLoadingWindowData.cs" />
+    <Compile Include="hud\Health.cs" />
+    <Compile Include="hud\GameHUD.cs" />
+    <Compile Include="hud\Level.cs" />
+    <Compile Include="hud\Score.cs" />
     <Compile Include="gameWindow\LevelData.cs" />
     <Compile Include="gameWindow\ship\Ship.cs" />
     <Compile Include="gameWindow\ship\ShipControllerComponent.cs" />
@@ -111,8 +128,6 @@
     <Compile Include="component\RenderingComponent.cs" />
     <Compile Include="gameWindow\GameWindow.cs" />
     <Compile Include="gameWindow\GameWindowData.cs" />
-    <Compile Include="mainWindow\MainWindow.cs" />
-    <Compile Include="mainWindow\MainWindowData.cs" />
     <Compile Include="Running.cs" />
     <Compile Include="spawner\Prototype.cs" />
     <Compile Include="spawner\Spawner.cs" />
@@ -126,7 +141,12 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Tiled.SFML-master\Tiled.SFML\Tiled.SFML.csproj">
+      <Project>{7C90197E-16D2-4574-943F-AB588DBE10BA}</Project>
+      <Name>Tiled.SFML</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Graphnode.SFML.Net.2.4\build\Graphnode.SFML.Net.targets" Condition="Exists('..\packages\Graphnode.SFML.Net.2.4\build\Graphnode.SFML.Net.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

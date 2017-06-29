@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using FarseerPhysics.Dynamics.Contacts;
 using SFML.System;
 using SpaceX.window;
+using SpaceX.component;
 
 namespace SpaceX
 {
@@ -24,6 +25,7 @@ namespace SpaceX
         public Vertices Vertices { set; get; }
         public Vector2 Direction { set; get; }
         public World World { set; get; }
+        public CollidingComponent CC { set; get; }
 
         public PhysicsComponent(Vector2 Position, Vector2 Size, Vertices vertices, World World, bool IsCircle)
         {
@@ -31,9 +33,11 @@ namespace SpaceX
 
             if(IsCircle)
             {
+                //Make it relative to window, need to do it manually for non-circles
+                Vector2 nSize = Converter.RelativeWindow(Size);
                 //Body and Fixture for circles
-                Body = BodyFactory.CreateCircle(World, ConvertUnits.ToSimUnits(Size.X), density);
-                Fixture = FixtureFactory.AttachCircle(ConvertUnits.ToSimUnits(Size.X), density, Body);
+                Body = BodyFactory.CreateCircle(World, ConvertUnits.ToSimUnits(nSize.X), density);
+                Fixture = FixtureFactory.AttachCircle(ConvertUnits.ToSimUnits(nSize.X), density, Body);
             }
             else
             {

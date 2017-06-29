@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SpaceX.component
 {
-    abstract class ICollidingComponent : ILogicComponent
+    abstract class CollidingComponent : ILogicComponent
     {
         public Fixture fixtureA;
         public Fixture fixtureB;

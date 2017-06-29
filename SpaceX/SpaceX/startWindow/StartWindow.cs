@@ -1,4 +1,5 @@
 ﻿using SFML.Graphics;
+using SpaceX.bossWindow;
 using SpaceX.gameWindow.gameLoadingWindow;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,12 @@ namespace SpaceX.window
         {
             Remove();
             //Open next Window with loading screen
-            GameLoadingWindow GLW = new GameLoadingWindow();
+
+            //GameLoadingWindow GLW = new GameLoadingWindow();
+
+            //testing bossmap
+            BossWindow BW = new BossWindow();
+
         }
 
         public List<GameObject> GameObjects()

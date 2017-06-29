@@ -14,7 +14,7 @@ namespace SpaceX.gameWindow
 {
     class ShipControllerComponent : IControllerComponent
     {
-        private ShipPhysicsComponent SPC;
+        private PhysicsComponent SPC;
 
         private Key Up;
         private Key Down;

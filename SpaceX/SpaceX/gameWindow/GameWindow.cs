@@ -28,7 +28,7 @@ namespace SpaceX.window
         public static AudioComponent LevelUpSFX {set;get;}
 
         public static List<GameObject> ToBeRemoved { set; get; }
-        public static List<ICollidingComponent> CollisionList { set; get; }
+        public static List<CollidingComponent> CollisionList { set; get; }
         public static bool IsOver = false;
 
         public static List<GameObject> MyGameObjects { set; get; }
@@ -64,7 +64,7 @@ namespace SpaceX.window
 
             //remove to be deleted gameobjects
             ToBeRemoved = new List<GameObject>();
-            CollisionList = new List<ICollidingComponent>();
+            CollisionList = new List<CollidingComponent>();
 
             //add to windows
             //Program.Windows.Add(this);
@@ -84,7 +84,7 @@ namespace SpaceX.window
             }
 
             //collide before destruction
-            foreach (ICollidingComponent cc in CollisionList.ToList<ICollidingComponent>())
+            foreach (CollidingComponent cc in CollisionList.ToList<CollidingComponent>())
             {
                 CollisionList.Remove(cc);
                 cc.CollisionHandling();
@@ -101,9 +101,6 @@ namespace SpaceX.window
             {
                 Remove();
                 GameOverWindow GOW = new GameOverWindow(Score.Value);
-
-                World = null;
-                IsOver = false;
             }
         }
 
@@ -140,6 +137,7 @@ namespace SpaceX.window
 
         public void Remove()
         {
+            IsOver = false;
             World = null;
             Converter.RemoveAllComponents(this);
         }

@@ -32,7 +32,6 @@ namespace SpaceX.gameObject
             Position = Converter.RelativeWindow(gwd.MyShipPosition);
             SLC = new ShipLogicComponent(this);
             SPC = new ShipPhysicsComponent(gwd, SLC, this);
-            SPC.Speed = gwd.MyShipSpeed;
             SPC.AddUserData(this, "MyShip");
             RC = new RenderingComponent(new Vector2f(0,0), gwd.MyShipTexture, Converter.Vector(gwd.MyShipSize), false);
             RC.AddPhysics(SPC);

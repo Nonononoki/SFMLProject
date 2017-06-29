@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpaceX.window
+namespace SpaceX.bossWindow
 {
-    class MainWindowData
+    class BossWall
     {
     }
 }

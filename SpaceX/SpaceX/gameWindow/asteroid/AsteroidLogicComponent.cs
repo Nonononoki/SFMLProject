@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SpaceX.gameWindow.asteroid
 {
-    class AsteroidLogicComponent : ICollidingComponent
+    class AsteroidLogicComponent : CollidingComponent
     {
         public Asteroid Asteroid { set; get; }
         public List<int> CollisionID { set; get; }

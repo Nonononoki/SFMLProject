@@ -12,7 +12,7 @@ using SpaceX.gameObject;
 
 namespace SpaceX.gameWindow
 {
-    class ShipLogicComponent : ICollidingComponent
+    class ShipLogicComponent : CollidingComponent
     {
         public List<int> CollisionID { set; get; }
         public Ship Ship { set; get; }
@@ -79,7 +79,7 @@ namespace SpaceX.gameWindow
 
         public override void Destroy()
         {
-            CollisionID = null;
+            CollisionID.Clear();
         }
 
         public override void Update()

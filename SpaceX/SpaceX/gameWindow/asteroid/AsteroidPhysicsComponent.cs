@@ -9,12 +9,13 @@ using FarseerPhysics.Dynamics.Contacts;
 using Microsoft.Xna.Framework;
 using SpaceX.window;
 using SFML.System;
+using SpaceX.component;
 
 namespace SpaceX.gameWindow.asteroid
 {
     class AsteroidPhysicsComponent : PhysicsComponent
     {
-        public AsteroidLogicComponent ALC { set; get; }
+        public CollidingComponent ALC { set; get; }
         public AsteroidPhysicsComponent(Asteroid Asteroid, AsteroidLogicComponent ALC) 
             : base(Converter.Vector(Asteroid.Position), Converter.Vector(Converter.RelativeWindow(new Vector2f(Asteroid.Size, Asteroid.Size))), null, GameWindow.World, true)
         {
