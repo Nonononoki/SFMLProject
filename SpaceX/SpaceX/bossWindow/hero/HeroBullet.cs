@@ -25,7 +25,7 @@ namespace SpaceX.bossWindow.hero
             this.BWD = BWD;
             this.Direction = Direction;
 
-            LC = new HeroBulletLogic(Hero.Bullet, Hero);
+            LC = new HeroBulletLogic(BWD.HeroBulletDestroyTime, this);
             RC = new RenderingComponent(Hero.RC.Sprite.Position, BWD.HeroBulletTexture, BWD.HeroBulletSize, false);
             Vertices v = PhysicsComponent.RechtangleVertices(Converter.RelativeWindow(Converter.Vector(BWD.HeroBulletSize)));
             PC = new PhysicsComponent(ConvertUnits.ToDisplayUnits(Hero.PC.Body.Position), Converter.Vector(BWD.HeroBulletSize), v, BossWindow.World, false);
@@ -51,6 +51,7 @@ namespace SpaceX.bossWindow.hero
 
         public void FireBullet()
         {
+            LC.Start();
             HeroBullet nBullet = this.Clone(Hero.FacingDirection);
             nBullet.PC.Move(Hero.FacingDirection);
             BossWindow.MyGameObjects.Add(nBullet);

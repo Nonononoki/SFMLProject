@@ -68,6 +68,9 @@
     <Compile Include="bossWindow\BossArena.cs" />
     <Compile Include="bossWindow\boss\Boss.cs" />
     <Compile Include="bossWindow\boss\bossAttackPattern\BossPattern1.cs" />
+    <Compile Include="bossWindow\boss\bossAttackPattern\BossPattern2.cs" />
+    <Compile Include="bossWindow\boss\bossAttackPattern\BossPattern3.cs" />
+    <Compile Include="bossWindow\boss\bossAttackPattern\BossPatternChanger.cs" />
     <Compile Include="bossWindow\boss\bossAttackPattern\IBossAttackPattern.cs" />
     <Compile Include="bossWindow\boss\BossFire.cs" />
     <Compile Include="bossWindow\boss\BossFireLogic.cs" />
@@ -80,8 +83,10 @@
     <Compile Include="bossWindow\hero\BossHero.cs" />
     <Compile Include="bossWindow\hero\BossHeroCollidingComponent.cs" />
     <Compile Include="bossWindow\hero\BossHeroPhysicsComponent.cs" />
+    <Compile Include="bossWindow\hero\HeroAnimationManager.cs" />
     <Compile Include="bossWindow\hero\HeroBullet.cs" />
     <Compile Include="bossWindow\hero\HeroBulletLogic.cs" />
+    <Compile Include="bossWindow\hero\HeroDirections.cs" />
     <Compile Include="component\AudioComponent.cs" />
     <Compile Include="component\IAnimationLogicComponent.cs" />
     <Compile Include="component\ICollidingComponent.cs" />

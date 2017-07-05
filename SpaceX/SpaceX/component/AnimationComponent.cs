@@ -67,7 +67,8 @@ namespace SpaceX.gameOverWindow
                     //stop animation if no loop
                     Stop();
                     //RC.Sprite.Texture = OriginalSprite.Texture;
-                    ALC.AfterAnimation();
+                    if(ALC != null)
+                        ALC.AfterAnimation();
                 }
 
                 else if (CurrentSpriteNumber >= Sprites.Length)

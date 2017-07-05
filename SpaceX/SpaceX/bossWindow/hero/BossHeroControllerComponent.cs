@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using SFML.System;
 using SFML.Window;
+using SpaceX.bossWindow.hero;
 using SpaceX.component;
 using System;
 using System.Collections.Generic;
@@ -23,16 +24,16 @@ namespace SpaceX.bossWindow
         public Stopwatch SW { set; get; }
         public bool CanFire { set; get; }
 
-        private Key Up;
-        private Key Down;
-        private Key Left;
-        private Key Right;
-        private Key Shoot;
+        public Key Up { set; get; }
+        public Key Down { set; get; }
+        public Key Left { set; get; }
+        public Key Right { set; get; }
+        public Key Shoot { set; get; }
 
-        private Vector2 V_Up = new Vector2(0, -1);
-        private Vector2 V_Down = new Vector2(0, 1);
-        private Vector2 V_Left = new Vector2(-1, 0);
-        private Vector2 V_Right = new Vector2(1, 0);
+        public Vector2 V_Up = new Vector2(0, -1);
+        public Vector2 V_Down = new Vector2(0, 1);
+        public Vector2 V_Left = new Vector2(-1, 0);
+        public Vector2 V_Right = new Vector2(1, 0);
 
 
         public BossHeroControllerComponent(BossHero Hero, BossWindowData BWD)
@@ -61,18 +62,22 @@ namespace SpaceX.bossWindow
             if (Keyboard.IsKeyPressed(Up) && ConvertUnits.ToDisplayUnits(Hero.PC.Body.Position.Y) > 0)
             {
                 Direction = V_Up;
+                Hero.AM.ChangeDirection(HeroDirections.Direction.Up);
             }
             else if (Keyboard.IsKeyPressed(Down) && ConvertUnits.ToDisplayUnits(Hero.PC.Body.Position.Y) < Program.Window.Size.Y)
             {
                 Direction = V_Down;
+                Hero.AM.ChangeDirection(HeroDirections.Direction.Down);
             }
             else if (Keyboard.IsKeyPressed(Left) && ConvertUnits.ToDisplayUnits(Hero.PC.Body.Position.X) > 0)
             {
                 Direction = V_Left;
+                Hero.AM.ChangeDirection(HeroDirections.Direction.Left);
             }
             else if (Keyboard.IsKeyPressed(Right) && ConvertUnits.ToDisplayUnits(Hero.PC.Body.Position.X) < Program.Window.Size.X)
             {
                 Direction = V_Right;
+                Hero.AM.ChangeDirection(HeroDirections.Direction.Right);
             }
 
             if(Direction != Vector2.Zero)

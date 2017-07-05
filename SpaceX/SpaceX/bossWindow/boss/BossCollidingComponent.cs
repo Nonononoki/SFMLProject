@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
+using SpaceX.bossWindow.hero;
 
 namespace SpaceX.bossWindow
 {
@@ -32,8 +33,11 @@ namespace SpaceX.bossWindow
 
                 if (u.Type == "HeroBullet")
                 {
+                    HeroBullet Bullet = (HeroBullet) GameObject.FindById(u.ID);
+                    Bullet.Destroy();
+
                     Boss.BossHitAudio.Sound.Play();
-                    Boss.Health -= 1;
+                    Boss.ApplyDamage();
 
                     if (Boss.Health <= 0)
                     {

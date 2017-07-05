@@ -23,6 +23,7 @@ namespace SpaceX.bossWindow
         public AudioComponent HeroHitAudio { set; get; }
         public Vector2 FacingDirection { set; get; }
         public HeroBullet Bullet { set; get; }
+        public HeroAnimationManager AM { set; get; }
 
 
         public BossHero(BossWindowData BWD)
@@ -39,6 +40,9 @@ namespace SpaceX.bossWindow
             HCC = new BossHeroControllerComponent(this, BWD);
             HeroHitAudio = new AudioComponent(BWD.HeroHitPath, false);
 
+            AM = new HeroAnimationManager(BWD, this);
+            BossWindow.MyGameObjects.Add(AM);
+
             //connect components
             RC.AddPhysics(PC);
             PC.CC = Coll;
@@ -47,6 +51,7 @@ namespace SpaceX.bossWindow
             this.AddComponent(PC);
             this.AddComponent(HCC);
             this.AddComponent(Coll);
+            
 
             Bullet = new HeroBullet(BWD, this, FacingDirection);
         }

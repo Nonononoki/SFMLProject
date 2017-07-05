@@ -51,6 +51,14 @@ namespace SpaceX
             return v / v.Length() * desiredLength;
         }
 
+        public static void ResizeVector(Vector2[] v, float desiredLength)
+        {
+            for(int i = 0; i < v.Length; i++)
+            {
+                Converter.ResizeVector(v[i], desiredLength);
+            }
+        }
+
         public static void RemoveAllComponents(IWindow window)
         {
             List<GameObject> List = window.GameObjects();

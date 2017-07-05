@@ -25,7 +25,7 @@ namespace SpaceX.bossWindow
             this.Boss = Boss;
             this.BWD = BWD;
             this.Direction = Direction;
-            LC = new BossFireLogic();
+            LC = new BossFireLogic(BWD.BossFireDestroyTime, this);
             RC = new RenderingComponent(Boss.RC.Sprite.Position, BWD.BossFireTexture, BWD.BossFireSize, true);
             PC = new PhysicsComponent(ConvertUnits.ToDisplayUnits(Boss.PC.Body.Position), Converter.Vector(BWD.BossFireSize),null, BossWindow.World, true);
             PC.AddUserData(this, "BossFire");
@@ -50,6 +50,7 @@ namespace SpaceX.bossWindow
 
         public void Shoot()
         {
+            LC.Start();
             PC.Move(Direction);
         }
     }

@@ -14,9 +14,9 @@
 	"HeroPositionY": 50,
 	"HeroSizeX": 3,
 	"HeroSizeY": 7,
-	"HeroTexture": "../../../assets/texture/BossWindow/Hero/Hero.png",
-	"HeroSpeed": 30,
-	"HeroMass": 5,
+	"HeroTexture": "../../../assets/texture/BossWindow/Hero/Up.png",
+	"HeroSpeed": 6,
+	"HeroMass": 2,
 	"HeroInvCooldown": 2000,
 	"HeroFireCooldown": 500,
 	"HeroHitPath": "../../../assets/sound/sfx/ShipHit.ogg",
@@ -26,12 +26,26 @@
 	"BossFireTexture": "../../../assets/texture/BossWindow/BossFire.png",
 	"BossFireSpeed": 3000,
 	"BossFireMass": 20,
+	"BossFireDestroyTime": 2000,
 
 	"HeroBulletSizeX": 1,
 	"HeroBulletSizeY": 3,
 	"HeroBulletTexture": "../../../assets/texture/BossWindow/HeroBullet.png",
 	"HeroBulletSpeed": 10,
 	"HeroBulletMass": 1,
+	"HeroBulletDestroyTime": 1000,
 
-	"MapPath": "../../../assets/maps/BossMap/BossMap.tmx"
+	"MapPath": "../../../assets/maps/BossMap/BossMap.tmx",
+
+	"HeroUpTexture": "../../../assets/texture/BossWindow/Hero/Up.png",
+	"HeroDownTexture": "../../../assets/texture/BossWindow/Hero/Down.png",
+	"HeroLeftTexture": "../../../assets/texture/BossWindow/Hero/Left.png",
+	"HeroRightTexture": "../../../assets/texture/BossWindow/Hero/Right.png",
+
+	"HeroUpAni": "../../../assets/texture/BossWindow/Hero/Up/",
+	"HeroDownAni": "../../../assets/texture/BossWindow/Hero/Down/",
+	"HeroLeftAni": "../../../assets/texture/BossWindow/Hero/Left/",
+	"HeroRightAni": "../../../assets/texture/BossWindow/Hero/Right/",
+	"HeroAniCount": 4,
+	"HeroAniSpeed": 200
 }

@@ -56,8 +56,11 @@ namespace SpaceX
             _components.Remove(component);
         }
 
+
         public T GetComponent<T>()
         {
+            if (_components == null)
+                return default(T);
 
             //get the first object from list, there is only one of each type
             IEnumerable<T> list = _components.OfType<T>();

@@ -26,6 +26,7 @@ namespace SpaceX.bossWindow
         public Vector2f BossFireSize { set; get; }
         public int BossFireSpeed { set; get; }
         public int BossFireMass { set; get; }
+        public int BossFireDestroyTime { set; get; }
         public Texture BossFireTexture { set; get; }
 
         public Vector2f HeroPosition { set; get; }
@@ -41,8 +42,22 @@ namespace SpaceX.bossWindow
         public Texture HeroBulletTexture { set; get; }
         public int HeroBulletSpeed { set; get; }
         public int HeroBulletMass { set; get; }
+        public int HeroBulletDestroyTime { set; get; }
 
         public Map Map { set; get; }
+
+        public Sprite HeroUp { set; get; }
+        public Sprite HeroDown { set; get; }
+        public Sprite HeroLeft { set; get; }
+        public Sprite HeroRight { set; get; }
+        public Sprite[] HeroUpAni { set; get; }
+        public Sprite[] HeroDownAni { set; get; }
+        public Sprite[] HeroLeftAni { set; get; }
+        public Sprite[] HeroRightAni { set; get; }
+        public int HeroAniCount { set; get; }
+        public int HeroAniSpeed { set; get; }
+
+
 
         public Key Up { set; get; }
         public Key Down { set; get; }
@@ -70,6 +85,7 @@ namespace SpaceX.bossWindow
             BossFireTexture = new Texture(o.Value<String>("BossFireTexture"));
             BossFireSpeed = o.Value<int>("BossFireSpeed");
             BossFireMass = o.Value<int>("BossFireMass");
+            BossFireDestroyTime = o.Value<int>("BossFireDestroyTime");
 
             HeroSize = new Vector2f(o.Value<int>("HeroSizeX"), o.Value<int>("HeroSizeY"));
             HeroPosition = new Vector2f(o.Value<int>("HeroPositionX"), o.Value<int>("HeroPositionY"));
@@ -84,10 +100,33 @@ namespace SpaceX.bossWindow
             HeroBulletTexture = new Texture(o.Value<String>("HeroBulletTexture"));
             HeroBulletSpeed = o.Value<int>("HeroBulletSpeed");
             HeroBulletMass = o.Value<int>("HeroBulletMass");
+            HeroBulletDestroyTime = o.Value<int>("HeroBulletDestroyTime");
 
             Map = new Map(o.Value<String>("MapPath"), Program.Window.DefaultView);
 
+            HeroAniCount = o.Value<int>("HeroAniCount");
+            HeroAniSpeed = o.Value<int>("HeroAniSpeed");
 
+            HeroUp = new Sprite(new Texture(o.Value<String>("HeroUpTexture")));
+            HeroDown = new Sprite(new Texture(o.Value<String>("HeroDownTexture")));
+            HeroLeft = new Sprite(new Texture(o.Value<String>("HeroLeftTexture")));
+            HeroRight = new Sprite(new Texture(o.Value<String>("HeroRightTexture")));
+
+            HeroUpAni = new Sprite[HeroAniCount];
+            for (int i = 0; i < HeroUpAni.Length; i++)
+                HeroUpAni[i] = new Sprite(new Texture(o.Value<String>("HeroUpAni") + i + ".png"));
+
+            HeroDownAni = new Sprite[HeroAniCount];
+            for (int i = 0; i < HeroDownAni.Length; i++)
+                HeroDownAni[i] = new Sprite(new Texture(o.Value<String>("HeroDownAni") + i + ".png"));
+
+            HeroLeftAni = new Sprite[HeroAniCount];
+            for (int i = 0; i < HeroLeftAni.Length; i++)
+                HeroLeftAni[i] = new Sprite(new Texture(o.Value<String>("HeroLeftAni") + i + ".png"));
+
+            HeroRightAni = new Sprite[HeroAniCount];
+            for (int i = 0; i < HeroRightAni.Length; i++)
+                HeroRightAni[i] = new Sprite(new Texture(o.Value<String>("HeroRightAni") + i + ".png"));
 
             //Load Controllers
             //Load data from json
@@ -99,7 +138,6 @@ namespace SpaceX.bossWindow
             Left = Converter.StringKey(o2.Value<String>("Left"));
             Right = Converter.StringKey(o2.Value<String>("Right"));
             Shoot = Converter.StringKey(o2.Value<String>("Shoot"));
-
         }
 
 
