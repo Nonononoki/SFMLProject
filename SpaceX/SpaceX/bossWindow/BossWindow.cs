@@ -12,6 +12,7 @@ namespace SpaceX.bossWindow
     class BossWindow : IWindow
     {
         public static World World { set; get; }
+        public AudioComponent BGM { set; get; }
         public BossWindowData BWD { set; get; }
         public Boss Boss { set; get; }
         public BossHero Hero { set; get; }
@@ -41,6 +42,9 @@ namespace SpaceX.bossWindow
 
             Boss = new Boss(BWD, Hero);
             MyGameObjects.Add(Boss);
+
+            BGM = new AudioComponent(BWD.BGM, true);
+            BGM.Sound.Play();
 
             //add to windows "stack"
             Program.Windows.Insert(0, this);

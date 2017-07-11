@@ -14,6 +14,8 @@ namespace SpaceX.bossWindow
 {
     class BossWindowData
     {
+        public String BGM { set; get; }
+
         public Vector2f BossPosition { set; get; }
         public Vector2f BossSize { set; get; }
         public Texture BossTexture { set; get; }
@@ -28,6 +30,11 @@ namespace SpaceX.bossWindow
         public int BossFireMass { set; get; }
         public int BossFireDestroyTime { set; get; }
         public Texture BossFireTexture { set; get; }
+        public String BossFireSpawnSFX { set; get; }
+
+        public Vector2f BossHPBarPosition { set; get; }
+        public Vector2f BossHPBarSize { set; get; }
+        public Color BossHPBarColor { set; get; }
 
         public Vector2f HeroPosition { set; get; }
         public Vector2f HeroSize { set; get; }
@@ -43,8 +50,17 @@ namespace SpaceX.bossWindow
         public int HeroBulletSpeed { set; get; }
         public int HeroBulletMass { set; get; }
         public int HeroBulletDestroyTime { set; get; }
+        public String HeroBulletSpawnSFX { set; get; }
+
+        public Vector2f HeroHPBarPosition { set; get; }
+        public Vector2f HeroHPBarSize { set; get; }
+        public Color HeroHPBarColor { set; get; }
 
         public Map Map { set; get; }
+
+        public Sprite[] BossIdleAni { set; get; }
+        public int BossAniCount { set; get; }
+        public int BossAniSpeed { set; get; }
 
         public Sprite HeroUp { set; get; }
         public Sprite HeroDown { set; get; }
@@ -57,7 +73,9 @@ namespace SpaceX.bossWindow
         public int HeroAniCount { set; get; }
         public int HeroAniSpeed { set; get; }
 
-
+        public Font Font { set; get; }
+        public uint FontSize { set; get; }
+        public Color FontColor { set; get; }
 
         public Key Up { set; get; }
         public Key Down { set; get; }
@@ -72,6 +90,19 @@ namespace SpaceX.bossWindow
             String path = "../../../assets/json/BossWindowData.json";
             JObject o = JObject.Parse(File.ReadAllText(path));
 
+            BossHPBarPosition = new Vector2f(o.Value<int>("BossHPBarPositionX"), o.Value<int>("BossHPBarPositionY"));
+            BossHPBarSize = new Vector2f(o.Value<int>("BossHPBarSizeX"), o.Value<int>("BossHPBarSizeY"));
+            BossHPBarColor = Color.Red; //too lazy to read RGBA from json
+
+            HeroHPBarPosition = new Vector2f(o.Value<int>("HeroHPBarPositionX"), o.Value<int>("HeroHPBarPositionY"));
+            HeroHPBarSize = new Vector2f(o.Value<int>("HeroHPBarSizeX"), o.Value<int>("HeroHPBarSizeY"));
+            HeroHPBarColor = Color.Green; //too lazy to read RGBA from json
+
+            BGM = o.Value<String>("BGM");
+            FontSize = (uint)o.Value<int>("FontSize");
+            FontColor = Color.White; //too lazy to json RGBA
+            Font = new Font(o.Value<String>("Font"));
+            
             BossSize = new Vector2f(o.Value<int>("BossSizeX"), o.Value<int>("BossSizeY"));
             BossPosition = new Vector2f(o.Value<int>("BossPositionX"), o.Value<int>("BossPositionY"));
             BossTexture = new Texture(o.Value<String>("BossTexture"));
@@ -86,6 +117,7 @@ namespace SpaceX.bossWindow
             BossFireSpeed = o.Value<int>("BossFireSpeed");
             BossFireMass = o.Value<int>("BossFireMass");
             BossFireDestroyTime = o.Value<int>("BossFireDestroyTime");
+            BossFireSpawnSFX = o.Value<String>("BossFireSpawnSFX");
 
             HeroSize = new Vector2f(o.Value<int>("HeroSizeX"), o.Value<int>("HeroSizeY"));
             HeroPosition = new Vector2f(o.Value<int>("HeroPositionX"), o.Value<int>("HeroPositionY"));
@@ -101,8 +133,16 @@ namespace SpaceX.bossWindow
             HeroBulletSpeed = o.Value<int>("HeroBulletSpeed");
             HeroBulletMass = o.Value<int>("HeroBulletMass");
             HeroBulletDestroyTime = o.Value<int>("HeroBulletDestroyTime");
+            HeroBulletSpawnSFX = o.Value<String>("HeroBulletSpawnSFX");
 
             Map = new Map(o.Value<String>("MapPath"), Program.Window.DefaultView);
+
+            BossAniCount = o.Value<int>("BossAniCount");
+            BossAniSpeed = o.Value<int>("BossAniSpeed");
+            BossIdleAni = new Sprite[BossAniCount];
+            for (int i = 0; i < BossIdleAni.Length; i++)
+                BossIdleAni[i] = new Sprite(new Texture(o.Value<String>("BossIdleAni") + i + ".png"));
+
 
             HeroAniCount = o.Value<int>("HeroAniCount");
             HeroAniSpeed = o.Value<int>("HeroAniSpeed");

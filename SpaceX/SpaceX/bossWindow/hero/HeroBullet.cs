@@ -2,6 +2,7 @@
 using FarseerPhysics.Common;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
+using SpaceX.component;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace SpaceX.bossWindow.hero
         public RenderingComponent RC { set; get; }
         public PhysicsComponent PC { set; get; }
         public HeroBulletLogic LC { set; get; }
+        public AudioComponent BulletSpawnSFX { set; get; }
         public BossHero Hero { set; get; }
         public BossWindowData BWD { set; get; }
         public Vector2 Direction { set; get; }
@@ -25,6 +27,7 @@ namespace SpaceX.bossWindow.hero
             this.BWD = BWD;
             this.Direction = Direction;
 
+            BulletSpawnSFX = new AudioComponent(BWD.HeroBulletSpawnSFX, false);
             LC = new HeroBulletLogic(BWD.HeroBulletDestroyTime, this);
             RC = new RenderingComponent(Hero.RC.Sprite.Position, BWD.HeroBulletTexture, BWD.HeroBulletSize, false);
             Vertices v = PhysicsComponent.RechtangleVertices(Converter.RelativeWindow(Converter.Vector(BWD.HeroBulletSize)));
@@ -41,6 +44,7 @@ namespace SpaceX.bossWindow.hero
             this.AddComponent(RC);
             this.AddComponent(PC);
             this.AddComponent(LC);
+            this.AddComponent(BulletSpawnSFX);
 
         }
 
@@ -53,6 +57,7 @@ namespace SpaceX.bossWindow.hero
         {
             LC.Start();
             HeroBullet nBullet = this.Clone(Hero.FacingDirection);
+            nBullet.BulletSpawnSFX.Sound.Play();
             nBullet.PC.Move(Hero.FacingDirection);
             BossWindow.MyGameObjects.Add(nBullet);
         }

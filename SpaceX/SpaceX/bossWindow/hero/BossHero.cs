@@ -17,8 +17,7 @@ namespace SpaceX.bossWindow
         public RenderingComponent RC { set; get; }
         public BossHeroPhysicsComponent PC { set; get; }
         public BossHeroCollidingComponent Coll { set; get; }
-        public static bool IsInvincible { set; get; }
-        public static int InvincibilityCoolDown { set; get; }
+        public HPbar HealthBar { set; get; }
 
         public AudioComponent HeroHitAudio { set; get; }
         public Vector2 FacingDirection { set; get; }
@@ -29,7 +28,6 @@ namespace SpaceX.bossWindow
         public BossHero(BossWindowData BWD)
         {
             this.BWD = BWD;
-            IsInvincible = false;
             FacingDirection = new Vector2(0, -1);
 
             //components
@@ -54,12 +52,6 @@ namespace SpaceX.bossWindow
             
 
             Bullet = new HeroBullet(BWD, this, FacingDirection);
-        }
-
-        public void BecomeInvincible()
-        {
-            //create new thread and wait for cooldown
-
         }
     }
 }

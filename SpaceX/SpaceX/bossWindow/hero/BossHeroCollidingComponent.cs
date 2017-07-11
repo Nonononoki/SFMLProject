@@ -28,6 +28,7 @@ namespace SpaceX.bossWindow.hero
             if (u != null && !IsOnList(fixtureB))
             {
                 CollisionID.Add(fixtureB.Body.BodyId);
+                Hero.HeroHitAudio.Sound.Play();
 
                 if (u.Type == "Boss")
                 {
@@ -39,8 +40,6 @@ namespace SpaceX.bossWindow.hero
                         //GameOver!
                         BossWindow.IsOver = true;
                     }
-
-                    Hero.BecomeInvincible();
                 }
             }
         }
