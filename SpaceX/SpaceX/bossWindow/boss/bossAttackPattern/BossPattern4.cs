@@ -1,5 +1,6 @@
 ﻿using FarseerPhysics;
 using Microsoft.Xna.Framework;
+using SFML.System;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +12,7 @@ namespace SpaceX.bossWindow.boss.bossAttackPattern
 {
     class BossPattern4 : IBossAttackPattern
     {
-        //Pattern1 Move to Player X
+        //Pattern Move to Player X
 
         public Boss Boss { set; get; }
         public BossHero Hero { set; get; }
@@ -23,7 +24,8 @@ namespace SpaceX.bossWindow.boss.bossAttackPattern
         private bool IsOnPoint = false;
         private Vector2 Point;
 
-        private float factor = 0.5f;
+        private float fireFactor = 0.6f;
+        private float speedFactor = 0.25f;
 
         public BossPattern4(Boss Boss, BossHero Hero, BossFire Clone, BossWindowData BWD)
         {
@@ -46,7 +48,6 @@ namespace SpaceX.bossWindow.boss.bossAttackPattern
         {
             //throw new NotImplementedException();
             SW = null;
-            Boss.PC.Body.BodyType = FarseerPhysics.Dynamics.BodyType.Dynamic;
         }
 
         public void Update()
@@ -61,7 +62,7 @@ namespace SpaceX.bossWindow.boss.bossAttackPattern
                 Boss.PC.Move(dir);
 
                 //teleport to Position if close enough
-                float margin = 0.1f;
+                const float margin = 0.05f;
                 if (Boss.PC.Body.Position.X <= Point.X + margin &&
                     Boss.PC.Body.Position.X >= Point.X - margin &&
                     Boss.PC.Body.Position.Y <= Point.Y + margin &&
@@ -74,16 +75,11 @@ namespace SpaceX.bossWindow.boss.bossAttackPattern
 
             else
             {
-                Boss.PC.Body.BodyType = FarseerPhysics.Dynamics.BodyType.Static;
-
-                //spawn random lava on board
-
-
-                //here
+                Boss.PC.Body.LinearVelocity = new Vector2(0, 0);
             }
 
             //fire!
-            if (SW.ElapsedMilliseconds * factor >= BWD.BossFireCooldown)
+            if (SW.ElapsedMilliseconds >= BWD.BossFireCooldown * fireFactor)
             {
                 SpawnFireBall();
             }
@@ -92,9 +88,10 @@ namespace SpaceX.bossWindow.boss.bossAttackPattern
         public void SpawnFireBall()
         {
             FireDirection = Hero.PC.Body.Position - Boss.PC.Body.Position;
-            FireDirection = Converter.ResizeVector(FireDirection, 1f * factor);
+            FireDirection = Converter.ResizeVector(FireDirection, 1f * speedFactor);
 
             BossFire Fire = Clone.Clone(FireDirection);
+
             BossWindow.MyGameObjects.Add(Fire);
             Fire.Shoot();
             SW.Restart();

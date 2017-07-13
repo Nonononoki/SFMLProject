@@ -6,18 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpaceX.bossWindow.boss
+namespace SpaceX.bossWindow
 {
-    class BossFireLogic : ILogicComponent
+    class TimedDestructionComponent : ILogicComponent
     {
         public int DestroyTime { set; get; }
-        public BossFire BossFire { set; get; }
+        public GameObject GameObject { set; get; }
         public Stopwatch SW { set; get; }
 
-        public BossFireLogic(int DestroyTime, BossFire BossFire)
+        public TimedDestructionComponent(int DestroyTime, GameObject GameObject)
         {
             this.DestroyTime = DestroyTime;
-            this.BossFire = BossFire;
+            this.GameObject = GameObject;
             SW = new Stopwatch();
         }
 
@@ -29,7 +29,7 @@ namespace SpaceX.bossWindow.boss
         public void Destroy()
         {
             // throw new NotImplementedException();
-            BossWindow.ToBeRemoved.Add(BossFire);
+            BossWindow.ToBeRemoved.Add(GameObject);
         }
 
         public void Update()

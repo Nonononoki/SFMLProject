@@ -32,6 +32,13 @@ namespace SpaceX.bossWindow
         public Texture BossFireTexture { set; get; }
         public String BossFireSpawnSFX { set; get; }
 
+        public Sprite[] BossFirePillarSprites { set; get; }
+        public int BossFirePillarSpriteCount { set; get; }
+        public int BossFirePillarCount { set; get; }
+        public int BossFirePillarSpeed { set; get; }
+        public int BossFirePillarDestroyTime { set; get; }
+        public int BossFirePillarPhysicsDelay { set; get; }
+
         public Vector2f BossHPBarPosition { set; get; }
         public Vector2f BossHPBarSize { set; get; }
         public Color BossHPBarColor { set; get; }
@@ -41,7 +48,6 @@ namespace SpaceX.bossWindow
         public Texture  HeroTexture { set; get; }
         public int HeroSpeed { set; get; }
         public int HeroMass { set; get; }
-        public int HeroInvCooldown { set; get; }
         public int HeroFireCooldown { set; get; }
         public String HeroHitPath { set; get; }
 
@@ -118,13 +124,20 @@ namespace SpaceX.bossWindow
             BossFireMass = o.Value<int>("BossFireMass");
             BossFireDestroyTime = o.Value<int>("BossFireDestroyTime");
             BossFireSpawnSFX = o.Value<String>("BossFireSpawnSFX");
+        
+            BossFirePillarCount = o.Value<int>("BossFirePillarCount");
+            BossFirePillarSpriteCount = o.Value<int>("BossFirePillarSpriteCount");
+            BossFirePillarSpeed = o.Value<int>("BossFirePillarSpeed");
+            BossFirePillarPhysicsDelay = o.Value<int>("BossFirePillarPhysicsDelay");
+            BossFirePillarSprites = new Sprite[BossFirePillarSpriteCount];
+            for (int i = 0; i < BossFirePillarSprites.Length; i++)
+                BossFirePillarSprites[i] = new Sprite(new Texture(o.Value<String>("BossFirePillarSprites") + i + ".png"));
 
             HeroSize = new Vector2f(o.Value<int>("HeroSizeX"), o.Value<int>("HeroSizeY"));
             HeroPosition = new Vector2f(o.Value<int>("HeroPositionX"), o.Value<int>("HeroPositionY"));
             HeroTexture = new Texture(o.Value<String>("HeroTexture"));
             HeroSpeed = o.Value<int>("HeroSpeed");
             HeroMass = o.Value<int>("HeroMass");
-            HeroInvCooldown = o.Value<int>("HeroInvCooldown");
             HeroFireCooldown = o.Value<int>("HeroFireCooldown");
             HeroHitPath = o.Value<String>("HeroHitPath");
 

@@ -30,8 +30,14 @@
 	"BossFireTexture": "../../../assets/texture/BossWindow/BossFire.png",
 	"BossFireSpeed": 3000,
 	"BossFireMass": 20,
-	"BossFireDestroyTime": 2000,
+	"BossFireDestroyTime": 5000,
 	"BossFireSpawnSFX": "../../../assets/sound/sfx/BossFire.ogg",
+
+	"BossFirePillarSprites": "../../../assets/texture/BossWindow/FirePillar/",
+	"BossFirePillarSpriteCount": 7,
+	"BossFirePillarSpeed": 200,
+	"BossFirePillarPhysicsDelay": 1000,
+	"BossFirePillarCount": 50,
 	
 	"BossHPBarPositionX": 50,
 	"BossHPBarPositionY": 2,

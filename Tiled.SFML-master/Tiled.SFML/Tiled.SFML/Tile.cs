@@ -58,5 +58,13 @@ namespace Tiled.SFML
 			_sprite.Color = color;
 			target.Draw (_sprite, states);
 		}
+
+        
+        //new function added
+        public Sprite Sprite()
+        {
+            return _sprite;
+        }
+        
 	}
 }

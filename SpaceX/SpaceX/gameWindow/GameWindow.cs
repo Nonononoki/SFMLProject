@@ -95,6 +95,7 @@ namespace SpaceX.window
             {
                 ToBeRemoved.Remove(go);
                 go.Destroy();
+                MyGameObjects.Remove(go);
             }
 
             if (IsOver)

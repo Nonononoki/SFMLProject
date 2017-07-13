@@ -1,5 +1,6 @@
 ﻿using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
+using SFML.Graphics;
 using SpaceX.component;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,9 @@ namespace SpaceX.bossWindow
         public BossWindowData BWD { set; get; }
         public Boss Boss { set; get; }
         public BossHero Hero { set; get; }
-        public BossArena Arena { set; get; }
-        public static List<GameObject> MyGameObjects { set; get; }
 
+        public static BossArena Arena { set; get; }
+        public static List<GameObject> MyGameObjects { set; get; }
         public static List<GameObject> ToBeRemoved { set; get; }
         public static List<CollidingComponent> CollisionList { set; get; }
 
@@ -80,6 +81,7 @@ namespace SpaceX.bossWindow
             {
                 ToBeRemoved.Remove(go);
                 go.Destroy();
+                MyGameObjects.Remove(go);
             }
 
             if (IsOver)
@@ -96,6 +98,9 @@ namespace SpaceX.bossWindow
 
         public void Clear()
         {
+            Arena.Destroy();
+            Arena = null;
+
             MyGameObjects.Clear();
             World.Enabled = false;
             Program.Windows.Remove(this);

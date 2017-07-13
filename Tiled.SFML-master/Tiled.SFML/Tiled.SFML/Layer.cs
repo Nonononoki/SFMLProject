@@ -88,5 +88,12 @@ namespace Tiled.SFML
 			}
 		}
 
+        
+        //new!
+        public List<Tile> Tiles()
+        {
+            return _tiles;
+        }
+        
 	}
 }
