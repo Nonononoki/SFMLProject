@@ -10,7 +10,7 @@
 	"BossTexture": "../../../assets/texture/BossWindow/Boss/0.png",
 	"BossSpeed": 400000,
 	"BossMass": 1000,
-	"BossHealth": 5,
+	"BossHealth": 50,
 	"BossFireCooldown": 2000,
 	"BossHitPath": "../../../assets/sound/sfx/BossHit.ogg",
 	"BossDeathPath": "../../../assets/sound/sfx/BossDeath.ogg",

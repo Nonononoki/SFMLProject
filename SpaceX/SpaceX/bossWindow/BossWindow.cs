@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using SFML.Graphics;
 using SpaceX.component;
+using SpaceX.gameOverWindow;
+using SpaceX.window;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +32,8 @@ namespace SpaceX.bossWindow
         {
             BWD = new BossWindowData();
 
+            this.Score = score;
+
             MyGameObjects = new List<GameObject>();
             World = new World(new Vector2(0, 0));
             CollisionList = new List<CollidingComponent>();
@@ -38,6 +42,7 @@ namespace SpaceX.bossWindow
             IsOver = false;
 
             Arena = new BossArena(BWD);
+            MyGameObjects.Add(Arena);
 
             Hero = new BossHero(BWD);
             MyGameObjects.Add(Hero);
@@ -87,8 +92,8 @@ namespace SpaceX.bossWindow
 
             if (IsOver)
             {
-                Remove();
-                //GameOverWindow GOW = new GameOverWindow(Score.Value);
+                Remove();              
+                //LoadNextWindow();
             }
         }
 
@@ -109,19 +114,26 @@ namespace SpaceX.bossWindow
             World.Enabled = false;
             Program.Windows.Remove(this);
 
-            if(Score > 0)
-            {
-                //go to gameOverWindow
-            }
-            else
-            {
-                //go to main menu
-            }
+            LoadNextWindow();
         }
 
-        private void CalculateScore()
+        private int CalculateScore()
         {
-            Score = Hero.Health * Score;
+            return Hero.Health * Score;
+        }
+
+        public void LoadNextWindow()
+        {
+            //get to gameOverWindow if won
+            if(Hero.Health > 0)
+            {
+                GameOverWindow GOW = new GameOverWindow(CalculateScore());
+            }
+            //return ToBeRemoved main window if skipped
+            else
+            {
+                StartWindow SW = new StartWindow();
+            }
         }
     }
 }

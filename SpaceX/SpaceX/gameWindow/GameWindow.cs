@@ -1,6 +1,7 @@
 ﻿using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using SFML.Graphics;
+using SpaceX.bossWindow;
 using SpaceX.component;
 using SpaceX.gameObject;
 using SpaceX.gameOverWindow;
@@ -101,6 +102,21 @@ namespace SpaceX.window
             if (IsOver)
             {
                 Remove();
+                LoadNextWindow();
+                
+            }
+        }
+
+        public void LoadNextWindow()
+        {
+            //load boss level when survived
+            if (Health.Value > 0)
+            {
+                BossWindow BW = new BossWindow(CalculatedScore());
+            }
+            //game over window if not
+            else
+            {
                 GameOverWindow GOW = new GameOverWindow(Score.Value);
             }
         }
@@ -148,6 +164,11 @@ namespace SpaceX.window
         {
             MyGameObjects.Clear();
             Program.Windows.Remove(this);
+        }
+
+        public int CalculatedScore()
+        {
+            return Score.Value * Health.Value;
         }
 
     }
