@@ -24,6 +24,7 @@ namespace SpaceX.bossWindow
         public int BossMass { set; get; }
         public int BossFireCooldown { set; get; }
         public String BossHitPath { set; get; }
+        public String BossDeathPath { set; get; }
 
         public Vector2f BossFireSize { set; get; }
         public int BossFireSpeed { set; get; }
@@ -50,6 +51,7 @@ namespace SpaceX.bossWindow
         public int HeroMass { set; get; }
         public int HeroFireCooldown { set; get; }
         public String HeroHitPath { set; get; }
+        public String HeroDeathPath { set; get; }
 
         public Vector2f HeroBulletSize { set; get; }
         public Texture HeroBulletTexture { set; get; }
@@ -78,6 +80,7 @@ namespace SpaceX.bossWindow
         public Sprite[] HeroRightAni { set; get; }
         public int HeroAniCount { set; get; }
         public int HeroAniSpeed { set; get; }
+        public int HeroHealth { set; get; }
 
         public Font Font { set; get; }
         public uint FontSize { set; get; }
@@ -117,6 +120,7 @@ namespace SpaceX.bossWindow
             BossHealth = o.Value<int>("BossHealth");
             BossFireCooldown = o.Value<int>("BossFireCooldown");
             BossHitPath = o.Value<String>("BossHitPath");
+            BossDeathPath = o.Value<String>("BossDeathPath");
 
             BossFireSize = new Vector2f(o.Value<int>("BossFireSizeX"), o.Value<int>("BossFireSizeY"));
             BossFireTexture = new Texture(o.Value<String>("BossFireTexture"));
@@ -138,8 +142,10 @@ namespace SpaceX.bossWindow
             HeroTexture = new Texture(o.Value<String>("HeroTexture"));
             HeroSpeed = o.Value<int>("HeroSpeed");
             HeroMass = o.Value<int>("HeroMass");
+            HeroHealth = o.Value<int>("HeroHealth");
             HeroFireCooldown = o.Value<int>("HeroFireCooldown");
             HeroHitPath = o.Value<String>("HeroHitPath");
+            HeroDeathPath = o.Value<String>("HeroDeathPath");
 
             HeroBulletSize = new Vector2f(o.Value<int>("HeroBulletSizeX"), o.Value<int>("HeroBulletSizeY"));
             HeroBulletTexture = new Texture(o.Value<String>("HeroBulletTexture"));

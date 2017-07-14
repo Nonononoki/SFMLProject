@@ -18,7 +18,8 @@ namespace SpaceX.bossWindow
         public BossPhysicsComponent PC { set; get; }
         public BossCollidingComponent BCC { set; get; }
         public BossWindowData BWD { set; get; }
-        public AudioComponent BossHitAudio { set; get; }
+        public AudioComponent HitAudio { set; get; }
+        public AudioComponent DeathAudio { set; get; }
         public int Health { set; get; }
         public Queue<IBossAttackPattern> Patterns { set; get; }
         public BossPatternChanger BPC { set; get; }
@@ -38,7 +39,8 @@ namespace SpaceX.bossWindow
             this.BWD = BWD;
             Health = BWD.BossHealth;
 
-            BossHitAudio = new AudioComponent(BWD.BossHitPath, false);
+            DeathAudio = new AudioComponent(BWD.BossDeathPath, false);
+            HitAudio = new AudioComponent(BWD.BossHitPath, false);
             RC = new RenderingComponent(BWD.BossPosition, BWD.BossTexture, BWD.BossSize, false);
             Vertices v = PhysicsComponent.RechtangleVertices(Converter.RelativeWindow(Converter.Vector(BWD.BossSize)));
             BCC = new BossCollidingComponent(Hero, this);
@@ -68,7 +70,7 @@ namespace SpaceX.bossWindow
 
             BPC = new BossPatternChanger(Patterns, this);
 
-            this.AddComponent(BossHitAudio);
+            this.AddComponent(HitAudio);
             this.AddComponent(RC);
             this.AddComponent(BCC);
             this.AddComponent(PC);
@@ -81,7 +83,15 @@ namespace SpaceX.bossWindow
         public void ApplyDamage()
         {
             Health--;
+            HitAudio.Sound.Play();
             BPC.ChangePattern(Health);
+
+            if (Health <= 0)
+            {
+                DeathAudio.Sound.Play();
+                //GameOver!
+                BossWindow.IsOver = true;
+            }
 
             //Resize HealthBar
             HealthBar.Resize(Health);

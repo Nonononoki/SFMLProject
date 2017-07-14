@@ -24,8 +24,9 @@ namespace SpaceX.bossWindow
         public static List<CollidingComponent> CollisionList { set; get; }
 
         public static bool IsOver;
+        public int Score { set; get; }
 
-        public BossWindow()
+        public BossWindow(int score)
         {
             BWD = new BossWindowData();
 
@@ -98,12 +99,29 @@ namespace SpaceX.bossWindow
 
         public void Clear()
         {
+            CalculateScore();
+
+            BGM.Sound.Stop();
             Arena.Destroy();
             Arena = null;
 
             MyGameObjects.Clear();
             World.Enabled = false;
             Program.Windows.Remove(this);
+
+            if(Score > 0)
+            {
+                //go to gameOverWindow
+            }
+            else
+            {
+                //go to main menu
+            }
+        }
+
+        private void CalculateScore()
+        {
+            Score = Hero.Health * Score;
         }
     }
 }

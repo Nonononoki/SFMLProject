@@ -47,10 +47,10 @@ namespace SpaceX.gameWindow
         public void Start(GameWindowData gwd)
         {
             ALC = new AsteroidLogicComponent(this);
-            APC = new AsteroidPhysicsComponent(this, ALC);
-            APC.Body.Enabled = false;
+            APC = new AsteroidPhysicsComponent(this, ALC);          
             RC = new RenderingComponent(Position, Texture, new Vector2f(Size, Size), true);
             RC.AddPhysics(APC);
+            APC.Body.Enabled = false;
             RC.IsVisible = false;
 
             HitALC = new AsteroidHitALC(this);
@@ -84,7 +84,6 @@ namespace SpaceX.gameWindow
             //calculate dir Vector and resize it to the length of 1
             Vector2 v = Converter.ResizeVector(Ship.SPC.Body.Position - APC.Body.Position, 1);
             APC.Move(v);
-
         }
 
         public void DestroyMe()

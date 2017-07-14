@@ -33,17 +33,12 @@ namespace SpaceX.bossWindow
 
                 if (u.Type == "HeroBullet")
                 {
+                    //destroy bullet
                     HeroBullet Bullet = (HeroBullet) GameObject.FindById(u.ID);
                     Bullet.Destroy();
-
-                    Boss.BossHitAudio.Sound.Play();
+                   
                     Boss.ApplyDamage();
 
-                    if (Boss.Health <= 0)
-                    {
-                        //GameOver!
-                        BossWindow.IsOver = true;
-                    }
                 }
             }
         }

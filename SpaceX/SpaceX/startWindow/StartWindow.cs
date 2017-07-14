@@ -31,16 +31,21 @@ namespace SpaceX.window
             }
         }
 
-        public void LoadNextWindow()
+        public void LoadBossWindow()
         {
             Remove();
             //Open next Window with loading screen
 
-            //GameLoadingWindow GLW = new GameLoadingWindow();
+            //skip to bossmap
+            BossWindow BW = new BossWindow(0);
+        }
 
-            //testing bossmap
-            BossWindow BW = new BossWindow();
+        public void LoadGameWindow()
+        {
+            Remove();
 
+            //Open next Window with loading screen
+            GameLoadingWindow GLW = new GameLoadingWindow();
         }
 
         public List<GameObject> GameObjects()

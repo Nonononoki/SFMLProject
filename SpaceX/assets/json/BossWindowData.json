@@ -10,9 +10,10 @@
 	"BossTexture": "../../../assets/texture/BossWindow/Boss/0.png",
 	"BossSpeed": 400000,
 	"BossMass": 1000,
-	"BossHealth": 50,
+	"BossHealth": 5,
 	"BossFireCooldown": 2000,
 	"BossHitPath": "../../../assets/sound/sfx/BossHit.ogg",
+	"BossDeathPath": "../../../assets/sound/sfx/BossDeath.ogg",
 
 	"HeroPositionX": 50,
 	"HeroPositionY": 50,
@@ -23,6 +24,7 @@
 	"HeroMass": 2,
 	"HeroFireCooldown": 500,
 	"HeroHitPath": "../../../assets/sound/sfx/ShipHit.ogg",
+	"HeroDeathPath": "../../../assets/sound/sfx/HeroDeath.ogg",
 	"HeroHealth": 10,
 
 	"BossFireSizeX": 5,
@@ -41,13 +43,13 @@
 	
 	"BossHPBarPositionX": 50,
 	"BossHPBarPositionY": 2,
-	"BossHPBarSizeX": 100,
+	"BossHPBarSizeX": 90,
 	"BossHPBarSizeY": 2,
 
 	"HeroHPBarPositionX": 50,
-	"HeroHPBarPositionY": 95,
-	"HeroHPBarSizeX": 100,
-	"HeroHPBarSizeY": 5,
+	"HeroHPBarPositionY": 98,
+	"HeroHPBarSizeX": 90,
+	"HeroHPBarSizeY": 2,
 
 	"HeroBulletSizeX": 1,
 	"HeroBulletSizeY": 3,

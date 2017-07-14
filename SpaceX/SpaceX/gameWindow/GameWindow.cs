@@ -138,6 +138,7 @@ namespace SpaceX.window
 
         public void Remove()
         {
+            GBG.BGM.Sound.Stop();
             IsOver = false;
             World = null;
             Converter.RemoveAllComponents(this);

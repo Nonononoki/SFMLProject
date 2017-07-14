@@ -86,12 +86,14 @@ namespace SpaceX.window
             BackGroundAnimationSpritesCount = o.Value<int>("BackGroundAnimationSpritesCount");
             BackGroundSpeed = o.Value<int>("BackGroundSpeed");
 
+            
             BackgroundAnimation = new Sprite[BackGroundAnimationSpritesCount];
             //assign Sprites from path
             for (int i = 0; i < BackGroundAnimationSpritesCount; i++)
             {
                 BackgroundAnimation[i] = new Sprite(new Texture(BackGroundAnimationSpritesPath + i + ".png"));
             }
+            
 
             //ship
             MyShipPosition = new Vector2(o.Value<int>("MyShipPositionX"), o.Value<int>("MyShipPositionY"));

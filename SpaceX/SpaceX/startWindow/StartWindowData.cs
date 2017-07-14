@@ -35,6 +35,7 @@ namespace SpaceX.window
         public GameObject StartObject { set; get; }
 
         public Key Enter { set; get; }
+        public Key Skip { set; get; }
         public StartButtonLogic SBL { set; get; }
         public List<GameObject> MyGameObjects { set; get; }
 
@@ -46,6 +47,7 @@ namespace SpaceX.window
             JObject o = JObject.Parse(File.ReadAllText(@path));
 
             Enter = Converter.StringKey(o.Value<String>("Enter"));
+            Skip = Converter.StringKey(o.Value<String>("Skip"));
 
             BackgroundSize = new Vector2f(o.Value<int>("BackGroundSizeX"), o.Value<int>("BackGroundSizeY"));
             LogoSize = new Vector2f(o.Value<int>("LogoSizeX"), o.Value<int>("LogoSizeY"));
@@ -81,7 +83,7 @@ namespace SpaceX.window
             LogoObject.AddComponent(LogoRenderingComponent);
             StartObject.AddComponent(StartRenderingComponent);
 
-            SBL = new StartButtonLogic(Enter, StartWindow);
+            SBL = new StartButtonLogic(Enter, Skip, StartWindow);
             StartObject.AddComponent(SBL);
         }
     }

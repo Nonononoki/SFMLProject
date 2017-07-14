@@ -14,12 +14,14 @@ namespace SpaceX.startWindow.logic
     class StartButtonLogic : ILogicComponent
     {
         public Key Enter { set; get; }
+        public Key Skip { set; get; }
         public RenderWindow Window { set; get; }
         public StartWindow StartWindow { set; get; }
  
-        public StartButtonLogic(Key Enter, StartWindow StartWindow)
+        public StartButtonLogic(Key Enter, Key Skip, StartWindow StartWindow)
         {
             this.Enter = Enter;
+            this.Skip = Skip;
             this.Window = Window;
             this.StartWindow = StartWindow;
         }
@@ -32,7 +34,12 @@ namespace SpaceX.startWindow.logic
         {
             if (Keyboard.IsKeyPressed(Enter))
             {
-                StartWindow.LoadNextWindow();
+                StartWindow.LoadGameWindow();
+            }
+
+            else if (Keyboard.IsKeyPressed(Skip))
+            {
+                StartWindow.LoadBossWindow();
             }
 
         }

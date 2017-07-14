@@ -28,18 +28,10 @@ namespace SpaceX.bossWindow.hero
             if (u != null && !IsOnList(fixtureB))
             {
                 CollisionID.Add(fixtureB.Body.BodyId);
-                Hero.HeroHitAudio.Sound.Play();
 
-                if (u.Type == "Boss")
+                if (u.Type == "Boss" || u.Type == "BossFire")
                 {
-                    Hero.HeroHitAudio.Sound.Play();
-                    Health.Value -= 1;
-
-                    if (Health.Value <= 0)
-                    {
-                        //GameOver!
-                        BossWindow.IsOver = true;
-                    }
+                    Hero.ApplyDamage();
                 }
             }
         }

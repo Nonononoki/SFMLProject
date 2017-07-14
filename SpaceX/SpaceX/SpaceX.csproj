@@ -113,7 +113,7 @@
     <Compile Include="gameWindow\asteroid\AsteroidLogicComponent.cs" />
     <Compile Include="gameWindow\asteroid\AsteroidPhysicsComponent.cs" />
     <Compile Include="gameWindow\asteroid\AsteroidPool.cs" />
-    <Compile Include="gameWindow\background\GameBackground.cs" />
+    <Compile Include="gameWindow\GameBackground.cs" />
     <Compile Include="gameWindow\bullet\Bullet.cs" />
     <Compile Include="gameWindow\bullet\BulletLogicComponent.cs" />
     <Compile Include="gameWindow\bullet\BulletPhysicsComponent.cs" />

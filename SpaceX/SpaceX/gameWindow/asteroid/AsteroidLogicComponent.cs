@@ -58,7 +58,8 @@ namespace SpaceX.gameWindow.asteroid
                     Asteroid.Health--;
 
                     //Play Hit Animation
-                    Asteroid.HitAnimation.Start();
+                    if(Asteroid.HitAnimation != null)
+                        Asteroid.HitAnimation.Start();
 
                     if (Asteroid.Health <= 0)
                     {
@@ -93,7 +94,7 @@ namespace SpaceX.gameWindow.asteroid
             //self destruct after a while
             if (SW.ElapsedMilliseconds >= Asteroid.Duration)
             {
-                Asteroid.Destroy();
+                Destroy();
                 SW.Reset();
             }
         }
@@ -101,12 +102,15 @@ namespace SpaceX.gameWindow.asteroid
         public override void Destroy()
         {
             //throw new NotImplementedException();
+            GameWindow.ToBeRemoved.Add(Asteroid);
         }
 
         public void DestroyAsteroidWithAnimation()
         {
             Asteroid.APC.Body.CollisionCategories = Category.Cat3;
             Asteroid.AsteroidDestroySFX.Sound.Play();
+
+            if (Asteroid.DestructionAnimation != null)
             Asteroid.DestructionAnimation.Start();
         }
     }

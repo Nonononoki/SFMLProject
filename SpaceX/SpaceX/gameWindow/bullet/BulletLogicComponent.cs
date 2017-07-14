@@ -40,7 +40,7 @@ namespace SpaceX.gameWindow
         public void Destroy()
         {
             GameWindow.ToBeRemoved.Add(Bullet);
-            GameWindow.MyGameObjects.Remove(Bullet);
+            //GameWindow.MyGameObjects.Remove(Bullet);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace SpaceX.gameWindow.background
     {
         public RenderingComponent RC { set; get; }
         public AnimationComponent AC { set; get; }
-        public static AudioComponent BGM { set; get; }
+        public AudioComponent BGM { set; get; }
 
         public GameBackground(GameWindowData gwd)
         {

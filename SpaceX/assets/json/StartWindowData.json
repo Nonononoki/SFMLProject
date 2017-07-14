@@ -17,5 +17,6 @@
 	"StartSizeY": 10,
 	"StartTexture": "../../../assets/texture/StartWindow/Start.png",
 
-	"Enter": "Return"	
+	"Enter": "Return",
+	"Skip": "Space"	
 }
